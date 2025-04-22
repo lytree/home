@@ -2,7 +2,7 @@
   <div class="weather" v-if="weatherData.adCode.city && weatherData.weather.weather">
     <span>{{ weatherData.adCode.city }}&nbsp;</span>
     <span>{{ weatherData.weather.weather }}&nbsp;</span>
-    <span>{{ weatherData.weather.temperature }}℃</span>
+    <span>{{ weatherData.weather.temperature }}</span>
     <span class="sm-hidden">
       &nbsp;{{
         weatherData.weather.winddirection?.endsWith("风")
@@ -18,7 +18,7 @@
 </template>
 
 <script setup>
-import { getAdcode, getWeather, getOtherWeather } from "@/api";
+import { getAdcode, getWeather,getIpInfo, getOtherWeather } from "@/api";
 import { Error } from "@icon-park/vue-next";
 
 // 高德开发者 Key
@@ -56,18 +56,20 @@ const getWeatherData = async () => {
     // 获取地理位置信息
     if (!mainKey) {
       console.log("未配置，使用备用天气接口");
-      const result = await getOtherWeather();
-      console.log(result);
-      const data = result.result;
+      const ipInfo = await getIpInfo();
+      console.log(ipInfo.info.city);
+      const result = await getOtherWeather(ipInfo.info.city);
+      
+      const data = result.data;
       weatherData.adCode = {
-        city: data.city.City || "未知地区",
+        city: ipInfo.info.city || "未知地区",
         // adcode: data.city.cityId,
       };
       weatherData.weather = {
-        weather: data.condition.day_weather,
-        temperature: getTemperature(data.condition.min_degree, data.condition.max_degree),
-        winddirection: data.condition.day_wind_direction,
-        windpower: data.condition.day_wind_power,
+        weather: data.type,
+        temperature: `${data.low} ~ ${data.high}`,
+        winddirection: data.fengxiang,
+        windpower: data.fengli,
       };
     } else {
       // 获取 Adcode

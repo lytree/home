@@ -67,9 +67,17 @@ export const getWeather = async (key, city) => {
   return await res.json();
 };
 
-// 获取教书先生天气 API
-// https://api.oioweb.cn/doc/weather/GetWeather
-export const getOtherWeather = async () => {
-  const res = await fetch("https://api.oioweb.cn/api/weather/GetWeather");
+// 获取韩小韩WebAPI接口  ipInfo
+// https://api.vvhan.com/
+export const getIpInfo = async () => {
+  const res = await fetch(`https://api.vvhan.com/api/ipInfo`);
+  return await res.json();
+};
+
+
+// 获取韩小韩WebAPI接口
+// https://api.vvhan.com/
+export const getOtherWeather = async (city) => {
+  const res = await fetch(`https://api.vvhan.com/api/weather?city=${city}`);
   return await res.json();
 };
