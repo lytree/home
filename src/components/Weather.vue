@@ -38,18 +38,6 @@ const weatherData = reactive({
   },
 });
 
-// 取出天气平均值
-const getTemperature = (min, max) => {
-  try {
-    // 计算平均值并四舍五入
-    const average = (Number(min) + Number(max)) / 2;
-    return Math.round(average);
-  } catch (error) {
-    console.error("计算温度出现错误：", error);
-    return "NaN";
-  }
-};
-
 // 获取天气数据
 const getWeatherData = async () => {
   try {
@@ -57,7 +45,6 @@ const getWeatherData = async () => {
     if (!mainKey) {
       console.log("未配置，使用备用天气接口");
       const ipInfo = await getIpInfo();
-      console.log(ipInfo.info.city);
       const result = await getOtherWeather(ipInfo.info.city);
       
       const data = result.data;
