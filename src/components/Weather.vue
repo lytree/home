@@ -10,7 +10,7 @@
           : weatherData.weather.winddirection + "风"
       }}&nbsp;
     </span>
-    <span class="sm-hidden">{{ weatherData.weather.windpower }}&nbsp;级</span>
+    <span class="sm-hidden">{{ weatherData.weather.windpower }}&nbsp;</span>
   </div>
   <div class="weather" v-else>
     <span>天气数据获取失败</span>
