@@ -1,25 +1,4 @@
-简体中文 | [English](./README_EN.md)
-
-> [!IMPORTANT]
-> ## 致大家
-> 此项目最初只是一个简单的主页。然而，随着越来越多的小伙伴发现了这个项目，它受到了大量本不应有的关注。而且，此项目作为初学前端的作品，其代码相当杂乱且质量低下。此外，该项目还遭到众多不明资源站或下载站的倒卖，致使许多不明真相的购买者从源代码中找到本人的联系方式进行问题咨询或提出功能需求。由于目前个人原因，该仓库进行存档，敬请谅解！
-
-<p>
-<strong><h2>無名の主页</h2></strong>
-简单的小主页，原来的看够了，重新弄了一个
-</p>
-
-![無名の主页](/screenshots/main.jpg)
-
-> 主页的 Logo 字体已经过压缩，若用本站 Logo 以外的字母会变回默认字体，这里是 [完整字体](https://file.imsyy.top/font/Other/Pacifico-Regular.ttf)，若无法下载，可将字体目录下的 `Pacifico-Regular-all.ttf` 进行替换
-
-### 👀 Demo
-
-> 由于 CDN 缓存原因，查看最新效果可能需要 `Ctrl` + `F5` 强制刷新浏览器缓存
-
-- [無名の主页](https://www.imsyy.top)
-- [無名の主页 - Dev](https://home-imsyy.vercel.app)
-- [無名の主页 - 备用线路](https://home-5iw.pages.dev)
+> fork  imsyy/home
 
 ### 🎉 功能
 
@@ -48,7 +27,7 @@
 
 - **安装** [node.js](https://nodejs.org/zh-cn/) **环境**
 
-  > node > 16.16.0  
+  > node > 16.16.0
   > npm > 8.15.0
 
 - 然后以 **管理员权限** 运行 `cmd` 终端，并 `cd` 到 项目根目录
@@ -146,7 +125,7 @@ const siteIcon = {
 
 ### 音乐
 
-> 本项目采用了基于 `MetingJS` 的 `Aplayer` 音乐播放器，可实现快速自定义歌单  
+> 本项目采用了基于 `MetingJS` 的 `Aplayer` 音乐播放器，可实现快速自定义歌单
 > \*仅支持 **中国大陆地区**
 
 请在 `.env` 文件中更改歌曲相关参数即可实现自定义歌单列表
