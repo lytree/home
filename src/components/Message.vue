@@ -40,7 +40,7 @@ const store = mainStore();
 const siteLogo = import.meta.env.VITE_SITE_MAIN_LOGO;
 // 站点链接
 const siteUrl = computed(() => {
-  const url = import.meta.env.VITE_SITE_URL;
+  const url = import.meta.env.VITE_SITE_AUTHOR;
   if (!url) return "imsyy.top".split(".");
   // 判断协议前缀
   if (url.startsWith("http://") || url.startsWith("https://")) {
@@ -95,10 +95,12 @@ watch(
     align-items: center;
     animation: fade 0.5s;
     max-width: 460px;
+
     .logo-img {
       border-radius: 50%;
       width: 120px;
     }
+
     .name {
       width: 100%;
       padding-left: 22px;
@@ -112,17 +114,21 @@ watch(
       .sm {
         margin-left: 6px;
         font-size: 2rem;
+
         @media (min-width: 721px) and (max-width: 789px) {
           display: none;
         }
       }
     }
+
     @media (max-width: 768px) {
       .logo-img {
         width: 100px;
       }
+
       .name {
         height: 128px;
+
         .bg {
           font-size: 4.5rem;
         }
@@ -161,11 +167,13 @@ watch(
         align-self: flex-end;
       }
     }
+
     @media (max-width: 720px) {
       max-width: 100%;
       pointer-events: none;
     }
   }
+
   // @media (max-width: 390px) {
   //   .logo {
   //     flex-direction: column;

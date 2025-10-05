@@ -75,9 +75,11 @@ a:hover {
   transition:
     backdrop-filter 0.3s,
     transform 0.3s;
+
   &:hover {
     transform: scale(1.01);
   }
+
   &:active {
     transform: scale(0.98);
   }
@@ -102,6 +104,7 @@ a:hover {
   .el-message__badge {
     display: none;
   }
+
   .el-message__content {
     white-space: nowrap;
   }
@@ -112,11 +115,13 @@ a:hover {
   .el-progress-bar__outer {
     border-radius: 6px;
     background-color: #00000020;
+
     .el-progress-bar__inner {
       background-color: #efefef;
       border-radius: 6px;
       text-align: center;
       font-family: "UnidreamLED";
+
       span {
         color: #564d59;
         font-size: 0.9rem;
@@ -136,12 +141,14 @@ a:hover {
   border-radius: 8px !important;
   border: 1px solid transparent !important;
   background-color: transparent !important;
+
   .el-card__header {
     font-weight: bold;
     padding: 16px 20px !important;
     background-color: #ffffff30 !important;
     border-bottom: 1px solid transparent !important;
   }
+
   .el-card__body {
     padding: 0 !important;
     background-color: #ffffff10 !important;
@@ -164,6 +171,7 @@ a:hover {
   from {
     opacity: 0;
   }
+
   to {
     opacity: 1;
   }
@@ -174,6 +182,7 @@ a:hover {
     filter: blur(20px) brightness(0.3);
     transform: scale(1.6);
   }
+
   to {
     filter: blur(0) brightness(1);
     transform: scale(1);
@@ -184,6 +193,7 @@ a:hover {
   from {
     transform: scale(1.2);
   }
+
   to {
     transform: scale(1);
   }
