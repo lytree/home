@@ -21,7 +21,7 @@
               <span> {{ currentTime.hour }}:{{ currentTime.minute }}:{{ currentTime.second }}</span>
             </div>
           </div>
-          <Weather />
+          <!-- <Weather /> -->
         </div>
       </el-col>
     </el-row>

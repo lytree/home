@@ -45,7 +45,9 @@ const getWeatherData = async () => {
     if (!mainKey) {
       console.log("未配置，使用备用天气接口");
       const ipInfo = await getIpInfo();
-      const result = await getOtherWeather(ipInfo.info.city);
+      console.log(ipInfo);
+      console.log("未配置，使用备用天气接口");
+      const result = await getOtherWeather(ipInfo.region);
       
       const data = result.data;
       weatherData.adCode = {
