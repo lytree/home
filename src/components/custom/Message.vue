@@ -141,9 +141,9 @@ onUnmounted(() => {
 <style lang="scss" scoped>
 .el-message {
   padding: 12px 20px;
-  border-radius: 4px;
-  background: #ecf5ff;
-  color: #409eff;
+  border-radius: 25px;
+  background: rgba(0, 0, 0, 0.4) !important;
+  color: #409eff !important;
   display: flex;
   align-items: center;
   z-index: 2001;
@@ -165,54 +165,54 @@ onUnmounted(() => {
   }
 
   &.el-message--info {
-    background: #ecf5ff;
-    color: #409eff;
+    background: rgba(0, 0, 0, 0.4) !important;
+    color: #409eff !important;
   }
 
   &.el-message--success {
-    background: #f0f9eb;
-    color: #67c23a;
+    background: rgba(0, 0, 0, 0.4) !important;
+    color: #67c23a !important;
   }
 
   &.el-message--warning {
-    background: #fdf6ec;
-    color: #e6a23c;
+    background: rgba(0, 0, 0, 0.4) !important;
+    color: #e6a23c !important;
   }
 
   &.el-message--error {
-    background: #fef0f0;
-    color: #f56c6c;
+    background: rgba(0, 0, 0, 0.4) !important;
+    color: #f56c6c !important;
   }
 
   &.el-message--primary {
-    background: #f0f0f0;
-    color: #909399;
+    background: rgba(0, 0, 0, 0.4) !important;
+    color: #909399 !important;
   }
 
   &.el-message--plain {
-    background: #ffffff;
-    box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
-    color: #303133;
+    background: rgba(0, 0, 0, 0.4) !important;
+    box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1) !important;
+    color: #303133 !important;
   }
 
   &.el-message--plain.el-message--info {
-    color: #409eff;
+    color: #409eff !important;
   }
 
   &.el-message--plain.el-message--success {
-    color: #67c23a;
+    color: #67c23a !important;
   }
 
   &.el-message--plain.el-message--warning {
-    color: #e6a23c;
+    color: #e6a23c !important;
   }
 
   &.el-message--plain.el-message--error {
-    color: #f56c6c;
+    color: #f56c6c !important;
   }
 
   &.el-message--plain.el-message--primary {
-    color: #909399;
+    color: #909399 !important;
   }
 
   .el-message__content {
