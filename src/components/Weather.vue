@@ -20,6 +20,7 @@
 <script setup>
 import { getAdcode, getWeather,getIpInfo, getOtherWeather } from "@/api";
 import { Error } from "@icon-park/vue-next";
+import ElMessage from "@/components/custom/message";
 
 // 高德开发者 Key
 const mainKey = import.meta.env.VITE_WEATHER_KEY;

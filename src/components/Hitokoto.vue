@@ -32,6 +32,7 @@ import { MusicMenu, Error } from "@icon-park/vue-next";
 import { getHitokoto } from "@/api";
 import { mainStore } from "@/store";
 import debounce from "@/utils/debounce.js";
+import ElMessage from "@/components/custom/message";
 
 const store = mainStore();
 

@@ -34,6 +34,7 @@ import { Icon } from "@vicons/utils";
 import { QuoteLeft, QuoteRight } from "@vicons/fa";
 import { Error } from "@icon-park/vue-next";
 import { mainStore } from "@/store";
+import ElMessage from "@/components/custom/message";
 const store = mainStore();
 
 // 主页站点logo

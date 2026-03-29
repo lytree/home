@@ -16,7 +16,7 @@
             剩余&nbsp;{{ item.remaining }}&nbsp;{{ tag === "day" ? "小时" : "天" }}
           </span>
         </div>
-        <el-progress :text-inside="true" :stroke-width="20" :percentage="parseFloat(item.percentage)" />
+        <CustomProgress :text-inside="true" :stroke-width="20" :percentage="parseFloat(item.percentage)" />
       </div>
       <!-- 建站日期 -->
       <div v-if="store.siteStartShow" class="capsule-item start">
@@ -30,6 +30,7 @@
 import { HourglassFull } from "@icon-park/vue-next";
 import { getTimeCapsule, siteDateStatistics } from "@/utils/getTime.js";
 import { mainStore } from "@/store";
+import CustomProgress from "@/components/custom/Progress.vue";
 const store = mainStore();
 
 // 进度条数据

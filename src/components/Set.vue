@@ -1,20 +1,20 @@
 <template>
   <div class="setting">
-    <el-collapse class="collapse" v-model="activeName" accordion>
-      <el-collapse-item title="个性壁纸" name="1">
+    <CustomCollapse class="collapse" v-model="activeName" accordion>
+      <CustomCollapseItem title="个性壁纸" name="1">
         <div class="bg-set">
-          <el-radio-group v-model="coverType" text-color="#ffffff" @change="radioChange">
-            <el-radio value="0" size="large" border>默认壁纸</el-radio>
-            <el-radio value="1" size="large" border>每日一图</el-radio>
-            <el-radio value="2" size="large" border>随机风景</el-radio>
-            <el-radio value="3" size="large" border>随机动漫</el-radio>
-          </el-radio-group>
+          <CustomRadioGroup v-model="coverType" text-color="#ffffff" @change="radioChange">
+            <CustomRadio value="0" size="large" border>默认壁纸</CustomRadio>
+            <CustomRadio value="1" size="large" border>每日一图</CustomRadio>
+            <CustomRadio value="2" size="large" border>随机风景</CustomRadio>
+            <CustomRadio value="3" size="large" border>随机动漫</CustomRadio>
+          </CustomRadioGroup>
         </div>
-      </el-collapse-item>
-      <el-collapse-item title="个性化调整" name="2">
+      </CustomCollapseItem>
+      <CustomCollapseItem title="个性化调整" name="2">
         <div class="item">
           <span class="text">建站日期显示</span>
-          <el-switch
+          <CustomSwitch
             v-model="siteStartShow"
             inline-prompt
             :active-icon="CheckSmall"
@@ -23,7 +23,7 @@
         </div>
         <div class="item">
           <span class="text">音乐点击是否打开面板</span>
-          <el-switch
+          <CustomSwitch
             v-model="musicClick"
             inline-prompt
             :active-icon="CheckSmall"
@@ -32,7 +32,7 @@
         </div>
         <div class="item">
           <span class="text">底栏歌词显示</span>
-          <el-switch
+          <CustomSwitch
             v-model="playerLrcShow"
             inline-prompt
             :active-icon="CheckSmall"
@@ -41,18 +41,18 @@
         </div>
         <div class="item">
           <span class="text">底栏背景模糊</span>
-          <el-switch
+          <CustomSwitch
             v-model="footerBlur"
             inline-prompt
             :active-icon="CheckSmall"
             :inactive-icon="CloseSmall"
           />
         </div>
-      </el-collapse-item>
-      <el-collapse-item title="播放器配置" name="3">
+      </CustomCollapseItem>
+      <CustomCollapseItem title="播放器配置" name="3">
         <div class="item">
           <span class="text">自动播放</span>
-          <el-switch
+          <CustomSwitch
             v-model="playerAutoplay"
             inline-prompt
             :active-icon="CheckSmall"
@@ -61,7 +61,7 @@
         </div>
         <div class="item">
           <span class="text">随机播放</span>
-          <el-switch
+          <CustomSwitch
             v-model="playerOrder"
             inline-prompt
             :active-icon="CheckSmall"
@@ -72,17 +72,17 @@
         </div>
         <div class="item">
           <span class="text">循环模式</span>
-          <el-radio-group v-model="playerLoop" size="small" text-color="#FFFFFF">
-            <el-radio value="all" border>列表</el-radio>
-            <el-radio value="one" border>单曲</el-radio>
-            <el-radio value="none" border>不循环</el-radio>
-          </el-radio-group>
+          <CustomRadioGroup v-model="playerLoop" size="small" text-color="#FFFFFF">
+            <CustomRadio value="all" border>列表</CustomRadio>
+            <CustomRadio value="one" border>单曲</CustomRadio>
+            <CustomRadio value="none" border>不循环</CustomRadio>
+          </CustomRadioGroup>
         </div>
-      </el-collapse-item>
-      <el-collapse-item title="其他设置" name="4">
+      </CustomCollapseItem>
+      <CustomCollapseItem title="其他设置" name="4">
         <div>设置内容待增加</div>
-      </el-collapse-item>
-    </el-collapse>
+      </CustomCollapseItem>
+    </CustomCollapse>
   </div>
 </template>
 
@@ -90,6 +90,12 @@
 import { CheckSmall, CloseSmall, SuccessPicture } from "@icon-park/vue-next";
 import { mainStore } from "@/store";
 import { storeToRefs } from "pinia";
+import ElMessage from "@/components/custom/message";
+import CustomCollapse from "@/components/custom/Collapse.vue";
+import CustomCollapseItem from "@/components/custom/CollapseItem.vue";
+import CustomRadioGroup from "@/components/custom/RadioGroup.vue";
+import CustomRadio from "@/components/custom/Radio.vue";
+import CustomSwitch from "@/components/custom/Switch.vue";
 
 const store = mainStore();
 const {
@@ -122,22 +128,23 @@ const radioChange = () => {
 .setting {
   .collapse {
     border-radius: 8px;
-    --el-collapse-content-bg-color: #ffffff10;
-    border-color: transparent;
     overflow: hidden;
 
-    :deep(.el-collapse-item__header) {
-      background-color: #ffffff30;
-      color: #fff;
-      font-size: 15px;
-      padding-left: 18px;
-      border-color: transparent;
-    }
+    .custom-collapse-item {
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 
-    :deep(.el-collapse-item__wrap) {
-      border-color: transparent;
+      &:first-child {
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+      }
 
-      .el-collapse-item__content {
+      .collapse-item-header {
+        background-color: #ffffff30;
+        color: #fff;
+        font-size: 15px;
+        padding-left: 18px;
+      }
+
+      .collapse-item-content {
         padding: 20px;
         .item {
           display: flex;
@@ -145,53 +152,24 @@ const radioChange = () => {
           justify-content: space-between;
           flex-wrap: wrap;
           font-size: 14px;
-          .el-switch__core {
-            border-color: transparent;
-            background-color: #ffffff30;
-          }
-          .el-radio-group {
-            .el-radio {
-              margin: 2px 10px 2px 0;
-              border-radius: 5px;
-
-              &:last-child {
-                margin-right: 0;
-              }
-            }
-          }
         }
-        .el-radio-group {
+
+        .custom-radio-group {
           justify-content: space-between;
 
-          .el-radio {
+          .custom-radio {
             margin: 10px 16px;
             background: #ffffff26;
             border: 2px solid transparent;
             border-radius: 8px;
 
-            .el-radio__label {
+            .radio-label {
               color: #fff;
             }
 
-            .el-radio__inner {
+            &.radio-checked {
               background: #ffffff06 !important;
               border: 2px solid #eeeeee !important;
-            }
-
-            &.is-checked {
-              background: #ffffff06 !important;
-              border: 2px solid #eeeeee !important;
-            }
-
-            .is-checked {
-              .el-radio__inner {
-                background-color: #ffffff30 !important;
-                border-color: #fff !important;
-              }
-
-              & + .el-radio__label {
-                color: #fff !important;
-              }
             }
           }
         }

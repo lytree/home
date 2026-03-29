@@ -39,7 +39,7 @@
           />
           <volume-notice theme="filled" size="24" fill="#efefef" v-else />
         </div>
-        <el-slider v-model="volumeNum" :show-tooltip="false" :min="0" :max="1" :step="0.01" />
+        <CustomSlider v-model="volumeNum" :show-tooltip="false" :min="0" :max="1" :step="0.01" />
       </div>
     </div>
   </div>
@@ -81,6 +81,7 @@ import {
 } from "@icon-park/vue-next";
 import Player from "@/components/Player.vue";
 import { mainStore } from "@/store";
+import CustomSlider from "@/components/custom/Slider.vue";
 const store = mainStore();
 
 // 音量条数据
@@ -220,33 +221,25 @@ watch(
       animation: fade 0.3s;
     }
     .volume {
-      width: 100%;
-      padding: 0 12px;
-      display: flex;
-      align-items: center;
-      flex-direction: row;
-      animation: fade 0.3s;
-      .icon {
-        margin-right: 12px;
-        span {
-          width: 24px;
-          height: 24px;
-          display: block;
+        width: 100%;
+        padding: 0 12px;
+        display: flex;
+        align-items: center;
+        flex-direction: row;
+        animation: fade 0.3s;
+        .icon {
+          margin-right: 12px;
+          span {
+            width: 24px;
+            height: 24px;
+            display: block;
+          }
+        }
+        .custom-slider {
+          margin-right: 12px;
+          flex: 1;
         }
       }
-      :deep(*) {
-        transition: none;
-      }
-      :deep(.el-slider__button) {
-        transition: 0.3s;
-      }
-      .el-slider {
-        margin-right: 12px;
-        --el-slider-main-bg-color: #efefef;
-        --el-slider-runway-bg-color: #ffffff40;
-        --el-slider-button-size: 16px;
-      }
-    }
   }
 }
 .music-list {

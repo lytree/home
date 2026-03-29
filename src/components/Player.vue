@@ -25,6 +25,7 @@ import { MusicOne, PlayWrong } from "@icon-park/vue-next";
 import { getPlayerList } from "@/api";
 import { mainStore } from "@/store";
 import APlayer from "@worstone/vue-aplayer";
+import ElMessage from "@/components/custom/message";
 
 const store = mainStore();
 

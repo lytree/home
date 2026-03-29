@@ -1,14 +1,14 @@
 <template>
   <!-- 功能区域 -->
   <div :class="store.mobileFuncState ? 'function mobile' : 'function'">
-    <el-row :gutter="20">
-      <el-col :span="12">
+    <CustomRow :gutter="20">
+      <CustomCol :span="12">
         <div class="left">
           <Hitokoto />
           <Music v-if="playerHasId" />
         </div>
-      </el-col>
-      <el-col :span="12">
+      </CustomCol>
+      <CustomCol :span="12">
         <div class="right cards">
           <div class="time">
             <div class="date">
@@ -23,8 +23,8 @@
           </div>
           <!-- <Weather /> -->
         </div>
-      </el-col>
-    </el-row>
+      </CustomCol>
+    </CustomRow>
   </div>
 </template>
 
@@ -34,6 +34,8 @@ import { mainStore } from "@/store";
 import Music from "@/components/Music.vue";
 import Hitokoto from "@/components/Hitokoto.vue";
 import Weather from "@/components/Weather.vue";
+import CustomRow from "@/components/custom/Row.vue";
+import CustomCol from "@/components/custom/Col.vue";
 
 const store = mainStore();
 
@@ -68,8 +70,8 @@ onBeforeUnmount(() => {
   justify-content: space-between;
 
   &.mobile {
-    .el-row {
-      .el-col {
+    .custom-row {
+      .custom-col {
         &:nth-of-type(1) {
           display: contents;
         }
@@ -81,12 +83,11 @@ onBeforeUnmount(() => {
     }
   }
 
-  .el-row {
+  .custom-row {
     height: 100%;
     width: 100%;
-    margin: 0 !important;
 
-    .el-col {
+    .custom-col {
       &:nth-of-type(1) {
         padding-left: 0 !important;
       }

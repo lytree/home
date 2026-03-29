@@ -1,6 +1,7 @@
 import { h } from "vue";
 import { SpaCandle } from "@icon-park/vue-next";
 import dayjs from "dayjs";
+import ElMessage from "@/components/custom/message";
 
 // 时钟
 export const getCurrentTime = () => {

@@ -26,6 +26,7 @@
 <script setup>
 import { mainStore } from "@/store";
 import { Error } from "@icon-park/vue-next";
+import ElMessage from "@/components/custom/message";
 
 const store = mainStore();
 const bgUrl = ref(null);

@@ -10,19 +10,19 @@
         @click="store.setOpenState = false"
       />
     </transition>
-    <el-row :gutter="40">
-      <el-col :span="12" class="left">
+    <CustomRow :gutter="40">
+      <CustomCol :span="12" class="left">
         <div class="logo text-hidden">
           <span class="bg">{{ siteUrl[0] }}</span>
           <span class="sm">.{{ siteUrl[1] }}</span>
         </div>
         <div class="version">
           <div class="num">v&nbsp;{{ config.version }}</div>
-          <el-tooltip content="Github 源代码仓库" placement="right" :show-arrow="false">
+          <CustomTooltip content="Github 源代码仓库" placement="right" :show-arrow="false">
             <github-one class="github" theme="outline" size="24" @click="jumpTo(config.github)" />
-          </el-tooltip>
+          </CustomTooltip>
         </div>
-        <el-card class="update">
+        <CustomCard class="update">
           <template #header>
             <div class="card-header">
               <span>更新日志</span>
@@ -38,16 +38,16 @@
               {{ item }}
             </div>
           </div>
-        </el-card>
-      </el-col>
-      <el-col :span="12" class="right">
+        </CustomCard>
+      </CustomCol>
+      <CustomCol :span="12" class="right">
         <div class="title">
           <setting-two theme="filled" size="28" fill="#ffffff60" />
           <span class="name">全局设置</span>
         </div>
         <Set />
-      </el-col>
-    </el-row>
+      </CustomCol>
+    </CustomRow>
   </div>
 </template>
 
@@ -56,6 +56,10 @@ import { CloseOne, SettingTwo, GithubOne, AddOne, Bug } from "@icon-park/vue-nex
 import { mainStore } from "@/store";
 import Set from "@/components/Set.vue";
 import config from "@/../package.json";
+import CustomRow from "@/components/custom/Row.vue";
+import CustomCol from "@/components/custom/Col.vue";
+import CustomCard from "@/components/custom/Card.vue";
+import CustomTooltip from "@/components/custom/Tooltip.vue";
 
 const store = mainStore();
 const closeShow = ref(false);

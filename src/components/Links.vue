@@ -20,8 +20,8 @@
       :mousewheel="true"
     >
       <SwiperSlide v-for="site in siteLinksList" :key="site">
-        <el-row class="link-all" :gutter="20">
-          <el-col v-for="(item, index) in site" :span="8" :key="item">
+        <CustomRow class="link-all" :gutter="20">
+          <CustomCol v-for="(item, index) in site" :span="8" :key="item">
             <div
               class="item cards"
               :style="index < 3 ? 'margin-bottom: 20px' : null"
@@ -32,8 +32,8 @@
               </Icon>
               <span class="name text-hidden">{{ item.name }}</span>
             </div>
-          </el-col>
-        </el-row>
+          </CustomCol>
+        </CustomRow>
       </SwiperSlide>
       <div class="swiper-pagination" />
     </Swiper>
@@ -48,6 +48,8 @@ import { mainStore } from "@/store";
 import { Swiper, SwiperSlide } from "swiper/vue";
 import { Pagination, Mousewheel } from "swiper/modules";
 import siteLinks from "@/assets/siteLinks.json";
+import CustomRow from "@/components/custom/Row.vue";
+import CustomCol from "@/components/custom/Col.vue";
 
 const store = mainStore();
 
