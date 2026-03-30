@@ -5,7 +5,6 @@
       <CustomCol :span="12">
         <div class="left">
           <Hitokoto />
-          <Music v-if="playerHasId" />
         </div>
       </CustomCol>
       <CustomCol :span="12">
@@ -43,8 +42,6 @@ const store = mainStore();
 const currentTime = ref({});
 const timeInterval = ref(null);
 
-// 播放器 id
-const playerHasId = import.meta.env.VITE_SONG_ID;
 
 // 更新时间
 const updateTimeData = () => {
