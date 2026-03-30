@@ -22,9 +22,6 @@
           />
         </div>
       </CustomCollapseItem>
-      <CustomCollapseItem title="其他设置" name="4">
-        <div>设置内容待增加</div>
-      </CustomCollapseItem>
     </CustomCollapse>
   </div>
 </template>
