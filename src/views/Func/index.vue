@@ -148,20 +148,6 @@ onBeforeUnmount(() => {
         }
       }
 
-      .weather {
-        text-align: center;
-        width: 100%;
-        text-overflow: ellipsis;
-        overflow-x: hidden;
-        white-space: nowrap;
-      }
-
-      .weather:hover {
-        //       text-overflow: inherit;
-        //     overflow: visible;
-        //   white-space: pre-line;
-        /*合并空白符序列，但是保留换行符。*/
-      }
     }
   }
 }
