@@ -20,7 +20,6 @@
               <span> {{ currentTime.hour }}:{{ currentTime.minute }}:{{ currentTime.second }}</span>
             </div>
           </div>
-          <!-- <Weather /> -->
         </div>
       </CustomCol>
     </CustomRow>
@@ -30,9 +29,7 @@
 <script setup>
 import { getCurrentTime } from "@/utils/getTime";
 import { mainStore } from "@/store";
-import Music from "@/components/Music.vue";
 import Hitokoto from "@/components/Hitokoto.vue";
-import Weather from "@/components/Weather.vue";
 import CustomRow from "@/components/custom/Row.vue";
 import CustomCol from "@/components/custom/Col.vue";
 
