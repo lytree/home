@@ -1,4 +1,4 @@
-import { defineComponent, ref, reactive, onMounted, h } from 'vue';
+import { defineComponent, ref, reactive, onMounted, h, Transition } from 'vue';
 import { MusicMenu, Error } from '@icon-park/vue-next';
 import { getHitokoto } from '@/api';
 import { mainStore } from '@/store';
@@ -53,30 +53,18 @@ export default defineComponent({
     return () => (
       <div
         class={[styles.hitokoto, 'cards'].join(' ')}
-        style={{ display: store.musicOpenState ? 'none' : 'block' }}
+        style={{ display: store.musicOpenState ? 'none' : 'flex' }}
         onMouseenter={() => (openMusicShow.value = true)}
         onMouseleave={() => (openMusicShow.value = false)}
         onClick={(e) => e.stopPropagation()}
       >
-        {/* 打开音乐面板 */}
-        <transition name="el-fade-in-linear">
-          {openMusicShow.value && store.musicIsOk && (
-            <div
-              class={styles.openMusic}
-              onClick={() => (store.musicOpenState = true)}
-            >
-              <MusicMenu theme="filled" size="18" fill="#efefef" />
-              <span>打开音乐播放器</span>
-            </div>
-          )}
-        </transition>
         {/* 一言内容 */}
-        <transition name="el-fade-in-linear" mode="out-in">
+        <Transition name="el-fade-in-linear" mode="out-in">
           <div key={hitokotoData.text} class={styles.content} onClick={updateHitokoto}>
             <span class={styles.text}>{hitokotoData.text}</span>
             <span class={styles.from}>-「&nbsp;{hitokotoData.from}&nbsp;」</span>
           </div>
-        </transition>
+        </Transition>
       </div>
     );
   }

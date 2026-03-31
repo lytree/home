@@ -1,4 +1,4 @@
-import { defineComponent, onMounted, onBeforeUnmount, watch, nextTick } from 'vue';
+import { defineComponent, onMounted, onBeforeUnmount, watch, nextTick, Transition, computed } from 'vue';
 import { helloInit, checkDays } from '@/utils/getTime.js';
 import { HamburgerButton, CloseSmall } from '@icon-park/vue-next';
 import { mainStore } from '@/store';
@@ -17,7 +17,7 @@ import styles from './App.module.scss';
 export default defineComponent({
   setup() {
     const store = mainStore();
-
+    const DynamicComp = computed(() => store.mobileOpenState ? CloseSmall : HamburgerButton)
     // 页面宽度
     const getWidth = () => {
       store.setInnerWidth(window.innerWidth);
@@ -88,30 +88,30 @@ export default defineComponent({
         {/* 壁纸 */}
         <Background onLoadComplete={loadComplete} />
         {/* 主界面 */}
-        <transition name="fade" mode="out-in">
+        <Transition name="fade" mode="out-in">
           {store.imgLoadStatus && (
             <main id={styles.main}>
-              <div class={styles.container} style={{ display: store.backgroundShow ? 'none' : 'block' }}>
-                <section class={styles.all} style={{ display: store.setOpenState ? 'none' : 'block' }}>
+              <div class={styles.container} style={{ display: store.backgroundShow ? 'none' : 'flex' }}>
+                <section class={styles.all} style={{ display: store.setOpenState ? 'none' : 'flex' }}>
                   <MainLeft />
                   <MainRight style={{ display: store.boxOpenState ? 'none' : 'block' }} />
                   <Box style={{ display: store.boxOpenState ? 'block' : 'none' }} />
                 </section>
-                <section class={styles.more} style={{ display: store.setOpenState ? 'block' : 'none' }} onClick={() => (store.setOpenState = false)}>
+                <section class={styles.more} style={{ display: store.setOpenState ? 'flex' : 'none' }} onClick={() => (store.setOpenState = false)}>
                   <MoreSet />
                 </section>
               </div>
               {/* 移动端菜单按钮 */}
-              <Icon class={styles.menu} size="24" style={{ display: store.backgroundShow ? 'none' : 'block' }} onClick={() => (store.mobileOpenState = !store.mobileOpenState)}>
-                <component is={store.mobileOpenState ? CloseSmall : HamburgerButton} />
+              <Icon class={styles.menu} size="24" style={{ display: store.backgroundShow ? 'none' : 'flex' }} onClick={() => (store.mobileOpenState = !store.mobileOpenState)}>
+                {<DynamicComp.value>foo</DynamicComp.value>}
               </Icon>
               {/* 页脚 */}
-              <transition name="fade" mode="out-in">
+              <Transition name="fade" mode="out-in">
                 {!store.backgroundShow && !store.setOpenState && <Footer class={styles.footer} />}
-              </transition>
+              </Transition>
             </main>
           )}
-        </transition>
+        </Transition>
       </>
     );
   }

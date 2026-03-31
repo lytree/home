@@ -1,23 +1,23 @@
 .setting {
-  .collapse {
+  > div {
     border-radius: 8px;
     overflow: hidden;
 
-    .custom-collapse-item {
+    > div {
       border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 
       &:first-child {
         border-top: 1px solid rgba(255, 255, 255, 0.1);
       }
 
-      .collapse-item-header {
+      > div:first-child {
         background-color: #ffffff30;
         color: #fff;
         font-size: 15px;
         padding-left: 18px;
       }
 
-      .collapse-item-content {
+      > div:last-child {
         padding: 20px;
         .item {
           display: flex;
@@ -27,16 +27,16 @@
           font-size: 14px;
         }
 
-        .custom-radio-group {
+        > div {
           justify-content: space-between;
 
-          .custom-radio {
+          > label {
             margin: 10px 16px;
             background: #ffffff26;
             border: 2px solid transparent;
             border-radius: 8px;
 
-            .radio-label {
+            > span:last-child {
               color: #fff;
             }
 
