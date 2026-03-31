@@ -23,16 +23,6 @@ export default defineComponent({
       return result;
     });
 
-    // 网站链接图标
-    const siteIcon = {
-      "Blog": "fa:blog",
-      "Book": "fa:book",
-      "Fire": "fa:fire",
-      "Cloud": "fa:cloud",
-      "CompactDisc": "fa:compact-disc",
-      "Compass": "fa:compass",
-      "LaptopCode": "fa:laptop-code",
-    };
 
     // 链接跳转
     const jumpLink = (data) => {

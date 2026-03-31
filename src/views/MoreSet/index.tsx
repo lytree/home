@@ -1,4 +1,4 @@
-import { defineComponent, ref, computed, reactive } from 'vue';
+import { defineComponent, ref, computed, reactive, Transition } from 'vue';
 import { CloseOne, SettingTwo, GithubOne, AddOne, Bug } from '@icon-park/vue-next';
 import { mainStore } from '@/store';
 import Set from '@/components/Set.tsx';
@@ -44,7 +44,7 @@ export default defineComponent({
     
     return () => (
       <div class={styles.set} onMouseenter={() => (closeShow.value = true)} onMouseleave={() => (closeShow.value = false)} onClick={(e) => e.stopPropagation()}>
-        <transition name="el-fade-in-linear">
+        <Transition name="el-fade-in-linear">
           {closeShow.value && (
             <CloseOne
               class={styles.close}
@@ -54,7 +54,7 @@ export default defineComponent({
               onClick={() => (store.setOpenState = false)}
             />
           )}
-        </transition>
+        </Transition>
         <CustomRow gutter={40}>
           <CustomCol span={12} class={styles.left}>
             <div class={[styles.logo, 'text-hidden'].join(' ')}>

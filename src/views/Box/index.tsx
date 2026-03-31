@@ -1,4 +1,4 @@
-import { defineComponent, ref } from 'vue';
+import { defineComponent, ref, Transition } from 'vue';
 import { CloseOne, SettingTwo } from '@icon-park/vue-next';
 import { mainStore } from '@/store';
 import TimeCapsule from '@/components/TimeCapsule.tsx';
@@ -12,7 +12,7 @@ export default defineComponent({
     
     return () => (
       <div class={[styles.box, 'cards'].join(' ')} onMouseenter={() => (closeShow.value = true)} onMouseleave={() => (closeShow.value = false)}>
-        <transition name="el-fade-in-linear">
+        <Transition name="el-fade-in-linear">
           {closeShow.value && (
             <CloseOne
               class={styles.close}
@@ -22,8 +22,8 @@ export default defineComponent({
               onClick={() => (store.boxOpenState = false)}
             />
           )}
-        </transition>
-        <transition name="el-fade-in-linear">
+        </Transition>
+        <Transition name="el-fade-in-linear">
           {closeShow.value && (
             <SettingTwo
               class={styles.setting}
@@ -33,7 +33,7 @@ export default defineComponent({
               onClick={() => (store.setOpenState = true)}
             />
           )}
-        </transition>
+        </Transition>
         <div class={styles.content}>
           {/* 可在此处自定义任意内容 */}
           <TimeCapsule />
