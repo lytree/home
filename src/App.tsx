@@ -1,8 +1,7 @@
 import { defineComponent, onMounted, onBeforeUnmount, watch, nextTick, Transition, computed } from 'vue';
 import { helloInit, checkDays } from '@/utils/getTime.js';
-import { HamburgerButton, CloseSmall } from '@icon-park/vue-next';
 import { mainStore } from '@/store';
-import { Icon } from '@vicons/utils';
+import { Icon } from '@iconify/vue';
 import Loading from '@/components/Loading.tsx';
 import MainLeft from '@/views/Main/Left.tsx';
 import MainRight from '@/views/Main/Right.tsx';
@@ -17,7 +16,7 @@ import styles from './App.module.scss';
 export default defineComponent({
   setup() {
     const store = mainStore();
-    const DynamicComp = computed(() => store.mobileOpenState ? CloseSmall : HamburgerButton)
+    const menuIcon = computed(() => store.mobileOpenState ? 'fa:times' : 'fa:bars')
     // 页面宽度
     const getWidth = () => {
       store.setInnerWidth(window.innerWidth);
@@ -102,9 +101,7 @@ export default defineComponent({
                 </section>
               </div>
               {/* 移动端菜单按钮 */}
-              <Icon class={styles.menu} size="24" style={{ display: store.backgroundShow ? 'none' : 'flex' }} onClick={() => (store.mobileOpenState = !store.mobileOpenState)}>
-                {<DynamicComp.value>foo</DynamicComp.value>}
-              </Icon>
+              <Icon class={styles.menu} icon={menuIcon.value} size={24} style={{ display: store.backgroundShow ? 'none' : 'flex' }} onClick={() => (store.mobileOpenState = !store.mobileOpenState)} />
               {/* 页脚 */}
               <Transition name="fade" mode="out-in">
                 {!store.backgroundShow && !store.setOpenState && <Footer class={styles.footer} />}

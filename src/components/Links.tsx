@@ -1,7 +1,6 @@
 import { defineComponent, computed, onMounted } from 'vue';
-import { Icon } from '@vicons/utils';
-// 可前往 https://www.xicons.org 自行挑选并在此处引入
-import { Link, Blog, CompactDisc, Cloud, Compass, Book, Fire, LaptopCode } from '@vicons/fa'; // 注意使用正确的类别
+import { Icon } from '@iconify/vue';
+// 可前往 https://iconify.design 自行挑选并在此处引入
 import { mainStore } from '@/store';
 import { Swiper, SwiperSlide } from 'swiper/vue';
 import { Pagination, Mousewheel } from 'swiper/modules';
@@ -13,7 +12,7 @@ import styles from './Links.module.scss';
 export default defineComponent({
   setup() {
     const store = mainStore();
-    
+
     // 计算网站链接
     const siteLinksList = computed(() => {
       const result = [];
@@ -23,18 +22,18 @@ export default defineComponent({
       }
       return result;
     });
-    
+
     // 网站链接图标
     const siteIcon = {
-      Blog,
-      Cloud,
-      CompactDisc,
-      Compass,
-      Book,
-      Fire,
-      LaptopCode,
+      "Blog": "fa:blog",
+      "Book": "fa:book",
+      "Fire": "fa:fire",
+      "Cloud": "fa:cloud",
+      "CompactDisc": "fa:compact-disc",
+      "Compass": "fa:compass",
+      "LaptopCode": "fa:laptop-code",
     };
-    
+
     // 链接跳转
     const jumpLink = (data) => {
       if (data.name === '音乐' && store.musicClick) {
@@ -43,17 +42,14 @@ export default defineComponent({
         window.open(data.link, '_blank');
       }
     };
-    
     onMounted(() => {
       console.log(siteLinks);
     });
-    
+
     return () => (
       <div v-if={siteLinks[0]} class={styles.links}>
         <div class={styles.line}>
-          <Icon size="20">
-            <Link />
-          </Icon>
+          <Icon icon="fa:link" size={20} />
           <span class={styles.title}>网站列表</span>
         </div>
         {/* 网站列表 */}
@@ -79,9 +75,7 @@ export default defineComponent({
                       style={idx < 3 ? 'margin-bottom: 20px' : null}
                       onClick={() => jumpLink(item)}
                     >
-                      <Icon size="26">
-                        <component is={siteIcon[item.icon]} />
-                      </Icon>
+                      <Icon icon={item.icon || "fa:link"}  width="32" height="32" />
                       <span class={[styles.name, 'text-hidden'].join(' ')}>{item.name}</span>
                     </div>
                   </CustomCol>

@@ -1,16 +1,16 @@
 [
   {
-    "icon": "Blog",
+    "icon": "fa7-solid:blog",
     "name": "日记",
     "link": "https://blog.prideyang.top/"
   },
   {
-    "icon": "Book",
+    "icon": "fa7-solid:book",
     "name": "文档集",
     "link": "https://doc.prideyang.top/"
   },
   {
-    "icon": "Fire",
+    "icon": "fa7-solid:fire",
     "name": "今日热榜",
     "link": "https://newsnow.busiyi.world/"
   }

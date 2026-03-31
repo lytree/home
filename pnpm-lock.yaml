@@ -8,6 +8,9 @@ importers:
 
   .:
     dependencies:
+      '@iconify/vue':
+        specifier: ^5.0.0
+        version: 5.0.0(vue@3.6.0-beta.9(typescript@6.0.2))
       '@worstone/vue-aplayer':
         specifier: ^1.0.8
         version: 1.0.8(typescript@6.0.2)
@@ -179,6 +182,14 @@ packages:
     engines: {node: '>= 8.0.0', npm: '>= 5.0.0'}
     peerDependencies:
       vue: 3.x
+
+  '@iconify/types@2.0.0':
+    resolution: {integrity: sha512-+wluvCrRhXrhyOmRDJ3q8mux9JkKy5SJ/v8ol2tu4FVjyYvtEzkc/3pK15ET6RKg4b4w4BmTk1+gsCUhf21Ykg==}
+
+  '@iconify/vue@5.0.0':
+    resolution: {integrity: sha512-C+KuEWIF5nSBrobFJhT//JS87OZ++QDORB6f2q2Wm6fl2mueSTpFBeBsveK0KW9hWiZ4mNiPjsh6Zs4jjdROSg==}
+    peerDependencies:
+      vue: '>=3'
 
   '@jridgewell/gen-mapping@0.3.13':
     resolution: {integrity: sha512-2kkt/7niJ6MgEPxF0bYdQ6etZaA+fQvDcLKckhy1yIQOzaoKjBBjSj63/aLVjYE3qhRt5dvM+uUyfCg6UKCBbA==}
@@ -1753,6 +1764,13 @@ snapshots:
 
   '@icon-park/vue-next@1.4.2(vue@3.6.0-beta.9(typescript@6.0.2))':
     dependencies:
+      vue: 3.6.0-beta.9(typescript@6.0.2)
+
+  '@iconify/types@2.0.0': {}
+
+  '@iconify/vue@5.0.0(vue@3.6.0-beta.9(typescript@6.0.2))':
+    dependencies:
+      '@iconify/types': 2.0.0
       vue: 3.6.0-beta.9(typescript@6.0.2)
 
   '@jridgewell/gen-mapping@0.3.13':

@@ -1,6 +1,5 @@
 import { defineComponent, computed, reactive, watch, h } from 'vue';
-import { Icon } from '@vicons/utils';
-import { QuoteLeft, QuoteRight } from '@vicons/fa';
+import { Icon } from '@iconify/vue';
 import { Error } from '@icon-park/vue-next';
 import { mainStore } from '@/store';
 import ElMessage from '@/components/custom/message';
@@ -73,18 +72,14 @@ export default defineComponent({
         {/* 简介 */}
         <div class={[styles.description, 'cards'].join(' ')} onClick={changeBox}>
           <div class={styles.content}>
-            <Icon size="16">
-              <QuoteLeft />
-            </Icon>
+            <Icon icon="fa:quote-left" size={16} />
             <transition name="fade" mode="out-in">
               <div key={descriptionText.hello + descriptionText.text} class={styles.text}>
                 <p>{descriptionText.hello}</p>
                 <p>{descriptionText.text}</p>
               </div>
             </transition>
-            <Icon size="16">
-              <QuoteRight />
-            </Icon>
+            <Icon icon="fa:quote-right" size={16} />
           </div>
         </div>
       </div>
