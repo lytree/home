@@ -1,49 +1,51 @@
 <template>
-  <!-- 加载 -->
-  <Loading />
-  <!-- 壁纸 -->
-  <Background @loadComplete="loadComplete" />
-  <!-- 主界面 -->
-  <Transition name="fade" mode="out-in">
-    <main id="main" v-if="store.imgLoadStatus">
-      <div class="container" v-show="!store.backgroundShow">
-        <section class="all" v-show="!store.setOpenState">
-          <MainLeft />
-          <MainRight v-show="!store.boxOpenState" />
-          <Box v-show="store.boxOpenState" />
-        </section>
-        <section class="more" v-show="store.setOpenState" @click="store.setOpenState = false">
-          <MoreSet />
-        </section>
-      </div>
-      <!-- 移动端菜单按钮 -->
-      <Icon class="menu" size="24" v-show="!store.backgroundShow"
-        @click="store.mobileOpenState = !store.mobileOpenState">
-        <component :is="store.mobileOpenState ? CloseSmall : HamburgerButton" />
-      </Icon>
-      <!-- 页脚 -->
-      <Transition name="fade" mode="out-in">
-        <Footer class="f-ter" v-show="!store.backgroundShow && !store.setOpenState" />
-      </Transition>
-    </main>
-  </Transition>
+  <>
+    <!-- 加载 -->
+    <Loading />
+    <!-- 壁纸 -->
+    <Background @loadComplete="loadComplete" />
+    <!-- 主界面 -->
+    <transition name="fade" mode="out-in">
+      <main v-if="store.imgLoadStatus" class="main">
+        <div class="container" :style="{ display: store.backgroundShow ? 'none' : 'block' }">
+          <section class="all" :style="{ display: store.setOpenState ? 'none' : 'block' }">
+            <MainLeft />
+            <MainRight :style="{ display: store.boxOpenState ? 'none' : 'block' }" />
+            <Box :style="{ display: store.boxOpenState ? 'block' : 'none' }" />
+          </section>
+          <section class="more" :style="{ display: store.setOpenState ? 'block' : 'none' }" @click="store.setOpenState = false">
+            <MoreSet />
+          </section>
+        </div>
+        <!-- 移动端菜单按钮 -->
+        <Icon class="menu" size="24" :style="{ display: store.backgroundShow ? 'none' : 'block' }" @click="store.mobileOpenState = !store.mobileOpenState">
+          <component :is="store.mobileOpenState ? CloseSmall : HamburgerButton" />
+        </Icon>
+        <!-- 页脚 -->
+        <transition name="fade" mode="out-in">
+          <Footer v-show="!store.backgroundShow && !store.setOpenState" class="footer" />
+        </transition>
+      </main>
+    </transition>
+  </>
 </template>
 
 <script setup>
-import { helloInit, checkDays } from "@/utils/getTime.js";
-import { HamburgerButton, CloseSmall } from "@icon-park/vue-next";
-import { mainStore } from "@/store";
-import { Icon } from "@vicons/utils";
-import Loading from "@/components/Loading.vue";
-import MainLeft from "@/views/Main/Left.vue";
-import MainRight from "@/views/Main/Right.vue";
-import Background from "@/components/Background.vue";
-import Footer from "@/components/Footer.vue";
-import Box from "@/views/Box/index.vue";
-import MoreSet from "@/views/MoreSet/index.vue";
-import cursorInit from "@/utils/cursor.js";
-import config from "@/../package.json";
-import ElMessage from "@/components/custom/message";
+import { onMounted, onBeforeUnmount, watch, nextTick } from 'vue';
+import { helloInit, checkDays } from '@/utils/getTime.js';
+import { HamburgerButton, CloseSmall } from '@icon-park/vue-next';
+import { mainStore } from '@/store';
+import { Icon } from '@vicons/utils';
+import Loading from '@/components/Loading.vue';
+import MainLeft from '@/views/Main/Left.vue';
+import MainRight from '@/views/Main/Right.vue';
+import Background from '@/components/Background.vue';
+import Footer from '@/components/Footer.vue';
+import Box from '@/views/Box/index.vue';
+import MoreSet from '@/views/MoreSet/index.vue';
+import cursorInit from '@/utils/cursor.js';
+import config from '@/../package.json';
+import ElMessage from '@/components/custom/message';
 
 const store = mainStore();
 
@@ -70,7 +72,7 @@ watch(
       store.boxOpenState = false;
       store.setOpenState = false;
     }
-  },
+  }
 );
 
 onMounted(() => {
@@ -80,39 +82,39 @@ onMounted(() => {
   // 屏蔽右键
   document.oncontextmenu = () => {
     ElMessage({
-      message: "为了浏览体验，本站禁用右键",
+      message: '为了浏览体验，本站禁用右键',
       grouping: true,
-      duration: 2000,
+      duration: 2000
     });
     return false;
   };
 
   // 鼠标中键事件
-  window.addEventListener("mousedown", (event) => {
+  window.addEventListener('mousedown', (event) => {
     if (event.button == 1) {
       store.backgroundShow = !store.backgroundShow;
       ElMessage({
-        message: `已${store.backgroundShow ? "开启" : "退出"}壁纸展示状态`,
-        grouping: true,
+        message: `已${store.backgroundShow ? '开启' : '退出'}壁纸展示状态`,
+        grouping: true
       });
     }
   });
 
   // 监听当前页面宽度
   getWidth();
-  window.addEventListener("resize", getWidth);
+  window.addEventListener('resize', getWidth);
 
   // 控制台输出
-  console.info("fork imsyy/home");
+  console.info('fork imsyy/home');
 });
 
 onBeforeUnmount(() => {
-  window.removeEventListener("resize", getWidth);
+  window.removeEventListener('resize', getWidth);
 });
 </script>
 
 <style lang="scss" scoped>
-#main {
+.main {
   position: absolute;
   top: 0;
   left: 0;
@@ -184,6 +186,20 @@ onBeforeUnmount(() => {
     }
   }
 
+  .footer {
+    @media (max-height: 720px) {
+      top: 675px; // 721px - 46px
+
+      @media (min-width: 391px) {
+        padding-left: 6px;
+      }
+    }
+
+    @media (max-width: 390px) {
+      width: 391px;
+    }
+  }
+
   @media (max-height: 720px) {
     overflow-y: auto;
     overflow-x: hidden;
@@ -235,14 +251,6 @@ onBeforeUnmount(() => {
         left: calc(50% - 25px);
       }
     }
-
-    .f-ter {
-      top: 675px; // 721px - 46px
-
-      @media (min-width: 391px) {
-        padding-left: 6px;
-      }
-    }
   }
 
   @media (max-width: 390px) {
@@ -254,10 +262,6 @@ onBeforeUnmount(() => {
 
     .menu {
       left: 167.5px; // 391px * 0.5 - 28px
-    }
-
-    .f-ter {
-      width: 391px;
     }
 
     @media (min-height: 721px) {
