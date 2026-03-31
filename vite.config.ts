@@ -3,15 +3,17 @@ import { defineConfig, loadEnv } from "vite";
 import { ElementPlusResolver } from "unplugin-vue-components/resolvers";
 import { resolve } from "path";
 import vue from "@vitejs/plugin-vue";
+import vueJsxVapor from "vue-jsx-vapor/vite";
 import AutoImport from "unplugin-auto-import/vite";
 import Components from "unplugin-vue-components/vite";
 import viteCompression from "vite-plugin-compression";
 
 // https://vitejs.dev/config/
-export default ({ mode }) =>
+export default ({ mode }: { mode: string }) =>
   defineConfig({
     plugins: [
       vue(),
+      vueJsxVapor({ macros: true }),
       AutoImport({
         imports: ["vue"],
         resolvers: [ElementPlusResolver()],
@@ -21,10 +23,6 @@ export default ({ mode }) =>
       }),
       viteCompression(),
     ],
-    server: {
-      port: "3000",
-      open: true,
-    },
     resolve: {
       alias: [
         {
@@ -36,9 +34,7 @@ export default ({ mode }) =>
     css: {
       preprocessorOptions: {
         scss: {
-          api: 'modern',
           additionalData: `@use "@/style/global.scss" as *;`,
-          silenceDeprecations: ["legacy-js-api"],
         },
       },
     },
