@@ -1,0 +1,97 @@
+.customSwitch {
+  position: relative;
+  display: inline-block;
+  width: 48px;
+  height: 24px;
+  cursor: pointer;
+
+  .switchCore {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(255, 255, 255, 0.3);
+    border-radius: 12px;
+    transition: all 0.3s ease;
+    overflow: hidden;
+
+    &::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(255, 255, 255, 0.1);
+      transition: all 0.3s ease;
+    }
+  }
+
+  .switchButton {
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    width: 20px;
+    height: 20px;
+    background-color: #fff;
+    border-radius: 50%;
+    transition: all 0.3s ease;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+  }
+
+  .switchIcons {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 6px;
+    pointer-events: none;
+
+    .switchIcon {
+      font-size: 12px;
+      color: #fff;
+      transition: all 0.3s ease;
+
+      &.active {
+        opacity: 0;
+        transform: translateX(-10px);
+      }
+
+      &.inactive {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+  }
+
+  &.switchActive {
+    .switchCore {
+      background-color: rgba(52, 199, 89, 0.8);
+
+      &::before {
+        background-color: rgba(255, 255, 255, 0.2);
+      }
+    }
+
+    .switchButton {
+      transform: translateX(24px);
+    }
+
+    .switchIcons {
+      .switchIcon {
+        &.active {
+          opacity: 1;
+          transform: translateX(0);
+        }
+
+        &.inactive {
+          opacity: 0;
+          transform: translateX(10px);
+        }
+      }
+    }
+  }
+}

@@ -1,5 +1,4 @@
 {
-<<<<<<< HEAD
     "compilerOptions": {
         "target": "ES2020",
         "useDefineForClassFields": true,
@@ -41,30 +40,4 @@
             "path": "./tsconfig.node.json"
         }
     ]
-=======
-  "compilerOptions": {
-    "target": "ES2020",
-    "useDefineForClassFields": true,
-    "lib": ["ES2020", "DOM", "DOM.Iterable"],
-    "module": "ESNext",
-    "skipLibCheck": true,
-    "moduleResolution": "bundler",
-    "allowImportingTsExtensions": true,
-    "resolveJsonModule": true,
-    "isolatedModules": true,
-    "noEmit": true,
-    "jsx": "react",
-    "jsxImportSource": "vue",
-    "strict": true,
-    "noUnusedLocals": true,
-    "noUnusedParameters": true,
-    "noFallthroughCasesInSwitch": true,
-    "baseUrl": ".",
-    "paths": {
-      "@/*": ["./src/*"]
-    }
-  },
-  "include": ["src/**/*.ts", "src/**/*.d.ts", "src/**/*.tsx", "src/**/*.vue", "src/**/*.jsx"],
-  "references": [{ "path": "./tsconfig.node.json" }]
->>>>>>> 42c5e62 (# Please enter the commit message for your changes. Lines starting)
 }

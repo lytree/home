@@ -1,0 +1,112 @@
+.elMessage {
+  padding: 12px 20px;
+  border-radius: 25px;
+  background: rgba(0, 0, 0, 0.4) !important;
+  color: #409eff !important;
+  display: flex;
+  align-items: center;
+  z-index: 2001;
+  opacity: 0;
+  transform: translateY(-100%);
+  transition: all 0.3s ease;
+  max-width: 300px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  margin-bottom: 10px;
+  position: relative;
+
+  &.isVisible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  &.isClosable {
+    padding-right: 30px;
+  }
+
+  &.elMessage--info {
+    background: rgba(0, 0, 0, 0.4) !important;
+    color: #409eff !important;
+  }
+
+  &.elMessage--success {
+    background: rgba(0, 0, 0, 0.4) !important;
+    color: #67c23a !important;
+  }
+
+  &.elMessage--warning {
+    background: rgba(0, 0, 0, 0.4) !important;
+    color: #e6a23c !important;
+  }
+
+  &.elMessage--error {
+    background: rgba(0, 0, 0, 0.4) !important;
+    color: #f56c6c !important;
+  }
+
+  &.elMessage--primary {
+    background: rgba(0, 0, 0, 0.4) !important;
+    color: #909399 !important;
+  }
+
+  &.elMessage--plain {
+    background: rgba(0, 0, 0, 0.4) !important;
+    box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1) !important;
+    color: #303133 !important;
+  }
+
+  &.elMessage--plain.elMessage--info {
+    color: #409eff !important;
+  }
+
+  &.elMessage--plain.elMessage--success {
+    color: #67c23a !important;
+  }
+
+  &.elMessage--plain.elMessage--warning {
+    color: #e6a23c !important;
+  }
+
+  &.elMessage--plain.elMessage--error {
+    color: #f56c6c !important;
+  }
+
+  &.elMessage--plain.elMessage--primary {
+    color: #909399 !important;
+  }
+
+  .elMessageContent {
+    display: flex;
+    align-items: center;
+
+    .elMessageIcon {
+      margin-right: 10px;
+      font-size: 16px;
+
+      .messageIconText {
+        font-size: 16px;
+        font-weight: bold;
+      }
+    }
+
+    .elMessageCloseBtn {
+      font-size: 12px;
+      opacity: 0.7;
+      cursor: pointer;
+      transition: opacity 0.3s;
+      margin-left: 10px;
+
+      &:hover {
+        opacity: 1;
+      }
+    }
+
+    .elMessageGroupCount {
+      margin-left: 10px;
+      padding: 0 6px;
+      background-color: rgba(0, 0, 0, 0.1);
+      border-radius: 10px;
+      font-size: 12px;
+      font-weight: 500;
+    }
+  }
+}

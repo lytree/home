@@ -1,0 +1,52 @@
+.setting {
+  .collapse {
+    border-radius: 8px;
+    overflow: hidden;
+
+    .custom-collapse-item {
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+
+      &:first-child {
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+      }
+
+      .collapse-item-header {
+        background-color: #ffffff30;
+        color: #fff;
+        font-size: 15px;
+        padding-left: 18px;
+      }
+
+      .collapse-item-content {
+        padding: 20px;
+        .item {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          flex-wrap: wrap;
+          font-size: 14px;
+        }
+
+        .custom-radio-group {
+          justify-content: space-between;
+
+          .custom-radio {
+            margin: 10px 16px;
+            background: #ffffff26;
+            border: 2px solid transparent;
+            border-radius: 8px;
+
+            .radio-label {
+              color: #fff;
+            }
+
+            &.radio-checked {
+              background: #ffffff06 !important;
+              border: 2px solid #eeeeee !important;
+            }
+          }
+        }
+      }
+    }
+  }
+}

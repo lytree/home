@@ -13,7 +13,7 @@ export default ({ mode }: { mode: string }) =>
   defineConfig({
     plugins: [
       vue(),
-      vueJsxVapor({ macros: true }),
+      vueJsxVapor({  interop: true, }),
       AutoImport({
         imports: ["vue"],
         resolvers: [ElementPlusResolver()],

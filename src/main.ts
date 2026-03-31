@@ -14,6 +14,6 @@ const pinia = createPinia();
 pinia.use(piniaPluginPersistedstate);
 
 app.use(pinia);
-app.use(vaporInteropPlugin());
+app.use(vaporInteropPlugin);
 app.config.globalProperties.$message = ElMessage;
 app.mount("#app");

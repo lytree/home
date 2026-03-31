@@ -1,0 +1,37 @@
+.customProgress {
+  width: 100%;
+  display: flex;
+  align-items: center;
+
+  .progressBar {
+    flex: 1;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 10px;
+    overflow: hidden;
+    position: relative;
+
+    .progressFill {
+      height: 100%;
+      background: rgba(255, 255, 255, 0.8);
+      border-radius: 10px;
+      transition: width 0.3s ease;
+    }
+
+    .progressText {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 12px;
+      font-weight: bold;
+      color: #000;
+    }
+  }
+
+  .progressText {
+    margin-left: 10px;
+    font-size: 14px;
+    font-weight: bold;
+    color: #fff;
+  }
+}

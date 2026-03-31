@@ -1,0 +1,83 @@
+import { defineComponent, ref, reactive, onMounted, h } from 'vue';
+import { MusicMenu, Error } from '@icon-park/vue-next';
+import { getHitokoto } from '@/api';
+import { mainStore } from '@/store';
+import debounce from '@/utils/debounce.js';
+import ElMessage from '@/components/custom/message';
+import styles from './Hitokoto.module.scss';
+
+export default defineComponent({
+  setup() {
+    const store = mainStore();
+    
+    // 开启音乐面板按钮显隐
+    const openMusicShow = ref(false);
+    
+    // 一言数据
+    const hitokotoData = reactive({
+      text: '这里应该显示一句话',
+      from: '無名',
+    });
+    
+    // 获取一言数据
+    const getHitokotoData = async () => {
+      try {
+        const result = await getHitokoto();
+        hitokotoData.text = result.hitokoto;
+        hitokotoData.from = result.from;
+      } catch (error) {
+        ElMessage({
+          message: '一言获取失败',
+          icon: h(Error, {
+            theme: 'filled',
+            fill: '#efefef',
+          }),
+        });
+        hitokotoData.text = '这里应该显示一句话';
+        hitokotoData.from = '無名';
+      }
+    };
+    
+    // 更新一言数据
+    const updateHitokoto = () => {
+      // 防抖
+      debounce(() => {
+        getHitokotoData();
+      }, 500);
+    };
+    
+    onMounted(() => {
+      getHitokotoData();
+    });
+    
+    return () => (
+      <div
+        class={[styles.hitokoto, 'cards'].join(' ')}
+        style={{ display: store.musicOpenState ? 'none' : 'block' }}
+        onMouseenter={() => (openMusicShow.value = true)}
+        onMouseleave={() => (openMusicShow.value = false)}
+        onClick={(e) => e.stopPropagation()}
+      >
+        {/* 打开音乐面板 */}
+        <transition name="el-fade-in-linear">
+          {openMusicShow.value && store.musicIsOk && (
+            <div
+              class={styles.openMusic}
+              onClick={() => (store.musicOpenState = true)}
+            >
+              <MusicMenu theme="filled" size="18" fill="#efefef" />
+              <span>打开音乐播放器</span>
+            </div>
+          )}
+        </transition>
+        {/* 一言内容 */}
+        <transition name="el-fade-in-linear" mode="out-in">
+          <div key={hitokotoData.text} class={styles.content} onClick={updateHitokoto}>
+            <span class={styles.text}>{hitokotoData.text}</span>
+            <span class={styles.from}>-「&nbsp;{hitokotoData.from}&nbsp;」</span>
+          </div>
+        </transition>
+      </div>
+    );
+  }
+});

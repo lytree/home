@@ -1,5 +1,5 @@
 import { createApp, App, VNode, ComponentPublicInstance } from 'vue'
-import Message from './Message.vue'
+import Message from './Message.tsx'
 import './message.css'
 
 type MessageType = 'info' | 'success' | 'warning' | 'error' | 'primary'

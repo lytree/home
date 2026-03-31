@@ -1,0 +1,51 @@
+.customCollapseItem {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+
+  &:first-child {
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  .collapseItemHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px 20px;
+    background-color: rgba(255, 255, 255, 0.2);
+    color: #fff;
+    cursor: pointer;
+    transition: all 0.3s ease;
+
+    &:hover {
+      background-color: rgba(255, 255, 255, 0.3);
+    }
+
+    span {
+      font-size: 15px;
+    }
+
+    .collapseItemArrow {
+      font-size: 12px;
+      transition: transform 0.3s ease;
+
+      &.arrowRotate {
+        transform: rotate(180deg);
+      }
+    }
+  }
+
+  .collapseItemContent {
+    padding: 20px;
+    background-color: rgba(255, 255, 255, 0.05);
+  }
+}
+
+.collapse-enter-active,
+.collapse-leave-active {
+  transition: height 0.3s ease;
+}
+
+.collapse-enter-from,
+.collapse-leave-to {
+  height: 0;
+  overflow: hidden;
+}

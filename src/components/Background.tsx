@@ -8,20 +8,20 @@ export default defineComponent({
   props: {
     onLoadComplete: {
       type: Function,
-      default: () => {}
+      default: () => { }
     }
   },
   setup(props) {
     const store = mainStore();
-    const bgUrl = ref(null);
-    const imgTimeout = ref(null);
+    const bgUrl = ref("");
+    const imgTimeout = ref();
 
     // 壁纸随机数
     // 请依据文件夹内的图片个数修改 Math.random() 后面的第一个数字
     const bgRandom = Math.floor(Math.random() * 10 + 1);
 
     // 更换壁纸链接
-    const changeBg = (type) => {
+    const changeBg = (type: number) => {
       if (type == 0) {
         bgUrl.value = `/images/background${bgRandom}.jpg`;
       } else if (type == 1) {
@@ -82,16 +82,16 @@ export default defineComponent({
 
     return () => (
       <div class={[styles.cover, store.backgroundShow ? styles.show : ''].filter(Boolean).join(' ')}>
-        {store.imgLoadStatus && (
-          <img
-            src={bgUrl.value}
-            class={styles.bg}
-            alt="cover"
-            onLoad={imgLoadComplete}
-            onError={imgLoadError}
-            onAnimationEnd={imgAnimationEnd}
-          />
-        )}
+
+        <img
+          src={bgUrl.value}
+          class={styles.bg}
+          alt="cover"
+          onLoad={imgLoadComplete}
+          onError={imgLoadError}
+          onAnimationend={imgAnimationEnd}
+        />
+        )
         <div class={[styles.gray, store.backgroundShow ? styles.hidden : ''].filter(Boolean).join(' ')} />
         <transition name="fade" mode="out-in">
           {store.backgroundShow && store.coverType != '3' && (

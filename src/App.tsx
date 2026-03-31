@@ -11,7 +11,6 @@ import Footer from '@/components/Footer.tsx';
 import Box from '@/views/Box/index.tsx';
 import MoreSet from '@/views/MoreSet/index.tsx';
 import cursorInit from '@/utils/cursor.js';
-import config from '@/../package.json';
 import ElMessage from '@/components/custom/message';
 import styles from './App.module.scss';
 
