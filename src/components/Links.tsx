@@ -1,6 +1,6 @@
 import { defineComponent, computed, onMounted } from 'vue';
 import { Icon } from '@iconify/vue';
-// 可前往 https://iconify.design 自行挑选并在此处引入
+//@ts-ignore
 import { mainStore } from '@/store';
 import { Swiper, SwiperSlide } from 'swiper/vue';
 import { Pagination, Mousewheel } from 'swiper/modules';
@@ -11,8 +11,6 @@ import styles from './Links.module.scss';
 
 export default defineComponent({
   setup() {
-    const store = mainStore();
-
     // 计算网站链接
     const siteLinksList = computed(() => {
       const result = [];
@@ -25,12 +23,8 @@ export default defineComponent({
 
 
     // 链接跳转
-    const jumpLink = (data) => {
-      if (data.name === '音乐' && store.musicClick) {
-        if (typeof $openList === 'function') $openList();
-      } else {
-        window.open(data.link, '_blank');
-      }
+    const jumpLink = (data: { icon?: string; name?: string; link: any; }) => {
+      window.open(data.link, '_blank');
     };
     onMounted(() => {
       console.log(siteLinks);
@@ -39,7 +33,7 @@ export default defineComponent({
     return () => (
       <div v-if={siteLinks[0]} class={styles.links}>
         <div class={styles.line}>
-          <Icon icon="fa:link" size={20} />
+          <Icon icon="fa:link" height={20} width={20} />
           <span class={styles.title}>网站列表</span>
         </div>
         {/* 网站列表 */}
@@ -65,7 +59,7 @@ export default defineComponent({
                       style={idx < 3 ? 'margin-bottom: 20px' : null}
                       onClick={() => jumpLink(item)}
                     >
-                      <Icon icon={item.icon || "fa:link"}  width="32" height="32" />
+                      <Icon icon={item.icon || "fa:link"} width="32" height="32" />
                       <span class={[styles.name, 'text-hidden'].join(' ')}>{item.name}</span>
                     </div>
                   </CustomCol>

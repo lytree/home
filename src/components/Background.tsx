@@ -1,4 +1,5 @@
-import { defineComponent, ref, watch, onMounted, onBeforeUnmount, h } from 'vue';
+import { defineComponent, ref, watch, onMounted, onBeforeUnmount, h, Transition } from 'vue';
+//@ts-ignore
 import { mainStore } from '@/store';
 import { Error } from '@icon-park/vue-next';
 import ElMessage from '@/components/custom/message';
@@ -93,7 +94,7 @@ export default defineComponent({
         />
         )
         <div class={[styles.gray, store.backgroundShow ? styles.hidden : ''].filter(Boolean).join(' ')} />
-        <transition name="fade" mode="out-in">
+        <Transition name="fade" mode="out-in">
           {store.backgroundShow && store.coverType != '3' && (
             <a
               class={styles.down}
@@ -103,7 +104,7 @@ export default defineComponent({
               下载壁纸
             </a>
           )}
-        </transition>
+        </Transition>
       </div>
     );
   }

@@ -1,7 +1,6 @@
-import { defineComponent, ref, computed } from 'vue';
+import { defineComponent, ref, computed, Transition } from 'vue';
 import { MusicOne } from '@icon-park/vue-next';
 import { mainStore } from '@/store';
-import config from '@/../package.json';
 import styles from './Footer.module.scss';
 
 export default defineComponent({
@@ -28,13 +27,13 @@ export default defineComponent({
 
     return () => (
       <footer class={[styles.footer, store.footerBlur ? styles.blur : ''].filter(Boolean).join(' ')}>
-        <transition name="fade" mode="out-in">
+        <Transition name="fade" mode="out-in">
           {!store.playerState || !store.playerLrcShow ? (
             <div class={styles.power}>
               <span>
-                <span class={startYear.value < fullYear ? styles.cHidden : styles.hidden}>Copyright&nbsp;</span>
+                <span class={Number(startYear.value) < fullYear ? styles.cHidden : styles.hidden}>Copyright&nbsp;</span>
                 &copy;
-                {startYear.value < fullYear && (
+                {Number(startYear.value) < fullYear && (
                   <span class={styles.siteStart}>
                     {startYear.value}
                     -
@@ -55,16 +54,16 @@ export default defineComponent({
             </div>
           ) : (
             <div class={styles.lrc}>
-              <transition name="fade" mode="out-in">
+              <Transition name="fade" mode="out-in">
                 <div class={styles.lrcAll} key={store.getPlayerLrc}>
                   <MusicOne theme="filled" size="18" fill="#efefef" />
                   <span class={[styles.lrcText, styles.textHidden].join(' ')} dangerouslySetInnerHTML={{ __html: store.getPlayerLrc }} />
                   <MusicOne theme="filled" size="18" fill="#efefef" />
                 </div>
-              </transition>
+              </Transition>
             </div>
           )}
-        </transition>
+        </Transition>
       </footer>
     );
   }

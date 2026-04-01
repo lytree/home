@@ -157,7 +157,9 @@ const message = ((options: string | MessageOptions) => {
 
 // 快捷方法
 ;(['info', 'success', 'warning', 'error', 'primary'] as MessageType[]).forEach(type => {
-  message[type] = (msg, options = {}) =>
+  message[type] = (msg, options = {
+    message: ''
+  }) =>
     createMessage({
       ...options,
       message: msg,

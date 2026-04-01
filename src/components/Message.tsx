@@ -1,6 +1,7 @@
-import { defineComponent, computed, reactive, watch, h } from 'vue';
+import { defineComponent, computed, reactive, watch, h, Transition } from 'vue';
 import { Icon } from '@iconify/vue';
 import { Error } from '@icon-park/vue-next';
+//@ts-ignore
 import { mainStore } from '@/store';
 import ElMessage from '@/components/custom/message';
 import styles from './Message.module.scss';
@@ -8,7 +9,7 @@ import styles from './Message.module.scss';
 export default defineComponent({
   setup() {
     const store = mainStore();
-    
+
     // 主页站点logo
     const siteLogo = import.meta.env.VITE_SITE_MAIN_LOGO;
     // 站点链接
@@ -22,13 +23,13 @@ export default defineComponent({
       }
       return url.split('.');
     });
-    
+
     // 简介区域文字
     const descriptionText = reactive({
       hello: import.meta.env.VITE_DESC_HELLO,
       text: import.meta.env.VITE_DESC_TEXT,
     });
-    
+
     // 切换右侧功能区
     const changeBox = () => {
       if (store.getInnerWidth >= 721) {
@@ -44,7 +45,7 @@ export default defineComponent({
         });
       }
     };
-    
+
     // 监听状态变化
     watch(
       () => store.boxOpenState,
@@ -58,7 +59,7 @@ export default defineComponent({
         }
       },
     );
-    
+
     return () => (
       <div class={styles.message}>
         {/* Logo */}
@@ -72,14 +73,14 @@ export default defineComponent({
         {/* 简介 */}
         <div class={[styles.description, 'cards'].join(' ')} onClick={changeBox}>
           <div class={styles.content}>
-            <Icon icon="fa:quote-left" size={16} />
-            <transition name="fade" mode="out-in">
+            <Icon icon="fa:quote-left" height={16} width={16} />
+            <Transition name="fade" mode="out-in">
               <div key={descriptionText.hello + descriptionText.text} class={styles.text}>
                 <p>{descriptionText.hello}</p>
                 <p>{descriptionText.text}</p>
               </div>
-            </transition>
-            <Icon icon="fa:quote-right" size={16} />
+            </Transition>
+            <Icon icon="fa:quote-right" height={16} width={16} />
           </div>
         </div>
       </div>

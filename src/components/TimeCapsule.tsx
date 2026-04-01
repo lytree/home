@@ -1,6 +1,8 @@
 import { defineComponent, ref, onMounted, onBeforeUnmount } from 'vue';
 import { HourglassFull } from '@icon-park/vue-next';
-import { getTimeCapsule, siteDateStatistics } from '@/utils/getTime.js';
+//@ts-ignore
+import { getTimeCapsule, siteDateStatistics, TimeCapsule } from '@/utils/getTime.ts';
+//@ts-ignore
 import { mainStore } from '@/store';
 import CustomProgress from '@/components/custom/Progress.tsx';
 import styles from './TimeCapsule.module.scss';
@@ -8,24 +10,26 @@ import styles from './TimeCapsule.module.scss';
 export default defineComponent({
   setup() {
     const store = mainStore();
-    
+
     // 进度条数据
-    const timeData = ref(getTimeCapsule());
+    const timeData = ref<TimeCapsule>(getTimeCapsule());
     const startDate = ref(import.meta.env.VITE_SITE_START);
-    const startDateText = ref(null);
-    const timeInterval = ref(null);
-    
+    const startDateText = ref<string>("");
+    const timeInterval = ref<ReturnType<typeof setInterval> | null>(null);
+
     onMounted(() => {
       timeInterval.value = setInterval(() => {
         timeData.value = getTimeCapsule();
-        if (startDate.value) startDateText.value = siteDateStatistics(new Date(startDate.value));
+        if (startDate.value) {
+          startDateText.value = siteDateStatistics(new Date(startDate.value));
+        }
       }, 1000);
     });
-    
+
     onBeforeUnmount(() => {
-      clearInterval(timeInterval.value);
+      clearInterval(timeInterval.value === null ? undefined : timeInterval.value);
     });
-    
+
     return () => (
       <div class={styles.timeCapsule}>
         <div class={styles.title}>

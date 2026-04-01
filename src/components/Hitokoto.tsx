@@ -1,24 +1,26 @@
 import { defineComponent, ref, reactive, onMounted, h, Transition } from 'vue';
-import { MusicMenu, Error } from '@icon-park/vue-next';
+import { Error } from '@icon-park/vue-next';
+//@ts-ignore
 import { getHitokoto } from '@/api';
+//@ts-ignore
 import { mainStore } from '@/store';
-import debounce from '@/utils/debounce.js';
+import debounce from '@/utils/debounce.ts';
 import ElMessage from '@/components/custom/message';
 import styles from './Hitokoto.module.scss';
 
 export default defineComponent({
   setup() {
     const store = mainStore();
-    
+
     // 开启音乐面板按钮显隐
     const openMusicShow = ref(false);
-    
+
     // 一言数据
     const hitokotoData = reactive({
       text: '这里应该显示一句话',
       from: '無名',
     });
-    
+
     // 获取一言数据
     const getHitokotoData = async () => {
       try {
@@ -37,7 +39,7 @@ export default defineComponent({
         hitokotoData.from = '無名';
       }
     };
-    
+
     // 更新一言数据
     const updateHitokoto = () => {
       // 防抖
@@ -45,11 +47,11 @@ export default defineComponent({
         getHitokotoData();
       }, 500);
     };
-    
+
     onMounted(() => {
       getHitokotoData();
     });
-    
+
     return () => (
       <div
         class={[styles.hitokoto, 'cards'].join(' ')}
