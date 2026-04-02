@@ -1,7 +1,7 @@
 import { defineComponent, computed, onMounted } from 'vue';
 import { Icon } from '@iconify/vue';
 //@ts-ignore
-import { mainStore } from '@/store';
+import { useMainStore } from '@/store/index.ts';
 import { Swiper, SwiperSlide } from 'swiper/vue';
 import { Pagination, Mousewheel } from 'swiper/modules';
 import siteLinks from '@/assets/siteLinks.json';

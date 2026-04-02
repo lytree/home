@@ -1,6 +1,6 @@
 import { defineComponent, ref, onMounted, onBeforeUnmount } from 'vue';
-import { getCurrentTime } from '@/utils/getTime';
-import { mainStore } from '@/store';
+import { getCurrentTime } from '@/utils/getTime.ts';
+import { useMainStore } from '@/store/index.ts';
 import Hitokoto from '@/components/Hitokoto.tsx';
 import CustomRow from '@/components/custom/Row.tsx';
 import CustomCol from '@/components/custom/Col.tsx';
@@ -8,7 +8,7 @@ import styles from './index.module.scss';
 
 export default defineComponent({
   setup() {
-    const store = mainStore();
+    const store = useMainStore();
     
     // 当前时间
     const currentTime = ref({});

@@ -1,12 +1,12 @@
 import { defineComponent, computed } from 'vue';
-import { mainStore } from '@/store';
+import { useMainStore } from '@/store/index.ts';
 import Func from '@/views/Func/index.tsx';
 import Link from '@/components/Links.tsx';
 import styles from './Right.module.scss';
 
 export default defineComponent({
   setup() {
-    const store = mainStore();
+    const store = useMainStore();
     
     // 站点链接
     const siteUrl = computed(() => {

@@ -3,14 +3,14 @@ import { Error } from '@icon-park/vue-next';
 //@ts-ignore
 import { getHitokoto } from '@/api';
 //@ts-ignore
-import { mainStore } from '@/store';
+import { useMainStore } from '@/store/index.ts';
 import debounce from '@/utils/debounce.ts';
 import ElMessage from '@/components/custom/message';
 import styles from './Hitokoto.module.scss';
 
 export default defineComponent({
   setup() {
-    const store = mainStore();
+    const store = useMainStore();
 
     // 开启音乐面板按钮显隐
     const openMusicShow = ref(false);

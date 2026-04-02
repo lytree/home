@@ -1,6 +1,6 @@
 import { defineComponent, onMounted, onBeforeUnmount, watch, nextTick, Transition, computed } from 'vue';
-import { helloInit, checkDays } from '@/utils/getTime.js';
-import { mainStore } from '@/store';
+import { helloInit, checkDays } from '@/utils/getTime.ts';
+import { useMainStore } from '@/store/index.ts';
 import { Icon } from '@iconify/vue';
 import Loading from '@/components/Loading.tsx';
 import MainLeft from '@/views/Main/Left.tsx';
@@ -15,13 +15,12 @@ import styles from './App.module.scss';
 
 export default defineComponent({
   setup() {
-    const store = mainStore();
+    const store = useMainStore();
     const menuIcon = computed(() => store.mobileOpenState ? 'fa:times' : 'fa:bars')
-    // 页面宽度
-    const getWidth = () => {
+    // 1. 定义一个获取宽度并更新到 Store 的函数
+    const updateWidth = () => {
       store.setInnerWidth(window.innerWidth);
     };
-
     // 加载完成事件
     const loadComplete = () => {
       nextTick(() => {
@@ -69,15 +68,15 @@ export default defineComponent({
       });
 
       // 监听当前页面宽度
-      getWidth();
-      window.addEventListener('resize', getWidth);
+      updateWidth();
+      window.addEventListener('resize', updateWidth);
 
       // 控制台输出
       console.info('fork imsyy/home');
     });
 
     onBeforeUnmount(() => {
-      window.removeEventListener('resize', getWidth);
+      window.removeEventListener('resize', updateWidth);
     });
 
     return () => (
@@ -90,18 +89,18 @@ export default defineComponent({
         <Transition name="fade" mode="out-in">
           {store.imgLoadStatus && (
             <main id={styles.main}>
-              <div class={styles.container} style={{ display: store.backgroundShow ? 'none' : 'flex' }}>
-                <section class={styles.all} style={{ display: store.setOpenState ? 'none' : 'flex' }}>
+              <div class={styles.container} v-show={!store.backgroundShow} >
+                <section class={styles.all} v-show={!store.setOpenState}>
                   <MainLeft />
-                  <MainRight style={{ display: store.boxOpenState ? 'none' : 'block' }} />
-                  <Box style={{ display: store.boxOpenState ? 'block' : 'none' }} />
+                  <MainRight v-show={!store.boxOpenState} />
+                  <Box v-show={store.boxOpenState} />
                 </section>
-                <section class={styles.more} style={{ display: store.setOpenState ? 'flex' : 'none' }} onClick={() => (store.setOpenState = false)}>
+                <section class={styles.more} v-show={store.setOpenState} onClick={() => (store.setOpenState = false)}>
                   <MoreSet />
                 </section>
               </div>
               {/* 移动端菜单按钮 */}
-              <Icon class={styles.menu} icon={menuIcon.value} size={24} style={{ display: store.backgroundShow ? 'none' : 'flex' }} onClick={() => (store.mobileOpenState = !store.mobileOpenState)} />
+              <Icon class={styles.menu} icon={menuIcon.value} width={24} height={24} v-show={!store.backgroundShow} onClick={() => (store.mobileOpenState = !store.mobileOpenState)} />
               {/* 页脚 */}
               <Transition name="fade" mode="out-in">
                 {!store.backgroundShow && !store.setOpenState && <Footer class={styles.footer} />}

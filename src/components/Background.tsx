@@ -1,6 +1,6 @@
 import { defineComponent, ref, watch, onMounted, onBeforeUnmount, h, Transition } from 'vue';
 //@ts-ignore
-import { mainStore } from '@/store';
+import { useMainStore } from '@/store/index.ts';
 import { Error } from '@icon-park/vue-next';
 import ElMessage from '@/components/custom/message';
 import styles from './Background.module.scss';
@@ -13,7 +13,7 @@ export default defineComponent({
     }
   },
   setup(props) {
-    const store = mainStore();
+    const store = useMainStore();
     const bgUrl = ref("");
     const imgTimeout = ref();
 

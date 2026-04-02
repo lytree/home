@@ -3,13 +3,13 @@ import { HourglassFull } from '@icon-park/vue-next';
 //@ts-ignore
 import { getTimeCapsule, siteDateStatistics, TimeCapsule } from '@/utils/getTime.ts';
 //@ts-ignore
-import { mainStore } from '@/store';
+import { useMainStore } from '@/store/index.ts';
 import CustomProgress from '@/components/custom/Progress.tsx';
 import styles from './TimeCapsule.module.scss';
 
 export default defineComponent({
   setup() {
-    const store = mainStore();
+    const store = useMainStore();
 
     // 进度条数据
     const timeData = ref<TimeCapsule>(getTimeCapsule());

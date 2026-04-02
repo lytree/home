@@ -2,13 +2,13 @@ import { defineComponent, computed, reactive, watch, h, Transition } from 'vue';
 import { Icon } from '@iconify/vue';
 import { Error } from '@icon-park/vue-next';
 //@ts-ignore
-import { mainStore } from '@/store';
+import { useMainStore } from '@/store/index.ts';
 import ElMessage from '@/components/custom/message';
 import styles from './Message.module.scss';
 
 export default defineComponent({
   setup() {
-    const store = mainStore();
+    const store = useMainStore();
 
     // 主页站点logo
     const siteLogo = import.meta.env.VITE_SITE_MAIN_LOGO;

@@ -1,10 +1,10 @@
 import { defineComponent } from 'vue';
-import { mainStore } from '@/store';
+import { useMainStore } from '@/store/index.ts';
 import styles from './Loading.module.scss';
 
 export default defineComponent({
   setup() {
-    const store = mainStore();
+    const store = useMainStore();
     const siteName = import.meta.env.VITE_SITE_NAME;
 
     return () => (

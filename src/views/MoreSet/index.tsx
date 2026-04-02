@@ -1,6 +1,6 @@
 import { defineComponent, ref, computed, reactive, Transition } from 'vue';
 import { CloseOne, SettingTwo, GithubOne, AddOne, Bug } from '@icon-park/vue-next';
-import { mainStore } from '@/store';
+import { useMainStore } from '@/store/index.ts';
 import Set from '@/components/Set.tsx';
 import config from '@/../package.json';
 import CustomRow from '@/components/custom/Row.tsx';
@@ -11,7 +11,7 @@ import styles from './index.module.scss';
 
 export default defineComponent({
   setup() {
-    const store = mainStore();
+    const store = useMainStore();
     const closeShow = ref(false);
     
     // 站点链接

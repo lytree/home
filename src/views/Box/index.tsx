@@ -1,13 +1,13 @@
 import { defineComponent, ref, Transition } from 'vue';
 import { CloseOne, SettingTwo } from '@icon-park/vue-next';
-import { mainStore } from '@/store';
+import { useMainStore } from '@/store/index.ts';
 import TimeCapsule from '@/components/TimeCapsule.tsx';
 import MoreContent from '@/components/MoreContent.tsx';
 import styles from './index.module.scss';
 
 export default defineComponent({
   setup() {
-    const store = mainStore();
+    const store = useMainStore();
     const closeShow = ref(false);
     
     return () => (

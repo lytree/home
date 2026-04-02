@@ -1,6 +1,6 @@
 import { defineComponent, ref, h } from 'vue';
 import { CheckSmall, CloseSmall, SuccessPicture } from '@icon-park/vue-next';
-import { mainStore } from '@/store';
+import { useMainStore } from '@/store/index.ts';
 import { storeToRefs } from 'pinia';
 import ElMessage from '@/components/custom/message';
 import CustomCollapse from '@/components/custom/Collapse.tsx';
@@ -12,7 +12,7 @@ import styles from './Set.module.scss';
 
 export default defineComponent({
   setup() {
-    const store = mainStore();
+    const store = useMainStore();
     const { coverType, siteStartShow } = storeToRefs(store);
     
     // 默认选中项
