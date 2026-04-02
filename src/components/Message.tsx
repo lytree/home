@@ -71,12 +71,11 @@ export default defineComponent({
           </div>
         </div>
         {/* 简介 */}
-        <div class={[styles.description, 'cards'].join(' ')} onClick={changeBox}>
+        <div class={[styles.description, 'cards'].join(' ')} >
           <div class={styles.content}>
             <Icon icon="fa:quote-left" height={16} width={16} />
             <Transition name="fade" mode="out-in">
-              <div key={descriptionText.hello + descriptionText.text} class={styles.text}>
-                <p>{descriptionText.hello}</p>
+              <div key={descriptionText.text} class={styles.text}>
                 <p>{descriptionText.text}</p>
               </div>
             </Transition>

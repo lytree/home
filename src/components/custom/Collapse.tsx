@@ -16,7 +16,7 @@ export default defineComponent({
   setup(props, { emit }) {
     const slots = useSlots();
     
-    const updateModelValue = (value) => {
+    const updateModelValue = (value: any) => {
       emit('update:modelValue', value);
     };
     

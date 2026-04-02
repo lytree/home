@@ -92,18 +92,15 @@ export default defineComponent({
               <div class={styles.container} v-show={!store.backgroundShow} >
                 <section class={styles.all} v-show={!store.setOpenState}>
                   <MainLeft />
-                  <MainRight v-show={!store.boxOpenState} />
-                  <Box v-show={store.boxOpenState} />
+                  <MainRight  />
                 </section>
-                <section class={styles.more} v-show={store.setOpenState} onClick={() => (store.setOpenState = false)}>
-                  <MoreSet />
-                </section>
+
               </div>
               {/* 移动端菜单按钮 */}
               <Icon class={styles.menu} icon={menuIcon.value} width={24} height={24} v-show={!store.backgroundShow} onClick={() => (store.mobileOpenState = !store.mobileOpenState)} />
               {/* 页脚 */}
               <Transition name="fade" mode="out-in">
-                {!store.backgroundShow && !store.setOpenState && <Footer class={styles.footer} />}
+                {!store.backgroundShow && <Footer class={styles.footer} />}
               </Transition>
             </main>
           )}

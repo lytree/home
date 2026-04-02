@@ -8,7 +8,7 @@ export default defineComponent({
       default: 'default'
     }
   },
-  setup(props) {
+  setup() {
     const slots = useSlots();
     
     return () => (
