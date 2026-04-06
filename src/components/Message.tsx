@@ -1,9 +1,7 @@
 import { defineComponent, computed, reactive, watch, h, Transition } from 'vue';
 import { Icon } from '@iconify/vue';
-import { Error } from '@icon-park/vue-next';
 //@ts-ignore
 import { useMainStore } from '@/store/index.ts';
-import ElMessage from '@/components/custom/message';
 import styles from './Message.module.scss';
 
 export default defineComponent({
@@ -15,7 +13,7 @@ export default defineComponent({
     // 站点链接
     const siteUrl = computed(() => {
       const url = import.meta.env.VITE_SITE_AUTHOR;
-      if (!url) return 'imsyy.top'.split('.');
+
       // 判断协议前缀
       if (url.startsWith('http://') || url.startsWith('https://')) {
         const urlFormat = url.replace(/^(https?:\/\/)/, '');
@@ -29,22 +27,6 @@ export default defineComponent({
       hello: import.meta.env.VITE_DESC_HELLO,
       text: import.meta.env.VITE_DESC_TEXT,
     });
-
-    // 切换右侧功能区
-    const changeBox = () => {
-      if (store.getInnerWidth >= 721) {
-        store.boxOpenState = !store.boxOpenState;
-      } else {
-        ElMessage({
-          message: '当前页面宽度不足以开启盒子',
-          grouping: true,
-          icon: h(Error, {
-            theme: 'filled',
-            fill: '#efefef',
-          }),
-        });
-      }
-    };
 
     // 监听状态变化
     watch(

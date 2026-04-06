@@ -1,4 +1,4 @@
-import { defineComponent, ref, computed, onMounted, onUnmounted, useSlots } from 'vue';
+import { defineComponent, ref, computed, onMounted, onUnmounted } from 'vue';
 import styles from './Message.module.scss';
 
 export default defineComponent({
@@ -58,10 +58,9 @@ export default defineComponent({
   },
   emits: ['close'],
   setup(props, { emit }) {
-    const slots = useSlots();
     const visible = ref(false);
-    const timer = ref(null);
-    
+    const timer = ref<any>(null);
+
     const iconText = computed(() => {
       const iconMap = {
         info: 'ℹ',
@@ -72,7 +71,7 @@ export default defineComponent({
       };
       return iconMap[props.type] || 'ℹ';
     });
-    
+
     const messageStyle = computed(() => {
       const style = {};
       if (props.placement === 'top') {
@@ -82,7 +81,7 @@ export default defineComponent({
       }
       return style;
     });
-    
+
     const close = () => {
       visible.value = false;
       setTimeout(() => {
@@ -92,7 +91,7 @@ export default defineComponent({
         }
       }, 300);
     };
-    
+
     onMounted(() => {
       visible.value = true;
       if (props.duration > 0) {
@@ -101,17 +100,17 @@ export default defineComponent({
         }, props.duration);
       }
     });
-    
+
     onUnmounted(() => {
       if (timer.value) {
         clearTimeout(timer.value);
       }
     });
-    
+
     return () => (
-      <div 
+      <div
         class={[
-          styles.elMessage, 
+          styles.elMessage,
           `${styles[`elMessage--${props.type}`]}`,
           props.showClose ? styles.isClosable : '',
           props.plain ? styles[`elMessage--plain`] : '',
@@ -130,7 +129,7 @@ export default defineComponent({
           {!props.dangerouslyUseHTMLString ? (
             <span>{props.message}</span>
           ) : (
-            <span dangerouslySetInnerHTML={{ __html: props.message }} />
+            <span innerHTML={props.message} />
           )}
           {props.showClose && (
             <i class={[styles.elMessageCloseBtn, 'el-icon-close'].join(' ')} onClick={close}>×</i>

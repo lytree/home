@@ -43,7 +43,7 @@
     }
   }
   .linkAll {
-    height: 220px;
+    // min-height: 220px;
     .item {
       height: 100px;
       width: 100%;
@@ -86,7 +86,7 @@
       }
     }
     @media (max-width: 720px) {
-      height: 180px;
+      min-height: 180px;
     }
   }
 }
