@@ -1,3 +1,21 @@
 .left {
-  // 左侧组件样式
+  // flex: 1 0 0%;
+  width: 50%;
+  margin-right: 10px;
+  margin-left: 40px;
+  transform: translateY(20px);
+
+  &.hidden {
+    display: none;
+  }
+
+  @media (min-width: 1200px) {
+    margin-left: 10%;
+  }
+
+  @media (max-width: 720px) {
+    margin-right: 0;
+    margin-left: 0;
+    width: 100%;
+  }
 }

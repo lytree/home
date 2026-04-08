@@ -1,12 +1,10 @@
-import { defineComponent, ref, computed } from 'vue';
-import { MusicOne } from '@icon-park/vue-next';
-import { mainStore } from '@/store';
-import config from '@/../package.json';
+import { defineComponent, ref, computed, Transition } from 'vue';
+import { useMainStore } from '@/store/index.ts';
 import styles from './Footer.module.scss';
 
 export default defineComponent({
   setup() {
-    const store = mainStore();
+    const store = useMainStore();
     const fullYear = new Date().getFullYear();
 
     // 加载配置数据
@@ -28,43 +26,32 @@ export default defineComponent({
 
     return () => (
       <footer class={[styles.footer, store.footerBlur ? styles.blur : ''].filter(Boolean).join(' ')}>
-        <transition name="fade" mode="out-in">
-          {!store.playerState || !store.playerLrcShow ? (
-            <div class={styles.power}>
-              <span>
-                <span class={startYear.value < fullYear ? styles.cHidden : styles.hidden}>Copyright&nbsp;</span>
-                &copy;
-                {startYear.value < fullYear && (
-                  <span class={styles.siteStart}>
-                    {startYear.value}
-                    -
-                  </span>
-                )}
-                {fullYear}
-                <a href={siteUrl.value}>{siteAuthor.value}</a>
-              </span>
-              {/* 站点备案 */}
-              {siteIcp.value && (
-                <span>
-                  &amp;
-                  <a href="https://beian.miit.gov.cn" target="_blank">
-                    {siteIcp.value}
-                  </a>
+        <Transition name="fade" mode="out-in">
+
+          <div class={styles.power}>
+            <span>
+              <span class={Number(startYear.value) < fullYear ? styles.cHidden : styles.hidden}>Copyright&nbsp;</span>
+              &copy;
+              {Number(startYear.value) < fullYear && (
+                <span class={styles.siteStart}>
+                  {startYear.value}
+                  -
                 </span>
               )}
-            </div>
-          ) : (
-            <div class={styles.lrc}>
-              <transition name="fade" mode="out-in">
-                <div class={styles.lrcAll} key={store.getPlayerLrc}>
-                  <MusicOne theme="filled" size="18" fill="#efefef" />
-                  <span class={[styles.lrcText, styles.textHidden].join(' ')} dangerouslySetInnerHTML={{ __html: store.getPlayerLrc }} />
-                  <MusicOne theme="filled" size="18" fill="#efefef" />
-                </div>
-              </transition>
-            </div>
-          )}
-        </transition>
+              {fullYear}
+              <a href={siteUrl.value}>{siteAuthor.value}</a>
+            </span>
+            {/* 站点备案 */}
+            {siteIcp.value && (
+              <span>
+                &amp;
+                <a href="https://beian.miit.gov.cn" target="_blank">
+                  {siteIcp.value}
+                </a>
+              </span>
+            )}
+          </div>
+        </Transition>
       </footer>
     );
   }

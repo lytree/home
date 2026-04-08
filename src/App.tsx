@@ -1,29 +1,24 @@
-import { defineComponent, onMounted, onBeforeUnmount, watch, nextTick } from 'vue';
-import { helloInit, checkDays } from '@/utils/getTime.js';
-import { HamburgerButton, CloseSmall } from '@icon-park/vue-next';
-import { mainStore } from '@/store';
-import { Icon } from '@vicons/utils';
+import { defineComponent, onMounted, onBeforeUnmount, watch, nextTick, Transition, computed } from 'vue';
+import { helloInit, checkDays } from '@/utils/getTime.ts';
+import { useMainStore } from '@/store/index.ts';
+import { Icon } from '@iconify/vue';
 import Loading from '@/components/Loading.tsx';
 import MainLeft from '@/views/Main/Left.tsx';
 import MainRight from '@/views/Main/Right.tsx';
 import Background from '@/components/Background.tsx';
 import Footer from '@/components/Footer.tsx';
-import Box from '@/views/Box/index.tsx';
-import MoreSet from '@/views/MoreSet/index.tsx';
 import cursorInit from '@/utils/cursor.js';
-import config from '@/../package.json';
 import ElMessage from '@/components/custom/message';
 import styles from './App.module.scss';
 
 export default defineComponent({
   setup() {
-    const store = mainStore();
-
-    // 页面宽度
-    const getWidth = () => {
+    const store = useMainStore();
+    const menuIcon = computed(() => store.mobileOpenState ? 'fa:times' : 'fa:bars')
+    // 1. 定义一个获取宽度并更新到 Store 的函数
+    const updateWidth = () => {
       store.setInnerWidth(window.innerWidth);
     };
-
     // 加载完成事件
     const loadComplete = () => {
       nextTick(() => {
@@ -71,15 +66,15 @@ export default defineComponent({
       });
 
       // 监听当前页面宽度
-      getWidth();
-      window.addEventListener('resize', getWidth);
+      updateWidth();
+      window.addEventListener('resize', updateWidth);
 
       // 控制台输出
       console.info('fork imsyy/home');
     });
 
     onBeforeUnmount(() => {
-      window.removeEventListener('resize', getWidth);
+      window.removeEventListener('resize', updateWidth);
     });
 
     return () => (
@@ -89,30 +84,25 @@ export default defineComponent({
         {/* 壁纸 */}
         <Background onLoadComplete={loadComplete} />
         {/* 主界面 */}
-        <transition name="fade" mode="out-in">
+        <Transition name="fade" mode="out-in">
           {store.imgLoadStatus && (
             <main id={styles.main}>
-              <div class={styles.container} style={{ display: store.backgroundShow ? 'none' : 'block' }}>
-                <section class={styles.all} style={{ display: store.setOpenState ? 'none' : 'block' }}>
+              <div class={styles.container} v-show={!store.backgroundShow} >
+                <section class={styles.all} v-show={!store.setOpenState}>
                   <MainLeft />
-                  <MainRight style={{ display: store.boxOpenState ? 'none' : 'block' }} />
-                  <Box style={{ display: store.boxOpenState ? 'block' : 'none' }} />
+                  <MainRight  />
                 </section>
-                <section class={styles.more} style={{ display: store.setOpenState ? 'block' : 'none' }} onClick={() => (store.setOpenState = false)}>
-                  <MoreSet />
-                </section>
+
               </div>
               {/* 移动端菜单按钮 */}
-              <Icon class={styles.menu} size="24" style={{ display: store.backgroundShow ? 'none' : 'block' }} onClick={() => (store.mobileOpenState = !store.mobileOpenState)}>
-                <component is={store.mobileOpenState ? CloseSmall : HamburgerButton} />
-              </Icon>
+              <Icon class={styles.menu} icon={menuIcon.value} width={24} height={24} v-show={!store.backgroundShow} onClick={() => (store.mobileOpenState = !store.mobileOpenState)} />
               {/* 页脚 */}
-              <transition name="fade" mode="out-in">
-                {!store.backgroundShow && !store.setOpenState && <Footer class={styles.footer} />}
-              </transition>
+              <Transition name="fade" mode="out-in">
+                {!store.backgroundShow && <Footer class={styles.footer} />}
+              </Transition>
             </main>
           )}
-        </transition>
+        </Transition>
       </>
     );
   }
