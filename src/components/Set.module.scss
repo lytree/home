@@ -1,0 +1,52 @@
+.setting {
+  > div {
+    border-radius: 8px;
+    overflow: hidden;
+
+    > div {
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+
+      &:first-child {
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+      }
+
+      > div:first-child {
+        background-color: #ffffff30;
+        color: #fff;
+        font-size: 15px;
+        padding-left: 18px;
+      }
+
+      > div:last-child {
+        padding: 20px;
+        .item {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          flex-wrap: wrap;
+          font-size: 14px;
+        }
+
+        > div {
+          justify-content: space-between;
+
+          > label {
+            margin: 10px 16px;
+            background: #ffffff26;
+            border: 2px solid transparent;
+            border-radius: 8px;
+
+            > span:last-child {
+              color: #fff;
+            }
+
+            &.radio-checked {
+              background: #ffffff06 !important;
+              border: 2px solid #eeeeee !important;
+            }
+          }
+        }
+      }
+    }
+  }
+}
