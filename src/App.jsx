@@ -9,7 +9,6 @@ import MainRight from '@/views/Main/Right.jsx';
 import Background from '@/components/Background.jsx';
 import Footer from '@/components/Footer.jsx';
 import Box from '@/views/Box/index.jsx';
-import MoreSet from '@/views/MoreSet/index.jsx';
 import cursorInit from '@/utils/cursor.js';
 import config from '@/../package.json';
 import ElMessage from '@/components/custom/message';
@@ -97,9 +96,6 @@ export default defineComponent({
                   <MainLeft />
                   <MainRight style={{ display: store.boxOpenState ? 'none' : 'block' }} />
                   <Box style={{ display: store.boxOpenState ? 'block' : 'none' }} />
-                </section>
-                <section class={styles.more} style={{ display: store.setOpenState ? 'block' : 'none' }} onClick={() => (store.setOpenState = false)}>
-                  <MoreSet />
                 </section>
               </div>
               {/* 移动端菜单按钮 */}
