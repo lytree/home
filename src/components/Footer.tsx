@@ -16,7 +16,6 @@ export default defineComponent({
     const siteAuthor = ref(import.meta.env.VITE_SITE_AUTHOR);
     const siteUrl = computed(() => {
       const url = import.meta.env.VITE_SITE_URL;
-      if (!url) return 'https://www.imsyy.top';
       // 判断协议前缀
       if (!url.startsWith('http://') && !url.startsWith('https://')) {
         return '//' + url;
@@ -30,7 +29,7 @@ export default defineComponent({
 
           <div class={styles.power}>
             <span>
-              <span class={Number(startYear.value) < fullYear ? styles.cHidden : styles.hidden}>Copyright&nbsp;</span>
+              <span class={Number(startYear.value) < fullYear ? styles.cHidden : styles.hidden}>Copyright&nbsp;&nbsp;</span>
               &copy;
               {Number(startYear.value) < fullYear && (
                 <span class={styles.siteStart}>
@@ -38,7 +37,7 @@ export default defineComponent({
                   -
                 </span>
               )}
-              {fullYear}
+              {fullYear}&nbsp;&nbsp;
               <a href={siteUrl.value}>{siteAuthor.value}</a>
             </span>
             {/* 站点备案 */}

@@ -7,7 +7,7 @@ import MainLeft from '@/views/Main/Left.tsx';
 import MainRight from '@/views/Main/Right.tsx';
 import Background from '@/components/Background.tsx';
 import Footer from '@/components/Footer.tsx';
-import cursorInit from '@/utils/cursor.js';
+import cursorInit from '@/utils/cursor.ts';
 import ElMessage from '@/components/custom/message';
 import styles from './App.module.scss';
 
