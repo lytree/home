@@ -1,10 +1,9 @@
 import { defineComponent, ref, onMounted, onBeforeUnmount } from 'vue';
 import { HourglassFull } from '@icon-park/vue-next';
-//@ts-ignore
 import { getTimeCapsule, siteDateStatistics, TimeCapsule } from '@/utils/getTime.ts';
-//@ts-ignore
 import { useMainStore } from '@/store/index.ts';
 import CustomProgress from '@/components/custom/Progress.tsx';
+import { cn } from '@/utils/cn';
 import styles from './TimeCapsule.module.scss';
 
 export default defineComponent({
@@ -54,7 +53,7 @@ export default defineComponent({
           ))}
           {/* 建站日期 */}
           {store.siteStartShow && (
-            <div class={[styles.capsuleItem, styles.start].join(' ')}>
+            <div class={cn(styles.capsuleItem, styles.start)}>
               <div class={styles.itemTitle}>{startDateText.value}</div>
             </div>
           )}

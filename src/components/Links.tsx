@@ -1,12 +1,12 @@
 import { defineComponent, computed, onMounted } from 'vue';
 import { Icon } from '@iconify/vue';
-//@ts-ignore
 import { useMainStore } from '@/store/index.ts';
 import { Swiper, SwiperSlide } from 'swiper/vue';
 import { Pagination, Mousewheel } from 'swiper/modules';
 import siteLinks from '@/assets/siteLinks.json';
 import CustomRow from '@/components/custom/Row.tsx';
 import CustomCol from '@/components/custom/Col.tsx';
+import { cn } from '@/utils/cn';
 import styles from './Links.module.scss';
 
 export default defineComponent({
@@ -55,12 +55,12 @@ export default defineComponent({
                 {site.map((item, idx) => (
                   <CustomCol span={8} key={idx}>
                     <div
-                      class={[styles.item, 'cards'].join(' ')}
-                      style={idx < 3 ? 'margin-bottom: 20px' : null}
+                      class={cn(styles.item, 'cards')}
+                      style={idx < 3 ? 'margin-bottom: 20px' : undefined}
                       onClick={() => jumpLink(item)}
                     >
                       <Icon icon={item.icon || "fa:link"} width="32" height="32" />
-                      <span class={[styles.name, 'text-hidden'].join(' ')}>{item.name}</span>
+                      <span class={cn(styles.name, 'text-hidden')}>{item.name}</span>
                     </div>
                   </CustomCol>
                 ))}

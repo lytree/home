@@ -2,6 +2,7 @@ import { defineComponent, computed } from 'vue';
 import { useMainStore } from '@/store/index.ts';
 import Func from '@/views/Func/index.tsx';
 import Link from '@/components/Links.tsx';
+import { cn } from '@/utils/cn';
 import styles from './Right.module.scss';
 
 export default defineComponent({
@@ -21,9 +22,9 @@ export default defineComponent({
     });
     
     return () => (
-      <div class={[styles.right, store.mobileOpenState ? '' : styles.hidden].filter(Boolean).join(' ')}>
+      <div class={cn(styles.right, !store.mobileOpenState && styles.hidden)}>
         {/* 移动端 Logo */}
-        <div class={[styles.logo, 'text-hidden fixed top-[6%] left-0 w-full text-center'].join(' ')} onClick={() => (store.mobileFuncState = !store.mobileFuncState)}>
+        <div class={cn(styles.logo, 'text-hidden fixed top-[6%] left-0 w-full text-center')} onClick={() => (store.mobileFuncState = !store.mobileFuncState)}>
           <span class={styles.bg}>{siteUrl.value[0]}</span>
           <span class={styles.sm}>.{siteUrl.value[1]}</span>
         </div>

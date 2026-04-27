@@ -1,4 +1,5 @@
 import { defineComponent, ref, computed, onMounted, onUnmounted } from 'vue';
+import { cn } from '@/utils/cn';
 import styles from './Slider.module.scss';
 
 export default defineComponent({
@@ -93,9 +94,9 @@ export default defineComponent({
     
     return () => (
       <div class={styles.customSlider}>
-        <div class={[styles.sliderRunway, 'relative w-full h-full cursor-pointer'].join(' ')} ref={runwayRef} onClick={handleClick}>
-          <div class={[styles.sliderTrack, 'absolute top-0 left-0 h-full'].join(' ')} style={{ width: `${percentage.value}%` }}></div>
-          <div class={[styles.sliderButton, 'absolute top-1/2 -translate-y-1/2'].join(' ')} style={{ left: `${percentage.value}%` }} ref={buttonRef} onMousedown={startDrag}></div>
+        <div class={cn(styles.sliderRunway, 'relative w-full h-full cursor-pointer')} ref={runwayRef} onClick={handleClick}>
+          <div class={cn(styles.sliderTrack, 'absolute top-0 left-0 h-full')} style={{ width: `${percentage.value}%` }}></div>
+          <div class={cn(styles.sliderButton, 'absolute top-1/2 -translate-y-1/2')} style={{ left: `${percentage.value}%` }} ref={buttonRef} onMousedown={startDrag}></div>
         </div>
       </div>
     );

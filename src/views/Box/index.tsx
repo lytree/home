@@ -3,6 +3,7 @@ import { CloseOne, SettingTwo } from '@icon-park/vue-next';
 import { useMainStore } from '@/store/index.ts';
 import TimeCapsule from '@/components/TimeCapsule.tsx';
 import MoreContent from '@/components/MoreContent.tsx';
+import { cn } from '@/utils/cn';
 import styles from './index.module.scss';
 
 export default defineComponent({
@@ -11,11 +12,11 @@ export default defineComponent({
     const closeShow = ref(false);
     
     return () => (
-      <div class={[styles.box, 'cards relative'].join(' ')} onMouseenter={() => (closeShow.value = true)} onMouseleave={() => (closeShow.value = false)}>
+      <div class={cn(styles.box, 'cards relative')} onMouseenter={() => (closeShow.value = true)} onMouseleave={() => (closeShow.value = false)}>
         <Transition name="el-fade-in-linear">
           {closeShow.value && (
             <CloseOne
-              class={[styles.close, 'absolute top-[14px] right-[14px] w-7 h-7'].join(' ')}
+              class={cn(styles.close, 'absolute top-[14px] right-[14px] w-7 h-7')}
               theme="filled"
               size="28"
               fill="#ffffff60"
@@ -26,7 +27,7 @@ export default defineComponent({
         <Transition name="el-fade-in-linear">
           {closeShow.value && (
             <SettingTwo
-              class={[styles.setting, 'absolute top-[14px] right-[56px] w-7 h-7'].join(' ')}
+              class={cn(styles.setting, 'absolute top-[14px] right-[56px] w-7 h-7')}
               theme="filled"
               size="28"
               fill="#ffffff60"

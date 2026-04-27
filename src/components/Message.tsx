@@ -1,7 +1,7 @@
-import { defineComponent, computed, reactive, watch, h, Transition } from 'vue';
+import { defineComponent, computed, reactive, watch, Transition } from 'vue';
 import { Icon } from '@iconify/vue';
-//@ts-ignore
 import { useMainStore } from '@/store/index.ts';
+import { cn } from '@/utils/cn';
 import styles from './Message.module.scss';
 
 export default defineComponent({
@@ -47,13 +47,13 @@ export default defineComponent({
         {/* Logo */}
         <div class={styles.logo}>
           <img class={styles.logoImg} src={siteLogo} alt="logo" />
-          <div class={[styles.name, 'text-hidden', siteUrl.value[0].length >= 6 ? styles.long : ''].filter(Boolean).join(' ')}>
+          <div class={cn(styles.name, 'text-hidden', siteUrl.value[0].length >= 6 && styles.long)}>
             <span class={styles.bg}>{siteUrl.value[0]}</span>
             <span class={styles.sm}>.{siteUrl.value[1]}</span>
           </div>
         </div>
         {/* 简介 */}
-        <div class={[styles.description, 'cards'].join(' ')} >
+        <div class={cn(styles.description, 'cards')} >
           <div class={styles.content}>
             <Icon icon="fa:quote-left" height={16} width={16} />
             <Transition name="fade" mode="out-in">

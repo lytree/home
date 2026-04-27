@@ -4,6 +4,7 @@ import { useMainStore } from '@/store/index.ts';
 import Hitokoto from '@/components/Hitokoto.tsx';
 import CustomRow from '@/components/custom/Row.tsx';
 import CustomCol from '@/components/custom/Col.tsx';
+import { cn } from '@/utils/cn';
 import styles from './index.module.scss';
 
 export default defineComponent({
@@ -29,7 +30,7 @@ export default defineComponent({
     });
     
     return () => (
-      <div class={[styles.function, store.mobileFuncState ? styles.mobile : ''].filter(Boolean).join(' ')}>
+      <div class={cn(styles.function, store.mobileFuncState && styles.mobile)}>
         <CustomRow gutter={20}>
           <CustomCol span={12}>
             <div class={styles.left}>
@@ -37,7 +38,7 @@ export default defineComponent({
             </div>
           </CustomCol>
           <CustomCol span={12}>
-            <div class={[styles.right, 'cards'].join(' ')}>
+            <div class={cn(styles.right, 'cards')}>
               <div class={styles.time}>
                 <div class={styles.date}>
                   <span>{currentTime.value.year}&nbsp;年&nbsp;</span>

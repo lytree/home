@@ -1,4 +1,5 @@
 import { defineComponent } from 'vue';
+import { cn } from '@/utils/cn';
 import styles from './Switch.module.scss';
 
 export default defineComponent({
@@ -37,16 +38,16 @@ export default defineComponent({
     };
     
     return () => (
-      <div class={[styles.customSwitch, props.modelValue ? styles.switchActive : ''].filter(Boolean).join(' ')} onClick={handleClick}>
+      <div class={cn(styles.customSwitch, props.modelValue && styles.switchActive)} onClick={handleClick}>
         <div class={styles.switchCore}>
-          <div class={[styles.switchButton, props.modelValue ? styles.buttonActive : ''].filter(Boolean).join(' ')}></div>
+          <div class={cn(styles.switchButton, props.modelValue && styles.buttonActive)}></div>
           {props.inlinePrompt && (
             <div class={styles.switchIcons}>
               {props.activeIcon && (
-                <component is={props.activeIcon} class={[styles.switchIcon, styles.active].join(' ')} />
+                <component is={props.activeIcon} class={cn(styles.switchIcon, styles.active)} />
               )}
               {props.inactiveIcon && (
-                <component is={props.inactiveIcon} class={[styles.switchIcon, styles.inactive].join(' ')} />
+                <component is={props.inactiveIcon} class={cn(styles.switchIcon, styles.inactive)} />
               )}
             </div>
           )}

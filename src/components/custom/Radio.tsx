@@ -1,4 +1,5 @@
 import { defineComponent, computed, inject, useSlots } from 'vue';
+import { cn } from '@/utils/cn';
 import styles from './Radio.module.scss';
 
 export default defineComponent({
@@ -42,19 +43,19 @@ export default defineComponent({
       return `radio-${Date.now()}`;
     });
     
-    const handleChange = (event) => {
+    const handleChange = () => {
       if (radioGroupContext) {
         radioGroupContext.updateModelValue(props.value);
       }
     };
     
     return () => (
-      <label class={[
+      <label class={cn(
         styles.customRadio, 
-        `${styles[`radio-${size.value}`]}`,
-        isChecked.value ? styles.radioChecked : '',
-        props.border ? styles.radioBordered : ''
-      ].filter(Boolean).join(' ')}>
+        styles[`radio-${size.value}`],
+        isChecked.value && styles.radioChecked,
+        props.border && styles.radioBordered
+      )}>
         <input
           type="radio"
           name={name.value}

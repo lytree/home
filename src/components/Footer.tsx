@@ -1,5 +1,6 @@
 import { defineComponent, ref, computed, Transition } from 'vue';
 import { useMainStore } from '@/store/index.ts';
+import { cn } from '@/utils/cn';
 import styles from './Footer.module.scss';
 
 export default defineComponent({
@@ -24,7 +25,7 @@ export default defineComponent({
     });
 
     return () => (
-      <footer class={[styles.footer, 'absolute bottom-0 left-0 w-full h-[46px]', store.footerBlur ? styles.blur : ''].filter(Boolean).join(' ')}>
+      <footer class={cn(styles.footer, 'absolute bottom-0 left-0 w-full h-[46px]', store.footerBlur && styles.blur)}>
         <Transition name="fade" mode="out-in">
 
           <div class={styles.power}>

@@ -1,8 +1,8 @@
 import { defineComponent, ref, watch, onMounted, onBeforeUnmount, h, Transition } from 'vue';
-//@ts-ignore
 import { useMainStore } from '@/store/index.ts';
 import { Error } from '@icon-park/vue-next';
 import ElMessage from '@/components/custom/message';
+import { cn } from '@/utils/cn';
 import styles from './Background.module.scss';
 
 export default defineComponent({
@@ -82,22 +82,22 @@ export default defineComponent({
     });
 
     return () => (
-      <div class={[styles.cover, 'absolute top-0 left-0 w-full h-full', store.backgroundShow ? styles.show : ''].filter(Boolean).join(' ')}>
+      <div class={cn(styles.cover, 'absolute top-0 left-0 w-full h-full', store.backgroundShow && styles.show)}>
 
         <img
           src={bgUrl.value}
-          class={[styles.bg, 'absolute top-0 left-0 w-full h-full'].join(' ')}
+          class={cn(styles.bg, 'absolute top-0 left-0 w-full h-full')}
           alt="cover"
           onLoad={imgLoadComplete}
           onError={imgLoadError}
           onAnimationend={imgAnimationEnd}
         />
         )
-        <div class={[styles.gray, 'absolute top-0 left-0 w-full h-full', store.backgroundShow ? styles.hidden : ''].filter(Boolean).join(' ')} />
+        <div class={cn(styles.gray, 'absolute top-0 left-0 w-full h-full', store.backgroundShow && styles.hidden)} />
         <Transition name="fade" mode="out-in">
           {store.backgroundShow && store.coverType != '3' && (
             <a
-              class={[styles.down, 'absolute bottom-[30px] left-0 right-0 mx-auto'].join(' ')}
+              class={cn(styles.down, 'absolute bottom-[30px] left-0 right-0 mx-auto')}
               href={bgUrl.value}
               target="_blank"
             >

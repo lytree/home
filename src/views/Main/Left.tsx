@@ -2,6 +2,7 @@ import { defineComponent } from 'vue';
 import { useMainStore } from '@/store/index.ts';
 import Message from '@/components/Message.tsx';
 import SocialLinks from '@/components/SocialLinks.tsx';
+import { cn } from '@/utils/cn';
 import styles from './Left.module.scss';
 
 export default defineComponent({
@@ -9,7 +10,7 @@ export default defineComponent({
     const store = useMainStore();
     
     return () => (
-      <div class={[styles.left, store.mobileOpenState ? styles.hidden : ''].filter(Boolean).join(' ')}>
+      <div class={cn(styles.left, store.mobileOpenState && styles.hidden)}>
         <Message />
         <SocialLinks />
       </div>

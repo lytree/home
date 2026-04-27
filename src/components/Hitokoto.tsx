@@ -1,11 +1,10 @@
 import { defineComponent, ref, reactive, onMounted, h, Transition } from 'vue';
 import { Error } from '@icon-park/vue-next';
-//@ts-ignore
 import { getHitokoto } from '@/api';
-//@ts-ignore
 import { useMainStore } from '@/store/index.ts';
 import debounce from '@/utils/debounce.ts';
 import ElMessage from '@/components/custom/message';
+import { cn } from '@/utils/cn';
 import styles from './Hitokoto.module.scss';
 
 export default defineComponent({
@@ -54,7 +53,7 @@ export default defineComponent({
 
     return () => (
       <div
-        class={[styles.hitokoto, 'cards w-full h-full'].join(' ')}
+        class={cn(styles.hitokoto, 'cards w-full h-full')}
         style={{ display: store.musicOpenState ? 'none' : 'flex' }}
         onMouseenter={() => (openMusicShow.value = true)}
         onMouseleave={() => (openMusicShow.value = false)}

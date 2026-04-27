@@ -1,4 +1,5 @@
 import { defineComponent, ref, computed, onMounted, onUnmounted } from 'vue';
+import { cn } from '@/utils/cn';
 import styles from './Message.module.scss';
 
 export default defineComponent({
@@ -109,13 +110,13 @@ export default defineComponent({
 
     return () => (
       <div
-        class={[
+        class={cn(
           styles.elMessage,
-          `${styles[`elMessage--${props.type}`]}`,
-          props.showClose ? styles.isClosable : '',
-          props.plain ? styles[`elMessage--plain`] : '',
-          visible.value ? styles.isVisible : ''
-        ].filter(Boolean).join(' ')}
+          styles[`elMessage--${props.type}`],
+          props.showClose && styles.isClosable,
+          props.plain && styles[`elMessage--plain`],
+          visible.value && styles.isVisible
+        )}
         style={Object.assign({}, messageStyle.value, { position: 'fixed', left: '50%', transform: 'translateX(-50%)' })}
       >
         <div class={styles.elMessageContent}>
@@ -132,7 +133,7 @@ export default defineComponent({
             <span innerHTML={props.message} />
           )}
           {props.showClose && (
-            <i class={[styles.elMessageCloseBtn, 'el-icon-close'].join(' ')} onClick={close}>×</i>
+            <i class={cn(styles.elMessageCloseBtn, 'el-icon-close')} onClick={close}>×</i>
           )}
           {props.grouping && props.repeatNum > 1 && (
             <span class={styles.elMessageGroupCount}>{props.repeatNum}</span>

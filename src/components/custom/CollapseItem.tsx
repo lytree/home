@@ -1,4 +1,5 @@
 import { defineComponent, computed, inject, useSlots } from 'vue';
+import { cn } from '@/utils/cn';
 import styles from './CollapseItem.module.scss';
 
 export default defineComponent({
@@ -45,7 +46,7 @@ export default defineComponent({
       <div class={styles.customCollapseItem}>
         <div class={styles.collapseItemHeader} onClick={handleClick}>
           <span>{props.title}</span>
-          <div class={[styles.collapseItemArrow, isActive.value ? styles.arrowRotate : ''].filter(Boolean).join(' ')}>
+          <div class={cn(styles.collapseItemArrow, isActive.value && styles.arrowRotate)}>
             ▼
           </div>
         </div>

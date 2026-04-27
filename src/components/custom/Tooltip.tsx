@@ -1,4 +1,5 @@
 import { defineComponent, ref, useSlots } from 'vue';
+import { cn } from '@/utils/cn';
 import styles from './Tooltip.module.scss';
 
 export default defineComponent({
@@ -29,16 +30,16 @@ export default defineComponent({
     };
     
     return () => (
-      <div class={[styles.customTooltipContainer, 'relative inline-block'].join(' ')} onMouseenter={showTooltip} onMouseleave={hideTooltip}>
+      <div class={cn(styles.customTooltipContainer, 'relative inline-block')} onMouseenter={showTooltip} onMouseleave={hideTooltip}>
         <div class={styles.tooltipTrigger}>
           {slots.default && slots.default()}
         </div>
-        <div class={[
+        <div class={cn(
           styles.customTooltip, 
           'absolute',
-          `${styles[`tooltip-${props.placement}`]}`,
-          visible.value ? styles.tooltipShow : ''
-        ].filter(Boolean).join(' ')}>
+          styles[`tooltip-${props.placement}`],
+          visible.value && styles.tooltipShow
+        )}>
           {props.showArrow && <div class={styles.tooltipArrow}></div>}
           <div class={styles.tooltipContent}>
             {props.content}
