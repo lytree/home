@@ -54,7 +54,7 @@ export default defineComponent({
 
     return () => (
       <div
-        class={[styles.hitokoto, 'cards'].join(' ')}
+        class={[styles.hitokoto, 'cards w-full h-full'].join(' ')}
         style={{ display: store.musicOpenState ? 'none' : 'flex' }}
         onMouseenter={() => (openMusicShow.value = true)}
         onMouseleave={() => (openMusicShow.value = false)}

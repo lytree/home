@@ -82,22 +82,22 @@ export default defineComponent({
     });
 
     return () => (
-      <div class={[styles.cover, store.backgroundShow ? styles.show : ''].filter(Boolean).join(' ')}>
+      <div class={[styles.cover, 'absolute top-0 left-0 w-full h-full', store.backgroundShow ? styles.show : ''].filter(Boolean).join(' ')}>
 
         <img
           src={bgUrl.value}
-          class={styles.bg}
+          class={[styles.bg, 'absolute top-0 left-0 w-full h-full'].join(' ')}
           alt="cover"
           onLoad={imgLoadComplete}
           onError={imgLoadError}
           onAnimationend={imgAnimationEnd}
         />
         )
-        <div class={[styles.gray, store.backgroundShow ? styles.hidden : ''].filter(Boolean).join(' ')} />
+        <div class={[styles.gray, 'absolute top-0 left-0 w-full h-full', store.backgroundShow ? styles.hidden : ''].filter(Boolean).join(' ')} />
         <Transition name="fade" mode="out-in">
           {store.backgroundShow && store.coverType != '3' && (
             <a
-              class={styles.down}
+              class={[styles.down, 'absolute bottom-[30px] left-0 right-0 mx-auto'].join(' ')}
               href={bgUrl.value}
               target="_blank"
             >

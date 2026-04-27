@@ -24,7 +24,7 @@ export default defineComponent({
     });
 
     return () => (
-      <footer class={[styles.footer, store.footerBlur ? styles.blur : ''].filter(Boolean).join(' ')}>
+      <footer class={[styles.footer, 'absolute bottom-0 left-0 w-full h-[46px]', store.footerBlur ? styles.blur : ''].filter(Boolean).join(' ')}>
         <Transition name="fade" mode="out-in">
 
           <div class={styles.power}>

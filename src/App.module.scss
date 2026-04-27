@@ -1,13 +1,4 @@
-
-
-
-
 #main {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
   transform: scale(1.2);
   transition: transform 0.3s;
   animation: fade-blur-main-in 0.65s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;

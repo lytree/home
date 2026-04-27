@@ -86,11 +86,11 @@ export default defineComponent({
         {/* 主界面 */}
         <Transition name="fade" mode="out-in">
           {store.imgLoadStatus && (
-            <main id={styles.main}>
+            <main id={styles.main} class="absolute top-0 left-0 w-full h-full">
               <div class={styles.container} v-show={!store.backgroundShow} >
                 <section class={styles.all} v-show={!store.setOpenState}>
                   <MainLeft />
-                  <MainRight  />
+                  <MainRight />
                 </section>
 
               </div>
