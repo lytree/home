@@ -43,9 +43,9 @@ export default defineComponent({
     );
 
     return () => (
-      <div class={styles.message}>
+      < >
         {/* Logo */}
-        <div class={cn(styles.logo, 'flex flex-row items-center animation-fade max-w-[460px]')}>
+        <div class={cn(styles.logo, 'flex flex-row items-center animation-fade max-w-115')}>
           <img class={cn(styles.logoImg, 'rounded-full w-28')} src={siteLogo} alt="logo" />
           <div class={cn(styles.name, 'text-hidden w-full pl-5.5 -translate-y-2', siteUrl.value[0].length >= 6 && styles.long)}>
             <span class={cn(styles.bg, 'text-5xl')}>{siteUrl.value[0]}</span>
@@ -53,7 +53,7 @@ export default defineComponent({
           </div>
         </div>
         {/* 简介 */}
-        <div class={cn(styles.description, 'cards p-4 mt-14 max-w-[460px]')} >
+        <div class={cn(styles.description, 'cards p-4! mt-14! max-w-115')} >
           <div class={cn(styles.content, 'flex justify-between')}>
             <Icon icon="fa:quote-left" height={16} width={16} />
             <Transition name="fade" mode="out-in">
@@ -64,7 +64,7 @@ export default defineComponent({
             <Icon icon="fa:quote-right" height={16} width={16} />
           </div>
         </div>
-      </div>
+      </>
     );
   }
 });
