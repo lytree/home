@@ -9,7 +9,7 @@ export default defineComponent({
     const socialTip = ref('通过这里联系我吧');
     
     return () => (
-      <div class={cn(styles.social, 'mt-4 flex items-center justify-between max-w-[460px] w-full h-[42px]')}>
+      <div class={cn(styles.social, 'mt-4 flex items-center justify-between max-w-115 w-full h-10.5')}>
         <div class={cn(styles.link, 'flex items-center justify-center')}>
           {socialLinks.map((item) => (
             <a
@@ -20,7 +20,7 @@ export default defineComponent({
               onMouseenter={() => (socialTip.value = item.tip)}
               onMouseleave={() => (socialTip.value = '通过这里联系我吧')}
             >
-              <img class={cn(styles.icon, 'mx-3 h-6')} src={item.icon} height="24" />
+              <img class={cn(styles.icon, 'mx-3 h-8')} src={item.icon} height="24" />
             </a>
           ))}
         </div>
