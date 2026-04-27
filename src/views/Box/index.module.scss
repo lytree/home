@@ -1,22 +1,12 @@
 .box {
-  // flex: 1 0 0%;
-  // margin-left: 0.75rem;
-  // height: 80%;
-  // max-width: 50%;
-  // position: relative;
   animation: fade 0.5s;
 
   &:hover {
     transform: scale(1);
-  }
+}
 
   .close,
   .setting {
-    // position: absolute;
-    // top: 14px;
-    // right: 14px;
-    // width: 28px;
-    // height: 28px;
     transition:
       transform 0.3s,
       opacity 0.3s;
