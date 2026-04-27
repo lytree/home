@@ -16,7 +16,7 @@ export default defineComponent({
         <Transition name="el-fade-in-linear">
           {closeShow.value && (
             <CloseOne
-              class={cn(styles.close, 'absolute top-[14px] right-[14px] w-7 h-7')}
+              class={cn(styles.close, 'absolute top-3.5 right-3.5 w-7 h-7')}
               theme="filled"
               size="28"
               fill="#ffffff60"
@@ -27,7 +27,7 @@ export default defineComponent({
         <Transition name="el-fade-in-linear">
           {closeShow.value && (
             <SettingTwo
-              class={cn(styles.setting, 'absolute top-[14px] right-14 w-7 h-7')}
+              class={cn(styles.setting, 'absolute top-3.5 right-14 w-7 h-7')}
               theme="filled"
               size="28"
               fill="#ffffff60"
@@ -35,7 +35,7 @@ export default defineComponent({
             />
           )}
         </Transition>
-        <div class={cn(styles.content, 'flex flex-col p-[30px] w-full h-full')}>
+        <div class={cn(styles.content, 'flex flex-col p-7.5 w-full h-full')}>
           {/* 可在此处自定义任意内容 */}
           <TimeCapsule />
           <MoreContent />
