@@ -1,5 +1,4 @@
 import { createApp, vaporInteropPlugin } from "vue";
-import "@/style/style.scss";
 import App from "@/App.tsx";
 // 引入 pinia
 import { createPinia } from "pinia";

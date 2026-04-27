@@ -7,13 +7,14 @@ import vueJsxVapor from "vue-jsx-vapor/vite";
 import AutoImport from "unplugin-auto-import/vite";
 import Components from "unplugin-vue-components/vite";
 import viteCompression from "vite-plugin-compression";
-
+import tailwindcss from '@tailwindcss/vite'
 // https://vitejs.dev/config/
 export default ({ mode }: { mode: string }) =>
   defineConfig({
     plugins: [
+      tailwindcss(),
       vue(),
-      vueJsxVapor({  interop: true, }),
+      vueJsxVapor({ interop: true, }),
       AutoImport({
         imports: ["vue"],
         resolvers: [ElementPlusResolver()],
