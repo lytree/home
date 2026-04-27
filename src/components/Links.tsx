@@ -32,9 +32,9 @@ export default defineComponent({
 
     return () => (
       <div v-if={siteLinks[0]} class={styles.links}>
-        <div class={styles.line}>
+        <div class={cn(styles.line, 'my-8 mx-1 flex items-center text-1.1rem')}>
           <Icon icon="fa:link" height={20} width={20} />
-          <span class={styles.title}>网站列表</span>
+          <span class={cn(styles.title, 'ml-2 text-1.15rem')}>网站列表</span>
         </div>
         {/* 网站列表 */}
         <Swiper
@@ -51,16 +51,16 @@ export default defineComponent({
         >
           {siteLinksList.value.map((site, index) => (
             <SwiperSlide key={index}>
-              <CustomRow class={styles.linkAll} gutter={20}>
+              <CustomRow class={cn(styles.linkAll, 'w-[calc(100%+20px)] -ml-2.5')} gutter={20}>
                 {site.map((item, idx) => (
                   <CustomCol span={8} key={idx}>
                     <div
-                      class={cn(styles.item, 'cards')}
-                      style={idx < 3 ? 'margin-bottom: 20px' : undefined}
+                      class={cn(styles.item, 'cards h-[100px] w-full flex flex-row items-center justify-center px-2.5')}
+                      // style={idx < 3 ? 'margin-bottom: 20px' : undefined}
                       onClick={() => jumpLink(item)}
                     >
                       <Icon icon={item.icon || "fa:link"} width="32" height="32" />
-                      <span class={cn(styles.name, 'text-hidden')}>{item.name}</span>
+                      <span class={cn(styles.name, 'text-hidden ml-2 text-1.1rem')}>{item.name}</span>
                     </div>
                   </CustomCol>
                 ))}

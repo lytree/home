@@ -1,4 +1,5 @@
 import { defineComponent, computed } from 'vue';
+import { cn } from '@/utils/cn';
 import styles from './Progress.module.scss';
 
 export default defineComponent({
@@ -33,17 +34,17 @@ export default defineComponent({
     });
     
     return () => (
-      <div class={styles.customProgress}>
-        <div class={styles.progressBar} style={barStyle.value}>
-          <div class={styles.progressFill} style={fillStyle.value}></div>
+      <div class={cn(styles.customProgress, 'w-full flex items-center')}>
+        <div class={cn(styles.progressBar, 'flex-1 bg-white/20 rounded-lg overflow-hidden relative')} style={barStyle.value}>
+          <div class={cn(styles.progressFill, 'h-full bg-white/80 rounded-lg transition-all duration-300')} style={fillStyle.value}></div>
           {props.textInside && (
-            <div class={styles.progressText}>
+            <div class={cn(styles.progressText, 'absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-xs font-bold text-black')}>
               {props.percentage}%
             </div>
           )}
         </div>
         {!props.textInside && (
-          <div class={styles.progressText}>
+          <div class={cn(styles.progressText, 'ml-2.5 text-sm font-bold text-white')}>
             {props.percentage}%
           </div>
         )}

@@ -12,7 +12,7 @@ export default defineComponent({
     const closeShow = ref(false);
     
     return () => (
-      <div class={cn(styles.box, 'cards relative')} onMouseenter={() => (closeShow.value = true)} onMouseleave={() => (closeShow.value = false)}>
+      <div class={cn(styles.box, 'cards relative flex-1 ml-3 h-4/5 max-w-[50%]')} onMouseenter={() => (closeShow.value = true)} onMouseleave={() => (closeShow.value = false)}>
         <Transition name="el-fade-in-linear">
           {closeShow.value && (
             <CloseOne
@@ -27,7 +27,7 @@ export default defineComponent({
         <Transition name="el-fade-in-linear">
           {closeShow.value && (
             <SettingTwo
-              class={cn(styles.setting, 'absolute top-[14px] right-[56px] w-7 h-7')}
+              class={cn(styles.setting, 'absolute top-[14px] right-14 w-7 h-7')}
               theme="filled"
               size="28"
               fill="#ffffff60"
@@ -35,7 +35,7 @@ export default defineComponent({
             />
           )}
         </Transition>
-        <div class={styles.content}>
+        <div class={cn(styles.content, 'flex flex-col p-[30px] w-full h-full')}>
           {/* 可在此处自定义任意内容 */}
           <TimeCapsule />
           <MoreContent />

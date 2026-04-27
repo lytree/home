@@ -82,22 +82,22 @@ export default defineComponent({
     });
 
     return () => (
-      <div class={cn(styles.cover, 'absolute top-0 left-0 w-full h-full', store.backgroundShow && styles.show)}>
+      <div class={cn(styles.cover, 'absolute top-0 left-0 w-full h-full transition-all z-[-1]', store.backgroundShow && styles.show)}>
 
         <img
           src={bgUrl.value}
-          class={cn(styles.bg, 'absolute top-0 left-0 w-full h-full')}
+          class={cn(styles.bg, 'absolute top-0 left-0 w-full h-full object-cover')}
           alt="cover"
           onLoad={imgLoadComplete}
           onError={imgLoadError}
           onAnimationend={imgAnimationEnd}
         />
         )
-        <div class={cn(styles.gray, 'absolute top-0 left-0 w-full h-full', store.backgroundShow && styles.hidden)} />
+        <div class={cn(styles.gray, 'absolute top-0 left-0 w-full h-full')} />
         <Transition name="fade" mode="out-in">
           {store.backgroundShow && store.coverType != '3' && (
             <a
-              class={cn(styles.down, 'absolute bottom-[30px] left-0 right-0 mx-auto')}
+              class={cn(styles.down, 'absolute bottom-[30px] left-0 right-0 mx-auto block w-[120px] h-[30px] flex items-center justify-center')}
               href={bgUrl.value}
               target="_blank"
             >

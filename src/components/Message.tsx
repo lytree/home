@@ -45,19 +45,19 @@ export default defineComponent({
     return () => (
       <div class={styles.message}>
         {/* Logo */}
-        <div class={styles.logo}>
-          <img class={styles.logoImg} src={siteLogo} alt="logo" />
-          <div class={cn(styles.name, 'text-hidden', siteUrl.value[0].length >= 6 && styles.long)}>
-            <span class={styles.bg}>{siteUrl.value[0]}</span>
-            <span class={styles.sm}>.{siteUrl.value[1]}</span>
+        <div class={cn(styles.logo, 'flex flex-row items-center animation-fade max-w-[460px]')}>
+          <img class={cn(styles.logoImg, 'rounded-full w-28')} src={siteLogo} alt="logo" />
+          <div class={cn(styles.name, 'text-hidden w-full pl-5.5 -translate-y-2', siteUrl.value[0].length >= 6 && styles.long)}>
+            <span class={cn(styles.bg, 'text-5xl')}>{siteUrl.value[0]}</span>
+            <span class={cn(styles.sm, 'ml-1.5 text-2xl')}>{siteUrl.value[1]}</span>
           </div>
         </div>
         {/* 简介 */}
-        <div class={cn(styles.description, 'cards')} >
-          <div class={styles.content}>
+        <div class={cn(styles.description, 'cards p-4 mt-14 max-w-[460px]')} >
+          <div class={cn(styles.content, 'flex justify-between')}>
             <Icon icon="fa:quote-left" height={16} width={16} />
             <Transition name="fade" mode="out-in">
-              <div key={descriptionText.text} class={styles.text}>
+              <div key={descriptionText.text} class={cn(styles.text, 'my-3 mx-4 leading-8 mr-auto')}>
                 <p>{descriptionText.text}</p>
               </div>
             </Transition>
