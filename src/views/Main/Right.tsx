@@ -23,7 +23,7 @@ export default defineComponent({
     return () => (
       <div class={[styles.right, store.mobileOpenState ? '' : styles.hidden].filter(Boolean).join(' ')}>
         {/* 移动端 Logo */}
-        <div class={[styles.logo, 'text-hidden'].join(' ')} onClick={() => (store.mobileFuncState = !store.mobileFuncState)}>
+        <div class={[styles.logo, 'text-hidden fixed top-[6%] left-0 w-full text-center'].join(' ')} onClick={() => (store.mobileFuncState = !store.mobileFuncState)}>
           <span class={styles.bg}>{siteUrl.value[0]}</span>
           <span class={styles.sm}>.{siteUrl.value[1]}</span>
         </div>

@@ -116,7 +116,7 @@ export default defineComponent({
           props.plain ? styles[`elMessage--plain`] : '',
           visible.value ? styles.isVisible : ''
         ].filter(Boolean).join(' ')}
-        style={messageStyle.value}
+        style={Object.assign({}, messageStyle.value, { position: 'fixed', left: '50%', transform: 'translateX(-50%)' })}
       >
         <div class={styles.elMessageContent}>
           {!props.icon ? (

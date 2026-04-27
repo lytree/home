@@ -93,9 +93,9 @@ export default defineComponent({
     
     return () => (
       <div class={styles.customSlider}>
-        <div class={styles.sliderRunway} ref={runwayRef} onClick={handleClick}>
-          <div class={styles.sliderTrack} style={{ width: `${percentage.value}%` }}></div>
-          <div class={styles.sliderButton} style={{ left: `${percentage.value}%` }} ref={buttonRef} onMousedown={startDrag}></div>
+        <div class={[styles.sliderRunway, 'relative w-full h-full cursor-pointer'].join(' ')} ref={runwayRef} onClick={handleClick}>
+          <div class={[styles.sliderTrack, 'absolute top-0 left-0 h-full'].join(' ')} style={{ width: `${percentage.value}%` }}></div>
+          <div class={[styles.sliderButton, 'absolute top-1/2 -translate-y-1/2'].join(' ')} style={{ left: `${percentage.value}%` }} ref={buttonRef} onMousedown={startDrag}></div>
         </div>
       </div>
     );

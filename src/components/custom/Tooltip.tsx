@@ -29,12 +29,13 @@ export default defineComponent({
     };
     
     return () => (
-      <div class={styles.customTooltipContainer} onMouseenter={showTooltip} onMouseleave={hideTooltip}>
+      <div class={[styles.customTooltipContainer, 'relative inline-block'].join(' ')} onMouseenter={showTooltip} onMouseleave={hideTooltip}>
         <div class={styles.tooltipTrigger}>
           {slots.default && slots.default()}
         </div>
         <div class={[
           styles.customTooltip, 
+          'absolute',
           `${styles[`tooltip-${props.placement}`]}`,
           visible.value ? styles.tooltipShow : ''
         ].filter(Boolean).join(' ')}>
