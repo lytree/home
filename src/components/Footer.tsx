@@ -25,7 +25,7 @@ export default defineComponent({
     });
 
     return () => (
-      <footer class={cn(styles.footer, 'absolute bottom-0 left-0 w-full h-11.5 text-center z-0 text-sm break-keep whitespace-nowrap', store.footerBlur && styles.blur)}>
+      <footer class={cn(styles.footer, 'absolute bottom-0 left-0 w-full h-11.5 text-center z-0 text-sm break-keep whitespace-nowrap', styles.blur)}>
         <Transition name="fade" mode="out-in">
 
           <div class={cn(styles.power, 'animation-fade duration-300')}>
