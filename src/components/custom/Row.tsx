@@ -1,5 +1,4 @@
 import { defineComponent, computed, useSlots } from 'vue';
-import styles from './Row.module.scss';
 
 export default defineComponent({
   props: {
@@ -10,7 +9,7 @@ export default defineComponent({
   },
   setup(props) {
     const slots = useSlots();
-    
+
     const rowStyle = computed(() => {
       return {
         display: 'flex',
@@ -19,9 +18,9 @@ export default defineComponent({
         marginRight: `-${props.gutter / 2}px`
       };
     });
-    
+
     return () => (
-      <div class={styles.customRow} style={rowStyle.value}>
+      <div class="w-full" style={rowStyle.value}>
         {slots.default && slots.default()}
       </div>
     );

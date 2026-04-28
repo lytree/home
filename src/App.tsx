@@ -86,19 +86,19 @@ export default defineComponent({
         {/* 主界面 */}
         <Transition name="fade" mode="out-in">
           {store.imgLoadStatus && (
-            <main id={styles.main} class="absolute top-0 left-0 w-full h-full">
-              <div class={styles.container} v-show={!store.backgroundShow} >
-                <section class={styles.all} v-show={!store.setOpenState}>
+            <main id={styles.main} class="absolute top-0 left-0 w-full h-full  transition-transform duration-300 animate-[fade-blur-main-in_0.65s_cubic-bezier(0.25,0.46,0.45,0.94)_forwards] animate-delay-[500ms]">
+              <div class="w-full h-screen mx-auto px-[0.5vw] lg:px-[2vw] max-h-[720px]:h-[721px]">
+                <section class="w-full h-full px-3 flex flex-row justify-center items-center" v-show={!store.setOpenState}>
                   <MainLeft />
                   <MainRight />
                 </section>
 
               </div>
               {/* 移动端菜单按钮 */}
-              <Icon class={styles.menu} icon={menuIcon.value} width={24} height={24} v-show={!store.backgroundShow} onClick={() => (store.mobileOpenState = !store.mobileOpenState)} />
+              <Icon class="absolute flex justify-center items-center top-[84%] left-[calc(50%-28px)] w-14 h-8.5 bg-black/20 backdrop-blur-md rounded-md transition-transform duration-300 animate-fade active:scale-95 -translate-y-px min-[720px]:hidden" icon={menuIcon.value} width={24} height={24} v-show={!store.backgroundShow} onClick={() => (store.mobileOpenState = !store.mobileOpenState)} />
               {/* 页脚 */}
               <Transition name="fade" mode="out-in">
-                {!store.backgroundShow && <Footer class={styles.footer} />}
+                {!store.backgroundShow && <Footer class="max-[390px]:w-97.75" />}
               </Transition>
             </main>
           )}

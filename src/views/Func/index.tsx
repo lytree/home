@@ -28,7 +28,7 @@ export default defineComponent({
     });
     
     return () => (
-      <div class={cn(styles.function, 'flex flex-row items-center h-[165px] justify-between')}>
+      <div class={cn(styles.function, 'flex flex-row items-center h-41.25 justify-between')}>
         <CustomRow gutter={20}>
           <CustomCol span={12}>
             <div class={cn(styles.left, 'w-full h-full')}>

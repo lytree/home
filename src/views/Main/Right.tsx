@@ -8,11 +8,11 @@ import styles from './Right.module.scss';
 export default defineComponent({
   setup() {
     const store = useMainStore();
-    
+
     // 站点链接
     const siteUrl = computed(() => {
       const url = import.meta.env.VITE_SITE_URL;
-      if (!url) return 'imsyy.top'.split('.');
+
       // 判断协议前缀
       if (url.startsWith('http://') || url.startsWith('https://')) {
         const urlFormat = url.replace(/^(https?:\/\/)/, '');
@@ -20,7 +20,7 @@ export default defineComponent({
       }
       return url.split('.');
     });
-    
+
     return () => (
       <div class={cn(styles.right, !store.mobileOpenState && styles.hidden)}>
         {/* 移动端 Logo */}

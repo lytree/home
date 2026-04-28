@@ -1,5 +1,4 @@
 import { defineComponent, computed, useSlots } from 'vue';
-import styles from './Col.module.scss';
 
 export default defineComponent({
   props: {
@@ -28,7 +27,7 @@ export default defineComponent({
     });
     
     return () => (
-      <div class={styles.customCol} style={colStyle.value}>
+      <div class="shrink-0" style={colStyle.value}>
         {slots.default && slots.default()}
       </div>
     );
