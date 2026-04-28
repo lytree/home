@@ -67,9 +67,6 @@ export default defineComponent({
       // 监听当前页面宽度
       updateWidth();
       window.addEventListener('resize', updateWidth);
-
-      // 控制台输出
-      console.info('fork imsyy/home');
     });
 
     onBeforeUnmount(() => {
