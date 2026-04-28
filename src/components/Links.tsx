@@ -48,7 +48,7 @@ export default function Links() {
           <SwiperSlide key={index}>
             <div className={cn(styles.linkAll, 'flex flex-wrap w-[calc(100%+20px)] -ml-2.5 -mr-2.5')}>
               {site.map((item, idx) => (
-                <div className={cn(idx < 3 ? 'mb-5' : '', 'w-[33.333%] px-2.5 shrink-0')}>
+                <div key={`${index}-${idx}`} className={cn(idx < 3 ? 'mb-5' : '', 'w-[33.333%] px-2.5 shrink-0')}>
                   <div
                     className={cn(styles.item, 'cards h-25 w-full flex flex-row items-center justify-center px-2.5')}
                     onClick={() => jumpLink(item)}
