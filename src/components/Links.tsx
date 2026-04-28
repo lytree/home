@@ -3,8 +3,6 @@ import { Icon } from '@iconify/vue';
 import { Swiper, SwiperSlide } from 'swiper/vue';
 import { Pagination, Mousewheel } from 'swiper/modules';
 import siteLinks from '@/assets/siteLinks.json';
-import CustomRow from '@/components/custom/Row.tsx';
-import CustomCol from '@/components/custom/Col.tsx';
 import { cn } from '@/utils/cn';
 import styles from './Links.module.scss';
 
@@ -50,20 +48,19 @@ export default defineComponent({
         >
           {siteLinksList.value.map((site, index) => (
             <SwiperSlide key={index}>
-              <CustomRow class={cn(styles.linkAll, 'w-[calc(100%+20px)] -ml-2.5')} gutter={20}>
+              <div class={cn(styles.linkAll, 'flex flex-wrap w-[calc(100%+20px)] -ml-2.5 -mr-2.5')}>
                 {site.map((item, idx) => (
-                  <CustomCol span={8} key={idx}>
+                  <div class={cn(idx < 3 ? 'mb-5' : '', 'w-[33.333%] px-2.5 shrink-0')}>
                     <div
                       class={cn(styles.item, 'cards h-25 w-full flex flex-row items-center justify-center px-2.5')}
-                      // style={idx < 3 ? 'margin-bottom: 20px' : undefined}
                       onClick={() => jumpLink(item)}
                     >
                       <Icon icon={item.icon || "fa:link"} width="32" height="32" />
                       <span class={cn(styles.name, 'text-hidden ml-2 text-1.1rem')}>{item.name}</span>
                     </div>
-                  </CustomCol>
+                  </div>
                 ))}
-              </CustomRow>
+              </div>
             </SwiperSlide>
           ))}
           <div class="swiper-pagination" />
