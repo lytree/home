@@ -9,32 +9,25 @@ interface BackgroundProps {
 }
 
 export default function Background({ onLoadComplete }: BackgroundProps) {
-  const bgUrl = useMainStore((state) => state.coverType);
   const backgroundShow = useMainStore((state) => state.backgroundShow);
   const setImgLoadStatus = useMainStore((state) => state.setImgLoadStatus);
 
   const [bgUrlValue, setBgUrlValue] = useState('');
-  const [imgTimeoutValue, setImgTimeoutValue] = useState<NodeJS.Timeout | null>(null);
+  const [imgTimeoutValue, setImgTimeoutValue] = useState<number | undefined>(undefined);
+  const [isLoaded, setIsLoaded] = useState(false);
 
   const bgRandom = Math.floor(Math.random() * 10 + 1);
 
-  const changeBg = (type: string) => {
-    if (type == '0') {
-      setBgUrlValue(`/images/background${bgRandom}.jpg`);
-    } else if (type == '1') {
-      setBgUrlValue('https://api.dujin.org/bing/1920.php');
-    } else if (type == '2') {
-      setBgUrlValue('https://api.vvhan.com/api/wallpaper/views');
-    } else if (type == '3') {
-      setBgUrlValue('https://api.vvhan.com/api/wallpaper/acg');
-    }
+  const changeBg = () => {
+    setBgUrlValue(`https://api.isoyu.com/bing_images.php`);
   };
 
   useEffect(() => {
-    changeBg(bgUrl);
-  }, [bgUrl]);
+    changeBg();
+  }, []);
 
   const imgLoadComplete = () => {
+    setIsLoaded(true);
     const timeout = setTimeout(
       () => {
         setImgLoadStatus(true);
@@ -64,10 +57,10 @@ export default function Background({ onLoadComplete }: BackgroundProps) {
   }, [imgTimeoutValue]);
 
   return (
-    <div className={cn(styles.cover, 'absolute top-0 left-0 w-full h-full transition-all z-[-1]', backgroundShow && styles.show)}>
+    <div className="absolute top-0 left-0 w-full h-full transition-all z-[-1]">
       <img
         src={bgUrlValue}
-        className={cn(styles.bg, 'absolute top-0 left-0 w-full h-full object-cover')}
+        className="absolute top-0 left-0 w-full h-full object-cover blur-10 brightness-50"
         alt="cover"
         onLoad={imgLoadComplete}
         onError={imgLoadError}
