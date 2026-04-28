@@ -9,7 +9,6 @@ import Background from '@/components/Background.tsx';
 import Footer from '@/components/Footer.tsx';
 import cursorInit from '@/utils/cursor.ts';
 import ElMessage from '@/components/custom/message';
-import styles from './App.module.scss';
 
 export default defineComponent({
   setup() {
@@ -86,7 +85,7 @@ export default defineComponent({
         {/* 主界面 */}
         <Transition name="fade" mode="out-in">
           {store.imgLoadStatus && (
-            <main id={styles.main} class="absolute top-0 left-0 w-full h-full  transition-transform duration-300 animate-[fade-blur-main-in_0.65s_cubic-bezier(0.25,0.46,0.45,0.94)_forwards] animate-delay-[500ms]">
+            <main id="main" class="absolute top-0 left-0 w-full h-full  ">
               <div class="w-full h-screen mx-auto px-[0.5vw] lg:px-[2vw] max-h-[720px]:h-[721px]">
                 <section class="w-full h-full px-3 flex flex-row justify-center items-center" v-show={!store.setOpenState}>
                   <MainLeft />
