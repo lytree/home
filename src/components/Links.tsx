@@ -1,6 +1,5 @@
 import { defineComponent, computed, onMounted } from 'vue';
 import { Icon } from '@iconify/vue';
-import { useMainStore } from '@/store/index.ts';
 import { Swiper, SwiperSlide } from 'swiper/vue';
 import { Pagination, Mousewheel } from 'swiper/modules';
 import siteLinks from '@/assets/siteLinks.json';
@@ -55,7 +54,7 @@ export default defineComponent({
                 {site.map((item, idx) => (
                   <CustomCol span={8} key={idx}>
                     <div
-                      class={cn(styles.item, 'cards h-[100px] w-full flex flex-row items-center justify-center px-2.5')}
+                      class={cn(styles.item, 'cards h-25 w-full flex flex-row items-center justify-center px-2.5')}
                       // style={idx < 3 ? 'margin-bottom: 20px' : undefined}
                       onClick={() => jumpLink(item)}
                     >
