@@ -1,105 +1,99 @@
-import { defineComponent, onMounted, onBeforeUnmount, watch, nextTick, Transition, computed } from 'vue';
-import { helloInit, checkDays } from '@/utils/getTime.ts';
-import { useMainStore } from '@/store/index.ts';
-import { Icon } from '@iconify/vue';
-import Loading from '@/components/Loading.tsx';
-import MainLeft from '@/views/Main/Left.tsx';
-import MainRight from '@/views/Main/Right.tsx';
-import Background from '@/components/Background.tsx';
-import Footer from '@/components/Footer.tsx';
-import cursorInit from '@/utils/cursor.ts';
+import { useEffect } from 'react';
+import { Icon } from '@iconify/react';
+import Loading from '@/components/Loading';
+import MainLeft from '@/views/Main/Left';
+import MainRight from '@/views/Main/Right';
+import Background from '@/components/Background';
+import Footer from '@/components/Footer';
+import { useMainStore } from '@/store';
+import { helloInit, checkDays } from '@/utils/getTime';
+import cursorInit from '@/utils/cursor';
 import ElMessage from '@/components/custom/message';
+import { cn } from '@/utils/cn';
+import React from 'react';
 
-export default defineComponent({
-  setup() {
-    const store = useMainStore();
-    const menuIcon = computed(() => store.mobileOpenState ? 'fa:times' : 'fa:bars')
-    // 1. 定义一个获取宽度并更新到 Store 的函数
-    const updateWidth = () => {
-      store.setInnerWidth(window.innerWidth);
-    };
-    // 加载完成事件
-    const loadComplete = () => {
-      nextTick(() => {
-        // 欢迎提示
-        helloInit();
-        // 默哀模式
-        checkDays();
+export default function App() {
+  const store = useMainStore();
+  const menuIcon = store.mobileOpenState ? 'fa:times' : 'fa:bars';
+
+  const updateWidth = () => {
+    store.setInnerWidth(window.innerWidth);
+  };
+
+  useEffect(() => {
+    cursorInit();
+    updateWidth();
+    window.addEventListener('resize', updateWidth);
+
+    document.oncontextmenu = (e) => {
+      e.preventDefault();
+      ElMessage({
+        message: '为了浏览体验,本站禁用右键',
+        grouping: true,
+        duration: 2000
       });
+      return false;
     };
 
-    // 监听宽度变化
-    watch(
-      () => store.innerWidth,
-      (value) => {
-        if (value < 721) {
-          store.boxOpenState = false;
-          store.setOpenState = false;
-        }
-      }
-    );
-
-    onMounted(() => {
-      // 自定义鼠标
-      cursorInit();
-
-      // 屏蔽右键
-      document.oncontextmenu = () => {
+    window.addEventListener('mousedown', (event: MouseEvent) => {
+      if (event.button == 1) {
+        store.setBackgroundShow(!store.backgroundShow);
         ElMessage({
-          message: '为了浏览体验，本站禁用右键',
-          grouping: true,
-          duration: 2000
+          message: `已${store.backgroundShow ? '开启' : '退出'}壁纸展示状态`,
+          grouping: true
         });
-        return false;
-      };
-
-      // 鼠标中键事件
-      window.addEventListener('mousedown', (event) => {
-        if (event.button == 1) {
-          store.backgroundShow = !store.backgroundShow;
-          ElMessage({
-            message: `已${store.backgroundShow ? '开启' : '退出'}壁纸展示状态`,
-            grouping: true
-          });
-        }
-      });
-
-      // 监听当前页面宽度
-      updateWidth();
-      window.addEventListener('resize', updateWidth);
+      }
     });
 
-    onBeforeUnmount(() => {
+    helloInit();
+    checkDays();
+
+    return () => {
       window.removeEventListener('resize', updateWidth);
-    });
+    };
+  }, []);
 
-    return () => (
-      <>
-        {/* 加载 */}
-        <Loading />
-        {/* 壁纸 */}
-        <Background onLoadComplete={loadComplete} />
-        {/* 主界面 */}
-        <Transition name="fade" mode="out-in">
-          {store.imgLoadStatus && (
-            <main id="main" class="absolute top-0 left-0 w-full h-full  ">
-              <div class="w-full h-screen mx-auto px-[0.5vw] lg:px-[2vw] max-h-[720px]:h-[721px]">
-                <section class="w-full h-full px-3 flex flex-row justify-center items-center" v-show={!store.setOpenState}>
-                  <MainLeft />
-                  <MainRight />
-                </section>
+  useEffect(() => {
+    if (store.innerWidth < 721) {
+      store.setBoxOpenState(false);
+      store.setSetOpenState(false);
+    }
+  }, [store.innerWidth]);
 
-              </div>
-              {/* 移动端菜单按钮 */}
-              <Icon class="absolute flex justify-center items-center top-[84%] left-[calc(50%-28px)] w-14 h-8.5 bg-black/20 backdrop-blur-md rounded-md transition-transform duration-300 animate-fade active:scale-95 -translate-y-px min-[720px]:hidden" icon={menuIcon.value} width={24} height={24} v-show={!store.backgroundShow} onClick={() => (store.mobileOpenState = !store.mobileOpenState)} />
-              {/* 页脚 */}
-              <Transition name="fade" mode="out-in">
-                {!store.backgroundShow && <Footer class="max-[390px]:w-97.75" />}
-              </Transition>
-            </main>
+  const handleLoadComplete = () => {
+    helloInit();
+    checkDays();
+  };
+
+  return (
+    <>
+      <Loading />
+      <Background onLoadComplete={handleLoadComplete} />
+      {store.imgLoadStatus && (
+        <main id="main" className="absolute top-0 left-0 w-full h-full">
+          <div className="w-full h-screen mx-auto px-[0.5vw] lg:px-[2vw] max-h-[720px]:h-[721px]">
+            {store.setOpenState ? null : (
+              <section className="w-full h-full px-3 flex flex-row justify-center items-center">
+                <MainLeft />
+                <MainRight />
+              </section>
+            )}
+          </div>
+          <Icon
+            className={cn(
+              "absolute flex justify-center items-center top-[84%] left-[calc(50%-28px)] w-14 h-8.5 bg-black/20 backdrop-blur-md rounded-md transition-transform duration-300 animate-fade active:scale-95 -translate-y-px min-[720px]:hidden",
+              store.backgroundShow && "hidden"
+            )}
+            icon={menuIcon}
+            width={24}
+            height={24}
+            onClick={() => store.setMobileOpenState(!store.mobileOpenState)}
+          />
+          {!store.backgroundShow && (
+            <Footer className="max-[390px]:w-97.75" />
           )}
-        </Transition>
-      </>
-    );
-  }
-});
+        </main>
+      )}
+    </>
+  );
+}

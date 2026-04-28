@@ -1,8 +1,4 @@
-import { h, VNode } from "vue";
-import { SpaCandle } from "@icon-park/vue-next";
 import dayjs from "dayjs";
-import ElMessage from "@/components/custom/message";
-// --- Interfaces ---
 
 export interface CurrentTime {
   year: number;
@@ -29,15 +25,9 @@ export interface TimeCapsule {
   year: TimeCapsuleData;
 }
 
-// --- Functions ---
-
-/**
- * 时钟: 获取当前详细时间
- */
 export const getCurrentTime = (): CurrentTime => {
   const time = new Date();
   const year = time.getFullYear();
-  // 使用 padStart 简化补零逻辑
   const format = (num: number): string => num.toString().padStart(2, "0");
 
   const weekday = ["星期日", "星期一", "星期二", "星期三", "星期四", "星期五", "星期六"];
@@ -53,9 +43,6 @@ export const getCurrentTime = (): CurrentTime => {
   };
 };
 
-/**
- * 时光胶囊: 计算进度的逻辑
- */
 export const getTimeCapsule = (): TimeCapsule => {
   const now = dayjs();
   const dayText: Record<string, string> = {
@@ -69,7 +56,6 @@ export const getTimeCapsule = (): TimeCapsule => {
     const start = now.startOf(unit);
     const end = now.endOf(unit);
 
-    // 计算单位逻辑
     const diffUnit = unit === "day" ? "hour" : "day";
     const total = end.diff(start, diffUnit) + 1;
     let passed = now.diff(start, diffUnit);
@@ -98,9 +84,6 @@ export const getTimeCapsule = (): TimeCapsule => {
   };
 };
 
-/**
- * 欢迎提示
- */
 export const helloInit = (): void => {
   const hour = new Date().getHours();
   let hello: string;
@@ -114,15 +97,9 @@ export const helloInit = (): void => {
   else if (hour < 22) hello = "晚上好";
   else hello = "夜深了";
 
-  ElMessage({
-    dangerouslyUseHTMLString: true,
-    message: `<strong>${hello}</strong> 欢迎来到我的主页`,
-  });
+  console.log(`${hello} 欢迎来到我的主页`);
 };
 
-/**
- * 默哀模式
- */
 const anniversaries: Record<string, string> = {
   "4.4": "清明节",
   "5.12": "汶川大地震纪念日",
@@ -142,18 +119,9 @@ export const checkDays = (): void => {
     const gray = document.createElement("style");
     gray.innerHTML = "html{filter: grayscale(100%)}";
     document.head.appendChild(gray);
-
-    ElMessage({
-      message: `今天是${anniversaries[key]}`,
-      duration: 14000,
-      icon: h(SpaCandle, { theme: "filled", fill: "#efefef" }) as VNode,
-    });
   }
 };
 
-/**
- * 建站日期统计
- */
 export const siteDateStatistics = (startDate: Date): string => {
   const currentDate = new Date();
   let years = currentDate.getFullYear() - startDate.getFullYear();

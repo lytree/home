@@ -1,8 +1,7 @@
-import { defineStore } from "pinia";
-import { computed, ref } from "vue";
+import { create } from 'zustand';
+import { persist } from 'zustand/middleware';
 
-// 定义 State 的类型接口
-export interface MainState {
+interface MainState {
   imgLoadStatus: boolean;
   innerWidth: number;
   coverType: string;
@@ -13,64 +12,54 @@ export interface MainState {
   mobileFuncState: boolean;
   setOpenState: boolean;
   footerBlur: boolean;
+  setInnerWidth: (value: number) => void;
+  setImgLoadStatus: (value: boolean) => void;
+  setCoverType: (value: string) => void;
+  setSiteStartShow: (value: boolean) => void;
+  setBackgroundShow: (value: boolean) => void;
+  setBoxOpenState: (value: boolean) => void;
+  setMobileOpenState: (value: boolean) => void;
+  setMobileFuncState: (value: boolean) => void;
+  setSetOpenState: (value: boolean) => void;
+  setFooterBlur: (value: boolean) => void;
 }
-export const useMainStore = defineStore("main", () => {
-  // --- State ---
-  const imgLoadStatus = ref(false);
-  const innerWidth = ref<number>(0);
-  const coverType = ref("0");
-  const siteStartShow = ref(false);
-  const backgroundShow = ref(false);
-  const boxOpenState = ref(false);
-  const mobileOpenState = ref(false);
-  const mobileFuncState = ref(false);
-  const setOpenState = ref(false);
-  const footerBlur = ref(true);
 
-  // --- Getters ---
-  const getInnerWidth = computed(() => innerWidth.value);
-
-  // --- Actions ---
-  // 更改当前页面宽度
-  function setInnerWidth(value: number) {
-    innerWidth.value = value;
-    if (value >= 720) {
-      mobileOpenState.value = false;
-      mobileFuncState.value = false;
+export const useMainStore = create<MainState>()(
+  persist(
+    (set) => ({
+      imgLoadStatus: false,
+      innerWidth: 0,
+      coverType: '0',
+      siteStartShow: false,
+      backgroundShow: false,
+      boxOpenState: false,
+      mobileOpenState: false,
+      mobileFuncState: false,
+      setOpenState: false,
+      footerBlur: true,
+      setInnerWidth: (value) => {
+        set({ innerWidth: value });
+        if (value >= 720) {
+          set({ mobileOpenState: false, mobileFuncState: false });
+        }
+      },
+      setImgLoadStatus: (value) => set({ imgLoadStatus: value }),
+      setCoverType: (value) => set({ coverType: value }),
+      setSiteStartShow: (value) => set({ siteStartShow: value }),
+      setBackgroundShow: (value) => set({ backgroundShow: value }),
+      setBoxOpenState: (value) => set({ boxOpenState: value }),
+      setMobileOpenState: (value) => set({ mobileOpenState: value }),
+      setMobileFuncState: (value) => set({ mobileFuncState: value }),
+      setSetOpenState: (value) => set({ setOpenState: value }),
+      setFooterBlur: (value) => set({ footerBlur: value }),
+    }),
+    {
+      name: 'main-storage',
+      partialize: (state) => ({
+        coverType: state.coverType,
+        siteStartShow: state.siteStartShow,
+        footerBlur: state.footerBlur,
+      }),
     }
-  }
-
-  // 更改壁纸加载状态
-  function setImgLoadStatus(value: boolean) {
-    imgLoadStatus.value = value;
-  }
-
-  // 返回所有需要暴露的属性和方法
-  return {
-    imgLoadStatus,
-    innerWidth,
-    coverType,
-    siteStartShow,
-    backgroundShow,
-    boxOpenState,
-    mobileOpenState,
-    mobileFuncState,
-    setOpenState,
-    footerBlur,
-    getInnerWidth,
-    setInnerWidth,
-    setImgLoadStatus,
-  };
-}, {
-  // --- 持久化配置 ---
-  // 注意：persist 依然作为第二个参数的对象属性存在
-  persist: {
-    key: "data",
-    storage: window.localStorage,
-    paths: [
-      "coverType",
-      "siteStartShow",
-      "footerBlur",
-    ],
-  },
-});
+  )
+);
