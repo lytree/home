@@ -1,31 +1,9 @@
 .loaderWrapper {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: 999;
-  overflow: hidden;
-
   .loader {
-    width: 100%;
-    height: 100%;
-    position: absolute;
-    top: 0;
-    left: 0;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-
     .loaderCircle {
-      width: 150px;
-      height: 150px;
-      border-radius: 50%;
       border: 3px solid transparent;
       border-top-color: #fff;
       animation: spin 1.8s linear infinite;
-      z-index: 2;
 
       &:before {
         content: "";
@@ -55,30 +33,13 @@
     }
 
     .loaderText {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      color: #fff;
-      z-index: 2;
-      margin-top: 40px;
-      font-size: 24px;
-
       .tip {
-        margin-top: 6px;
-        font-size: 18px;
         opacity: 0.6;
       }
     }
   }
 
   .loaderSection {
-    position: fixed;
-    top: 0;
-    width: 51%;
-    height: 100%;
-    background: #333;
-    z-index: 1;
-
     &.sectionLeft {
       left: 0;
     }

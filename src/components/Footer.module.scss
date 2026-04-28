@@ -1,45 +1,6 @@
 .footer {
-  width: 100%;
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  height: 46px;
-  line-height: 46px;
-  text-align: center;
-  z-index: 0;
-  font-size: 14px;
-  // 文字不换行
-  word-break: keep-all;
-  white-space: nowrap;
-
   .power {
     animation: fade 0.3s;
-  }
-
-  .lrc {
-    padding: 0 20px;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
-
-    .lrcAll {
-      width: 98%;
-      display: flex;
-      flex-direction: row;
-      justify-content: center;
-      align-items: center;
-
-      .lrcText {
-        margin: 0 8px;
-      }
-
-      .i-icon {
-        width: 18px;
-        height: 18px;
-        display: inherit;
-      }
-    }
   }
 
   &.blur {

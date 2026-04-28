@@ -1,18 +1,18 @@
-import { defineComponent } from 'vue';
-import { useMainStore } from '@/store/index.ts';
-import Message from '@/components/Message.tsx';
-import SocialLinks from '@/components/SocialLinks.tsx';
+import { useMainStore } from '@/store';
+import { cn } from '@/utils/cn';
 import styles from './Left.module.scss';
 
-export default defineComponent({
-  setup() {
-    const store = useMainStore();
-    
-    return () => (
-      <div class={[styles.left, store.mobileOpenState ? styles.hidden : ''].filter(Boolean).join(' ')}>
-        <Message />
-        <SocialLinks />
-      </div>
-    );
-  }
-});
+export default function MainLeft() {
+  const mobileOpenState = useMainStore((state) => state.mobileOpenState);
+  const boxOpenState = useMainStore((state) => state.boxOpenState);
+
+  return (
+    <div className={cn(styles.left, mobileOpenState && !boxOpenState && styles.hidden)}>
+      <Message />
+      <SocialLinks />
+    </div>
+  );
+}
+
+import Message from '@/components/Message';
+import SocialLinks from '@/components/SocialLinks';

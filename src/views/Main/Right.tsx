@@ -1,37 +1,31 @@
-import { defineComponent, computed } from 'vue';
-import { useMainStore } from '@/store/index.ts';
-import Func from '@/views/Func/index.tsx';
-import Link from '@/components/Links.tsx';
+import { useMainStore } from '@/store';
+import { cn } from '@/utils/cn';
 import styles from './Right.module.scss';
 
-export default defineComponent({
-  setup() {
-    const store = useMainStore();
-    
-    // 站点链接
-    const siteUrl = computed(() => {
-      const url = import.meta.env.VITE_SITE_URL;
-      if (!url) return 'imsyy.top'.split('.');
-      // 判断协议前缀
-      if (url.startsWith('http://') || url.startsWith('https://')) {
-        const urlFormat = url.replace(/^(https?:\/\/)/, '');
-        return urlFormat.split('.');
-      }
-      return url.split('.');
-    });
-    
-    return () => (
-      <div class={[styles.right, store.mobileOpenState ? '' : styles.hidden].filter(Boolean).join(' ')}>
-        {/* 移动端 Logo */}
-        <div class={[styles.logo, 'text-hidden'].join(' ')} onClick={() => (store.mobileFuncState = !store.mobileFuncState)}>
-          <span class={styles.bg}>{siteUrl.value[0]}</span>
-          <span class={styles.sm}>.{siteUrl.value[1]}</span>
-        </div>
-        {/* 功能区 */}
-        <Func />
-        {/* 网站链接 */}
-        <Link />
+export default function MainRight() {
+  const mobileOpenState = useMainStore((state) => state.mobileOpenState);
+  const mobileFuncState = useMainStore((state) => state.mobileFuncState);
+
+  const siteUrl = import.meta.env.VITE_SITE_URL;
+  const getSiteUrl = () => {
+    if (siteUrl.startsWith('http://') || siteUrl.startsWith('https://')) {
+      return siteUrl.replace(/^(https?:\/\/)/, '').split('.');
+    }
+    return siteUrl.split('.');
+  };
+  const urlParts = getSiteUrl();
+
+  return (
+    <div className={cn(styles.right, !mobileOpenState && styles.hidden)}>
+      <div className={cn(styles.logo, 'text-hidden fixed top-[6%] left-0 w-full text-center')} onClick={() => useMainStore.getState().setMobileFuncState(!mobileFuncState)}>
+        <span className={styles.bg}>{urlParts[0]}</span>
+        <span className={styles.sm}>.{urlParts[1]}</span>
       </div>
-    );
-  }
-});
+      <Func />
+      <Link />
+    </div>
+  );
+}
+
+import Func from '@/views/Func';
+import Link from '@/components/Links';
