@@ -1,4 +1,5 @@
 import dayjs from "dayjs";
+import { toast } from "sonner";
 
 export interface CurrentTime {
   year: number;
@@ -97,7 +98,7 @@ export const helloInit = (): void => {
   else if (hour < 22) hello = "晚上好";
   else hello = "夜深了";
 
-  console.log(`${hello} 欢迎来到我的主页`);
+  toast.success(`${hello} 欢迎来到我的主页`);
 };
 
 const anniversaries: Record<string, string> = {

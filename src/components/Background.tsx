@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useMainStore } from '@/store';
-import { Error } from '@icon-park/react';
-import ElMessage from '@/components/custom/message';
+import { toast } from 'sonner';
 import { cn } from '@/utils/cn';
 import styles from './Background.module.scss';
 
@@ -12,9 +11,7 @@ interface BackgroundProps {
 export default function Background({ onLoadComplete }: BackgroundProps) {
   const bgUrl = useMainStore((state) => state.coverType);
   const backgroundShow = useMainStore((state) => state.backgroundShow);
-  const imgLoadStatus = useMainStore((state) => state.imgLoadStatus);
   const setImgLoadStatus = useMainStore((state) => state.setImgLoadStatus);
-  const setCoverType = useMainStore((state) => state.setCoverType);
 
   const [bgUrlValue, setBgUrlValue] = useState('');
   const [imgTimeoutValue, setImgTimeoutValue] = useState<NodeJS.Timeout | null>(null);
@@ -54,13 +51,7 @@ export default function Background({ onLoadComplete }: BackgroundProps) {
 
   const imgLoadError = () => {
     console.error('壁纸加载失败：', bgUrlValue);
-    ElMessage({
-      message: '壁纸加载失败,已临时切换回默认',
-      icon: h(Error, {
-        theme: 'filled',
-        fill: '#efefef'
-      })
-    });
+    toast.error('壁纸加载失败,已临时切换回默认');
     setBgUrlValue(`/images/background${bgRandom}.jpg`);
   };
 

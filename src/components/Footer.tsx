@@ -1,4 +1,3 @@
-import { useMainStore } from '@/store';
 import { cn } from '@/utils/cn';
 import styles from './Footer.module.scss';
 

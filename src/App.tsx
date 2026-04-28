@@ -8,9 +8,9 @@ import Footer from '@/components/Footer';
 import { useMainStore } from '@/store';
 import { helloInit, checkDays } from '@/utils/getTime';
 import cursorInit from '@/utils/cursor';
-import ElMessage from '@/components/custom/message';
+import { toast } from 'sonner';
+import { Toaster } from '@/components/ui/sonner';
 import { cn } from '@/utils/cn';
-import React from 'react';
 
 export default function App() {
   const store = useMainStore();
@@ -27,9 +27,7 @@ export default function App() {
 
     document.oncontextmenu = (e) => {
       e.preventDefault();
-      ElMessage({
-        message: '为了浏览体验,本站禁用右键',
-        grouping: true,
+      toast('为了浏览体验,本站禁用右键', {
         duration: 2000
       });
       return false;
@@ -38,15 +36,9 @@ export default function App() {
     window.addEventListener('mousedown', (event: MouseEvent) => {
       if (event.button == 1) {
         store.setBackgroundShow(!store.backgroundShow);
-        ElMessage({
-          message: `已${store.backgroundShow ? '开启' : '退出'}壁纸展示状态`,
-          grouping: true
-        });
+        toast(`已${store.backgroundShow ? '开启' : '退出'}壁纸展示状态`);
       }
     });
-
-    helloInit();
-    checkDays();
 
     return () => {
       window.removeEventListener('resize', updateWidth);
@@ -94,6 +86,7 @@ export default function App() {
           )}
         </main>
       )}
+      <Toaster position="top-center" />
     </>
   );
 }
