@@ -2,12 +2,11 @@ import { defineVaporComponent, type PropType } from 'vue';
 import { Icon as IconifyIcon, type IconifyIcon as IconifyIconData } from '@iconify/vue';
 import type { MouseEvent as VaporMouseEvent } from 'vue-jsx-vapor';
 
-// @iconify/vue 的 Icon 是 vdom 组件,在 Vapor JSX 上下文里类型推导出错
-// (缺少 class/icon/width/height 等运行时实际可用的 props)。
-// 运行时通过 vaporInteropPlugin 是兼容的,这里用 Vapor 类型重新声明 props。
-const IconVdom = IconifyIcon as unknown as {
-  (props: Record<string, unknown>): unknown;
-};
+// @iconify/vue 的 Icon 是 vdom 组件,@vue/runtime-vapor 通过 vaporInteropPlugin
+// 兼容渲染,但其 TS 类型在 Vapor JSX 上下文里推不出 class/icon/width/height
+// 等运行时实际可用的 props。这里做一个 Vapor wrapper 重新声明 props 类型,
+// 内部直接以 JSX 返回,让 vue-jsx-vapor 编译出 Vapor block。
+const IconifyIconAny = IconifyIcon as unknown as Record<string, unknown>;
 
 export const Icon = defineVaporComponent({
   props: {
@@ -18,13 +17,14 @@ export const Icon = defineVaporComponent({
   },
   emits: ['click'],
   setup(props, { emit }) {
-    return () =>
-      IconVdom({
-        icon: props.icon,
-        width: props.width,
-        height: props.height,
-        class: props.class,
-        onClick: (e: VaporMouseEvent) => emit('click', e),
-      });
+    return (
+      <IconifyIconAny
+        icon={props.icon}
+        width={props.width}
+        height={props.height}
+        class={props.class}
+        onClick={(e: VaporMouseEvent) => emit('click', e)}
+      />
+    );
   },
 });

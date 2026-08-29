@@ -87,7 +87,7 @@ export default defineVaporComponent({
             {store.backgroundShow ? null : <Footer footerClass="max-[390px]:w-97.75" />}
           </main>
         ) : null}
-        <Toaster position="top-center" />
+        <Toaster />
       </>
     );
   },

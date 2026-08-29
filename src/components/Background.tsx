@@ -1,6 +1,8 @@
 import { defineVaporComponent, ref, onMounted, onUnmounted, type PropType } from 'vue';
 import { useMainStore } from '@/store';
 
+const BG_COUNT = 10;
+
 export default defineVaporComponent({
   props: {
     onLoadComplete: {
@@ -14,14 +16,9 @@ export default defineVaporComponent({
     const bgUrlValue = ref('');
     const imgTimeoutValue = ref<number | undefined>(undefined);
 
-    const bgRandom = Math.floor(Math.random() * 10 + 1);
-
-    const changeBg = () => {
-      bgUrlValue.value = 'https://api.isoyu.com/bing_images.php';
-    };
-
     onMounted(() => {
-      changeBg();
+      const idx = Math.floor(Math.random() * BG_COUNT) + 1;
+      bgUrlValue.value = `/images/background${idx}.jpg`;
     });
 
     const imgLoadComplete = () => {
@@ -38,12 +35,6 @@ export default defineVaporComponent({
     const imgAnimationEnd = () => {
       console.log('壁纸动画完成');
       props.onLoadComplete?.();
-    };
-
-    const imgLoadError = () => {
-      console.error('壁纸加载失败，尝试默认图片');
-      bgUrlValue.value = `/images/background${bgRandom}.jpg`;
-      store.setImgLoadStatus(true);
     };
 
     onUnmounted(() => {
@@ -72,7 +63,6 @@ export default defineVaporComponent({
             }}
             alt="cover"
             onLoad={imgLoadComplete}
-            onError={imgLoadError}
             onAnimationend={imgAnimationEnd}
           />
         ) : null}
