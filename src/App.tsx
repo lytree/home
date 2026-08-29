@@ -1,5 +1,5 @@
 import { defineVaporComponent, onMounted, onUnmounted, watch, computed } from 'vue';
-import { Icon } from '@iconify/vue';
+import { Icon } from '@/components/ui/icon';
 import { Toaster } from '@/components/ui/sonner';
 import { toast } from 'vue-sonner';
 import { useMainStore } from '@/store';
@@ -79,7 +79,7 @@ export default defineVaporComponent({
                 'absolute flex justify-center items-center top-[84%] left-[calc(50%-28px)] w-14 h-8.5 bg-black/20 backdrop-blur-md rounded-md transition-transform duration-300 animate-fade active:scale-95 -translate-y-px min-[720px]:hidden',
                 store.backgroundShow ? 'hidden' : null,
               )}
-              icon={menuIcon}
+              icon={menuIcon.value}
               width={24}
               height={24}
               onClick={() => store.setMobileOpenState(!store.mobileOpenState)}

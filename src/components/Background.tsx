@@ -1,10 +1,10 @@
-import { defineVaporComponent, ref, onMounted, onUnmounted } from 'vue';
+import { defineVaporComponent, ref, onMounted, onUnmounted, type PropType } from 'vue';
 import { useMainStore } from '@/store';
 
 export default defineVaporComponent({
   props: {
     onLoadComplete: {
-      type: Function as unknown as () => void | undefined,
+      type: Function as unknown as PropType<(() => void) | null>,
       default: null,
     },
   },
@@ -24,7 +24,7 @@ export default defineVaporComponent({
       changeBg();
     });
 
-    const imgLoadComplete = (_e: Event) => {
+    const imgLoadComplete = () => {
       console.log('图片加载完成');
       const timeout = window.setTimeout(
         () => {

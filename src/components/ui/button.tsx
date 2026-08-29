@@ -1,5 +1,6 @@
 import { defineVaporComponent } from 'vue';
 import { cva, type VariantProps } from 'class-variance-authority';
+import type { MouseEvent as VaporMouseEvent } from 'vue-jsx-vapor';
 import { cn } from '@/utils/cn';
 
 const buttonVariants = cva(
@@ -24,10 +25,7 @@ const buttonVariants = cva(
   },
 );
 
-type ButtonProps = VariantProps<typeof buttonVariants> & {
-  class?: string;
-};
-
+type ButtonVariants = VariantProps<typeof buttonVariants>;
 export const Button = defineVaporComponent({
   emits: ['click'],
   props: {
@@ -36,10 +34,12 @@ export const Button = defineVaporComponent({
     class: { type: String, default: '' },
   },
   setup(props, { slots, emit }) {
+    const variant = props.variant as ButtonVariants['variant'];
+    const size = props.size as ButtonVariants['size'];
     return (
       <button
-        class={cn(buttonVariants(props as ButtonProps), (props as ButtonProps).class as string)}
-        onClick={(e: MouseEvent) => emit('click', e)}
+        class={cn(buttonVariants({ variant, size }), props.class as string)}
+        onClick={(e: VaporMouseEvent) => emit('click', e)}
       >
         {slots.default?.()}
       </button>
