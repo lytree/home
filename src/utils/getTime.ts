@@ -1,5 +1,5 @@
-import dayjs from "dayjs";
-import { toast } from "sonner";
+import dayjs from 'dayjs';
+import { toast } from 'vue-sonner';
 
 export interface CurrentTime {
   year: number;
@@ -29,9 +29,9 @@ export interface TimeCapsule {
 export const getCurrentTime = (): CurrentTime => {
   const time = new Date();
   const year = time.getFullYear();
-  const format = (num: number): string => num.toString().padStart(2, "0");
+  const format = (num: number): string => num.toString().padStart(2, '0');
 
-  const weekday = ["星期日", "星期一", "星期二", "星期三", "星期四", "星期五", "星期六"];
+  const weekday = ['星期日', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六'];
 
   return {
     year,
@@ -47,21 +47,21 @@ export const getCurrentTime = (): CurrentTime => {
 export const getTimeCapsule = (): TimeCapsule => {
   const now = dayjs();
   const dayText: Record<string, string> = {
-    day: "今日",
-    week: "本周",
-    month: "本月",
-    year: "本年",
+    day: '今日',
+    week: '本周',
+    month: '本月',
+    year: '本年',
   };
 
-  const getDifference = (unit: "day" | "week" | "month" | "year"): TimeCapsuleData => {
+  const getDifference = (unit: 'day' | 'week' | 'month' | 'year'): TimeCapsuleData => {
     const start = now.startOf(unit);
     const end = now.endOf(unit);
 
-    const diffUnit = unit === "day" ? "hour" : "day";
+    const diffUnit = unit === 'day' ? 'hour' : 'day';
     const total = end.diff(start, diffUnit) + 1;
     let passed = now.diff(start, diffUnit);
 
-    if (unit === "week") {
+    if (unit === 'week') {
       passed = (passed + 6) % 7;
     }
 
@@ -78,10 +78,10 @@ export const getTimeCapsule = (): TimeCapsule => {
   };
 
   return {
-    day: getDifference("day"),
-    week: getDifference("week"),
-    month: getDifference("month"),
-    year: getDifference("year"),
+    day: getDifference('day'),
+    week: getDifference('week'),
+    month: getDifference('month'),
+    year: getDifference('year'),
   };
 };
 
@@ -89,24 +89,24 @@ export const helloInit = (): void => {
   const hour = new Date().getHours();
   let hello: string;
 
-  if (hour < 6) hello = "凌晨好";
-  else if (hour < 9) hello = "早上好";
-  else if (hour < 12) hello = "上午好";
-  else if (hour < 14) hello = "中午好";
-  else if (hour < 17) hello = "下午好";
-  else if (hour < 19) hello = "傍晚好";
-  else if (hour < 22) hello = "晚上好";
-  else hello = "夜深了";
+  if (hour < 6) hello = '凌晨好';
+  else if (hour < 9) hello = '早上好';
+  else if (hour < 12) hello = '上午好';
+  else if (hour < 14) hello = '中午好';
+  else if (hour < 17) hello = '下午好';
+  else if (hour < 19) hello = '傍晚好';
+  else if (hour < 22) hello = '晚上好';
+  else hello = '夜深了';
 
   toast.success(`${hello} 欢迎来到我的主页`);
 };
 
 const anniversaries: Record<string, string> = {
-  "4.4": "清明节",
-  "5.12": "汶川大地震纪念日",
-  "7.7": "中国人民抗日战争纪念日",
-  "9.18": "九·一八事变纪念日",
-  "12.13": "南京大屠杀死难者国家公祭日",
+  '4.4': '清明节',
+  '5.12': '汶川大地震纪念日',
+  '7.7': '中国人民抗日战争纪念日',
+  '9.18': '九·一八事变纪念日',
+  '12.13': '南京大屠杀死难者国家公祭日',
 };
 
 export const checkDays = (): void => {
@@ -117,8 +117,8 @@ export const checkDays = (): void => {
 
   if (Object.prototype.hasOwnProperty.call(anniversaries, key)) {
     console.log(`今天是${anniversaries[key]}`);
-    const gray = document.createElement("style");
-    gray.innerHTML = "html{filter: grayscale(100%)}";
+    const gray = document.createElement('style');
+    gray.innerHTML = 'html{filter: grayscale(100%)}';
     document.head.appendChild(gray);
   }
 };

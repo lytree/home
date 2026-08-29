@@ -1,11 +1,11 @@
 # 构建应用
 FROM node:18 AS builder
 WORKDIR /app
-COPY package*.json ./
-RUN npm install
+COPY package.json pnpm-lock.yaml* .npmrc* ./
+RUN npm install -g pnpm && pnpm install --frozen-lockfile
 COPY . .
 RUN [ ! -e ".env" ] && cp .env.example .env || true
-RUN npm run build
+RUN pnpm build
 
 # 最小化镜像
 FROM node:18-alpine

@@ -1,18 +1,25 @@
+import { defineVaporComponent } from 'vue';
 import { useMainStore } from '@/store';
 import { cn } from '@/utils/cn';
 import styles from './Left.module.scss';
 
-export default function MainLeft() {
-  const mobileOpenState = useMainStore((state) => state.mobileOpenState);
-  const boxOpenState = useMainStore((state) => state.boxOpenState);
-
-  return (
-    <div className={cn(styles.left, mobileOpenState && !boxOpenState && styles.hidden)}>
-      <Message />
-      <SocialLinks />
-    </div>
-  );
-}
-
 import Message from '@/components/Message';
 import SocialLinks from '@/components/SocialLinks';
+
+export default defineVaporComponent({
+  setup() {
+    const store = useMainStore();
+
+    return (
+      <div
+        class={cn(
+          styles.left,
+          store.mobileOpenState && !store.boxOpenState && styles.hidden,
+        )}
+      >
+        <Message />
+        <SocialLinks />
+      </div>
+    );
+  },
+});

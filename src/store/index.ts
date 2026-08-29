@@ -1,65 +1,119 @@
-import { create } from 'zustand';
-import { persist } from 'zustand/middleware';
+import { defineStore } from 'pinia';
+import { ref } from 'vue';
 
-interface MainState {
-  imgLoadStatus: boolean;
-  innerWidth: number;
+const PERSIST_KEY = 'main-storage';
+
+interface PersistedState {
   coverType: string;
   siteStartShow: boolean;
-  backgroundShow: boolean;
-  boxOpenState: boolean;
-  mobileOpenState: boolean;
-  mobileFuncState: boolean;
-  setOpenState: boolean;
   footerBlur: boolean;
-  setInnerWidth: (value: number) => void;
-  setImgLoadStatus: (value: boolean) => void;
-  setCoverType: (value: string) => void;
-  setSiteStartShow: (value: boolean) => void;
-  setBackgroundShow: (value: boolean) => void;
-  setBoxOpenState: (value: boolean) => void;
-  setMobileOpenState: (value: boolean) => void;
-  setMobileFuncState: (value: boolean) => void;
-  setSetOpenState: (value: boolean) => void;
-  setFooterBlur: (value: boolean) => void;
 }
 
-export const useMainStore = create<MainState>()(
-  persist(
-    (set) => ({
-      imgLoadStatus: false,
-      innerWidth: 0,
-      coverType: '0',
-      siteStartShow: false,
-      backgroundShow: false,
-      boxOpenState: false,
-      mobileOpenState: false,
-      mobileFuncState: false,
-      setOpenState: false,
-      footerBlur: true,
-      setInnerWidth: (value) => {
-        set({ innerWidth: value });
-        if (value >= 720) {
-          set({ mobileOpenState: false, mobileFuncState: false });
-        }
-      },
-      setImgLoadStatus: (value) => set({ imgLoadStatus: value }),
-      setCoverType: (value) => set({ coverType: value }),
-      setSiteStartShow: (value) => set({ siteStartShow: value }),
-      setBackgroundShow: (value) => set({ backgroundShow: value }),
-      setBoxOpenState: (value) => set({ boxOpenState: value }),
-      setMobileOpenState: (value) => set({ mobileOpenState: value }),
-      setMobileFuncState: (value) => set({ mobileFuncState: value }),
-      setSetOpenState: (value) => set({ setOpenState: value }),
-      setFooterBlur: (value) => set({ footerBlur: value }),
-    }),
-    {
-      name: 'main-storage',
-      partialize: (state) => ({
-        coverType: state.coverType,
-        siteStartShow: state.siteStartShow,
-        footerBlur: state.footerBlur,
-      }),
+const loadPersisted = (): Partial<PersistedState> => {
+  if (typeof window === 'undefined') return {};
+  try {
+    const raw = window.localStorage.getItem(PERSIST_KEY);
+    if (!raw) return {};
+    return JSON.parse(raw) as PersistedState;
+  } catch {
+    return {};
+  }
+};
+
+const persistState = (state: PersistedState) => {
+  if (typeof window === 'undefined') return;
+  window.localStorage.setItem(PERSIST_KEY, JSON.stringify(state));
+};
+
+export const useMainStore = defineStore('main', () => {
+  const persisted = loadPersisted();
+
+  const imgLoadStatus = ref(false);
+  const innerWidth = ref(0);
+  const coverType = ref(persisted.coverType ?? '0');
+  const siteStartShow = ref(persisted.siteStartShow ?? false);
+  const backgroundShow = ref(false);
+  const boxOpenState = ref(false);
+  const mobileOpenState = ref(false);
+  const mobileFuncState = ref(false);
+  const setOpenState = ref(false);
+  const footerBlur = ref(persisted.footerBlur ?? true);
+
+  const setInnerWidth = (value: number) => {
+    innerWidth.value = value;
+    if (value >= 720) {
+      mobileOpenState.value = false;
+      mobileFuncState.value = false;
     }
-  )
-);
+  };
+
+  const setImgLoadStatus = (value: boolean) => {
+    imgLoadStatus.value = value;
+  };
+
+  const setCoverType = (value: string) => {
+    coverType.value = value;
+    persist();
+  };
+
+  const setSiteStartShow = (value: boolean) => {
+    siteStartShow.value = value;
+    persist();
+  };
+
+  const setBackgroundShow = (value: boolean) => {
+    backgroundShow.value = value;
+  };
+
+  const setBoxOpenState = (value: boolean) => {
+    boxOpenState.value = value;
+  };
+
+  const setMobileOpenState = (value: boolean) => {
+    mobileOpenState.value = value;
+  };
+
+  const setMobileFuncState = (value: boolean) => {
+    mobileFuncState.value = value;
+  };
+
+  const setSetOpenState = (value: boolean) => {
+    setOpenState.value = value;
+  };
+
+  const setFooterBlur = (value: boolean) => {
+    footerBlur.value = value;
+    persist();
+  };
+
+  const persist = () => {
+    persistState({
+      coverType: coverType.value,
+      siteStartShow: siteStartShow.value,
+      footerBlur: footerBlur.value,
+    });
+  };
+
+  return {
+    imgLoadStatus,
+    innerWidth,
+    coverType,
+    siteStartShow,
+    backgroundShow,
+    boxOpenState,
+    mobileOpenState,
+    mobileFuncState,
+    setOpenState,
+    footerBlur,
+    setInnerWidth,
+    setImgLoadStatus,
+    setCoverType,
+    setSiteStartShow,
+    setBackgroundShow,
+    setBoxOpenState,
+    setMobileOpenState,
+    setMobileFuncState,
+    setSetOpenState,
+    setFooterBlur,
+  };
+});

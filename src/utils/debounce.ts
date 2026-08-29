@@ -1,23 +1,19 @@
-// 防抖
-let timeout;
-
 /**
  * 防抖函数
  * @param func 执行函数
  * @param wait 延迟时间 (ms)
  * @param immediate 是否立即执行
  */
-function debounce<T extends (...args: any[]) => any>(
+export function debounce<T extends (...args: any[]) => any>(
   func: T,
   wait: number = 300,
-  immediate: boolean = false
+  immediate: boolean = false,
 ): (...args: Parameters<T>) => void {
   let timeout: ReturnType<typeof setTimeout> | null = null;
 
-  return function (this: any, ...args: Parameters<T>): void {
+  return function (this: unknown, ...args: Parameters<T>): void {
     const context = this;
 
-    // 清除定时器
     if (timeout !== null) {
       clearTimeout(timeout);
     }
@@ -27,7 +23,7 @@ function debounce<T extends (...args: any[]) => any>(
       timeout = setTimeout(() => {
         timeout = null;
       }, wait);
-      
+
       if (callNow) {
         func.apply(context, args);
       }
