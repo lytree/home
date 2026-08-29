@@ -37,7 +37,7 @@
     "eslint": "^9.16.0",
     "eslint-plugin-vue": "^9.32.0",
     "prettier": "^3.4.2",
-    "sass-embedded": "^1.83.0",
+    "lightningcss": "^1.32.0",
     "terser": "^5.37.0",
     "typescript": "~5.7.2",
     "vite": "^6.0.7",

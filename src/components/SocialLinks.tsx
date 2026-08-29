@@ -1,7 +1,7 @@
 import { defineVaporComponent, ref } from 'vue';
 import socialLinks from '@/assets/socialLinks.json';
 import { cn } from '@/utils/cn';
-import styles from './SocialLinks.module.scss';
+import styles from './SocialLinks.module.css';
 
 interface SocialItem {
   name: string;

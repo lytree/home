@@ -4,7 +4,7 @@ import { Swiper, SwiperSlide } from 'swiper/vue';
 import { Pagination, Mousewheel } from 'swiper/modules';
 import siteLinks from '@/assets/siteLinks.json';
 import { cn } from '@/utils/cn';
-import styles from './Links.module.scss';
+import styles from './Links.module.css';
 import 'swiper/css';
 
 interface SiteLink {

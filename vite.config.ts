@@ -22,9 +22,12 @@ export default ({ mode }: { mode: string }) =>
       },
     },
     css: {
-      preprocessorOptions: {
-        scss: {
-          additionalData: `@use "@/style/global.scss" as *;`,
+      transformer: "lightningcss",
+      lightningcss: {
+        targets: {
+          chrome: 112 << 16,
+          firefox: 117 << 16,
+          safari: 162 << 16,
         },
       },
     },

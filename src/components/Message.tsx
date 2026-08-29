@@ -1,7 +1,7 @@
 import { defineVaporComponent, computed } from 'vue';
 import { useMainStore } from '@/store';
 import { cn } from '@/utils/cn';
-import styles from './Message.module.scss';
+import styles from './Message.module.css';
 import { Icon } from '@iconify/vue';
 
 export default defineVaporComponent({

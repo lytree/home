@@ -1,9 +1,14 @@
+@keyframes fade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
 .logo {
-  // display: flex;
-  // flex-direction: row;
-  // align-items: center;
   animation: fade 0.5s;
-  // max-width: 460px;
 
   .logoImg {
     border-radius: 50%;
@@ -11,8 +16,6 @@
   }
 
   .name {
-    // width: 100%;
-    // padding-left: 22px;
     transform: translateY(-8px);
     font-family: "Pacifico-Regular";
 
@@ -21,8 +24,6 @@
     }
 
     .sm {
-
-
       @media (min-width: 721px) and (max-width: 789px) {
         display: none;
       }
@@ -49,12 +50,9 @@
 }
 
 .description {
-
   animation: fade 0.5s;
 
   .content {
-
-
     .text {
       margin: 0.75rem 1rem;
       line-height: 2rem;

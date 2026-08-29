@@ -1,7 +1,7 @@
 import { defineVaporComponent } from 'vue';
 import { useMainStore } from '@/store';
 import { cn } from '@/utils/cn';
-import styles from './Loading.module.scss';
+import styles from './Loading.module.css';
 
 export default defineVaporComponent({
   setup() {

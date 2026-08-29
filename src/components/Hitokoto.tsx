@@ -1,7 +1,7 @@
 import { defineVaporComponent, ref, onMounted } from 'vue';
 import { getHitokoto, type HitokotoResult } from '@/api';
 import { cn } from '@/utils/cn';
-import styles from './Hitokoto.module.scss';
+import styles from './Hitokoto.module.css';
 
 export default defineVaporComponent({
   setup() {

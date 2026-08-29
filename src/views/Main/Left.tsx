@@ -1,7 +1,7 @@
 import { defineVaporComponent } from 'vue';
 import { useMainStore } from '@/store';
 import { cn } from '@/utils/cn';
-import styles from './Left.module.scss';
+import styles from './Left.module.css';
 
 import Message from '@/components/Message';
 import SocialLinks from '@/components/SocialLinks';

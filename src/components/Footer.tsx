@@ -1,6 +1,6 @@
 import { defineVaporComponent } from 'vue';
 import { cn } from '@/utils/cn';
-import styles from './Footer.module.scss';
+import styles from './Footer.module.css';
 
 export default defineVaporComponent({
   props: {

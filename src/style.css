@@ -46,16 +46,6 @@ a:hover {
     src: url("/font/UnidreamLED.ttf") format("truetype");
 }
 
-@keyframes fade {
-    from {
-        opacity: 0;
-    }
-
-    to {
-        opacity: 1;
-    }
-}
-
 @keyframes fade-blur-in {
     from {
         filter: blur(20px) brightness(0.3);
@@ -63,7 +53,7 @@ a:hover {
     }
 
     to {
-        filter: blur(0) brightness(1);
+        filter: none;
         transform: scale(1);
     }
 }
@@ -184,4 +174,11 @@ scrollbar-thumb {
     .xs-hidden {
         display: none;
     }
+}
+
+/* 隐藏元素 */
+@media (min-width: 910px) and (max-width: 1200px) {
+  .sm-hidden {
+    display: none;
+  }
 }

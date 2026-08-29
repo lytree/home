@@ -1,7 +1,7 @@
 import { defineVaporComponent, computed } from 'vue';
 import { useMainStore } from '@/store';
 import { cn } from '@/utils/cn';
-import styles from './Right.module.scss';
+import styles from './Right.module.css';
 
 import Func from '@/views/Func';
 import Link from '@/components/Links';
