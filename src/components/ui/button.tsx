@@ -1,6 +1,6 @@
 import { defineVaporComponent } from 'vue';
 import { cva, type VariantProps } from 'class-variance-authority';
-import type { MouseEvent as VaporMouseEvent } from 'vue-jsx-vapor';
+import type { MouseEvent as VaporMouseEvent } from 'vue-jsx';
 import { cn } from '@/utils/cn';
 
 const buttonVariants = cva(

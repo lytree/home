@@ -1,7 +1,7 @@
 import { defineConfig, loadEnv } from "vite";
 import { fileURLToPath, URL } from "node:url";
 import vue from "@vitejs/plugin-vue";
-import vueJsxVapor from "vue-jsx-vapor/vite";
+import vueJsx from "vue-jsx/vite";
 import tailwindcss from "@tailwindcss/vite";
 import viteCompression from "vite-plugin-compression";
 
@@ -10,7 +10,7 @@ export default ({ mode }: { mode: string }) =>
     plugins: [
       tailwindcss(),
       vue(),
-      vueJsxVapor({
+      vueJsx({
         include: /.[jt]sx?$/,
         exclude: /node_modules/,
       }),

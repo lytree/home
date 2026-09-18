@@ -1,6 +1,6 @@
 import { defineVaporComponent, type PropType } from 'vue';
 import { Icon as IconifyIcon, type IconifyIcon as IconifyIconData } from '@iconify/vue';
-import type { MouseEvent as VaporMouseEvent } from 'vue-jsx-vapor';
+import type { MouseEvent as VaporMouseEvent } from 'vue-jsx';
 
 // @iconify/vue 的 Icon 是 vdom 组件,@vue/runtime-vapor 通过 vaporInteropPlugin
 // 兼容渲染,但其 TS 类型在 Vapor JSX 上下文里推不出 class/icon/width/height
