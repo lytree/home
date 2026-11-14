@@ -80,14 +80,14 @@
   position: relative;
   width: min(240px, 52vw);
   height: 2px;
-  background: rgba(244, 238, 226, 0.14);
+  background: rgba(58, 42, 95, 0.14);
   overflow: hidden;
 
   .fill {
     position: absolute;
     inset: 0;
-    background: linear-gradient(90deg, transparent, var(--amber) 55%, #f7cf8a);
-    box-shadow: 0 0 14px rgba(224, 165, 72, 0.55);
+    background: linear-gradient(90deg, transparent, var(--amber) 55%, #c9b6f5);
+    box-shadow: 0 0 14px rgba(139, 111, 214, 0.45);
     transform-origin: left center;
     animation: load-fill 1.5s var(--ease-out) 0.1s forwards;
   }
@@ -131,7 +131,7 @@
   z-index: 3;
   width: 50.5%;
   height: 100%;
-  background: var(--ink);
+  background: linear-gradient(160deg, #f8f5fe, #efe7fa);
   transition: transform 0.9s 0.35s var(--ease-out);
 }
 

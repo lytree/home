@@ -43,8 +43,8 @@
       width: 17px;
       height: 17px;
       object-fit: contain;
-      filter: grayscale(1) brightness(1.7);
-      opacity: 0.6;
+      filter: grayscale(1) brightness(0.5);
+      opacity: 0.55;
       transition: filter 0.3s, opacity 0.3s, transform 0.35s var(--ease-out);
     }
 

@@ -99,7 +99,7 @@ export default defineVaporComponent({
                 onClick={() => store.setBackgroundShow(false)}
               >
                 <span class={styles.hintDot} />
-                壁纸模式 · 点击或中键返回
+                壁纸模式 · 中键返回 / 点此退出
               </button>
             ) : (
               <>

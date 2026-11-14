@@ -48,7 +48,7 @@ class Cursor {
 
     if (!this.scr) {
       this.scr = document.createElement('style');
-      this.scr.innerHTML = `* {cursor: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 8' width='10px' height='10px'><circle cx='4' cy='4' r='4' fill='%23e0a548' /></svg>") 4 4, auto !important}`;
+      this.scr.innerHTML = `* {cursor: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 8' width='10px' height='10px'><circle cx='4' cy='4' r='4' fill='%238b6fd6' /></svg>") 4 4, auto !important}`;
       document.body.appendChild(this.scr);
     }
   }

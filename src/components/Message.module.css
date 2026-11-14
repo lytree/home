@@ -64,7 +64,7 @@
     line-height: 1.04;
     letter-spacing: 0.04em;
     color: var(--paper);
-    text-shadow: 0 18px 60px rgba(0, 0, 0, 0.45);
+    text-shadow: 0 18px 50px rgba(88, 64, 140, 0.14);
     animation: char-in 1.05s var(--ease-out) backwards;
   }
 
@@ -77,7 +77,7 @@
     line-height: 1;
     color: var(--amber);
     transform: rotate(-5deg);
-    text-shadow: 0 0 26px rgba(224, 165, 72, 0.3);
+    text-shadow: 0 0 26px rgba(139, 111, 214, 0.22);
     animation: rise 0.9s var(--ease-out) 1.02s backwards;
   }
 }
