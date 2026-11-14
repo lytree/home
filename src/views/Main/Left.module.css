@@ -1,15 +1,16 @@
 .left {
   display: flex;
   flex-direction: column;
+  align-items: center;
   justify-content: center;
   min-height: 0;
   padding-right: clamp(0rem, 1.5vw, 1.25rem);
-  /* 桌面端整块向页面中线靠齐 */
-  text-align: right;
+  /* 桌面端整块在左栏内水平居中 */
+  text-align: left;
 
   @media (max-width: 1023px) {
+    align-items: flex-start;
     padding-right: 0;
-    text-align: left;
 
     &.hidden {
       display: none;
