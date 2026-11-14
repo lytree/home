@@ -1,62 +1,64 @@
-import { defineVaporComponent, computed } from 'vue';
-import { useMainStore } from '@/store';
-import { cn } from '@/utils/cn';
+import { defineVaporComponent } from 'vue';
 import styles from './Message.module.css';
-import { Icon } from '@iconify/vue';
 
 export default defineVaporComponent({
   setup() {
-    const store = useMainStore();
-
-    const siteLogo = import.meta.env.VITE_SITE_MAIN_LOGO;
+    const siteName = import.meta.env.VITE_SITE_NAME;
     const siteAuthor = import.meta.env.VITE_SITE_AUTHOR;
+    const rawDes = import.meta.env.VITE_SITE_DES;
+    // “杨 ◦ 柳 ｜ 记录平淡生活里的微光” -> 只留破折号后的那句，避免与姓名重复
+    const tagline = rawDes.split(/[｜|]/).pop()?.trim() || rawDes;
+    const siteUrl = (import.meta.env.VITE_SITE_URL ?? '').replace(/^https?:\/\//, '');
+    const descText = import.meta.env.VITE_DESC_TEXT;
+    const rawStart = import.meta.env.VITE_SITE_START ?? '';
+    const startYear = rawStart.length >= 4 ? rawStart.slice(0, 4) : '';
 
-    const urlParts = computed<string[]>(() => {
-      if (siteAuthor.startsWith('http://') || siteAuthor.startsWith('https://')) {
-        return siteAuthor.replace(/^(https?:\/\/)/, '').split('.');
-      }
-      return siteAuthor.split('.');
-    });
-
-    const descriptionText = {
-      hello: import.meta.env.VITE_DESC_HELLO,
-      text: import.meta.env.VITE_DESC_TEXT,
-    };
-
-    const displayText = computed(() =>
-      store.boxOpenState
-        ? {
-            hello: import.meta.env.VITE_DESC_HELLO_OTHER,
-            text: import.meta.env.VITE_DESC_TEXT_OTHER,
-          }
-        : descriptionText,
-    );
+    const nameChars = (siteName.replace(/\s|◦/g, '') || siteAuthor || 'LY').split('');
+    const latin = siteAuthor || 'lytree';
 
     return (
-      <>
-        <div class={cn(styles.logo, 'flex flex-row items-center animation-fade max-w-115')}>
-          <img class={cn(styles.logoImg, 'rounded-full w-28')} src={siteLogo} alt="logo" />
-          <div
-            class={cn(
-              styles.name,
-              'text-hidden w-full pl-5.5 -translate-y-2',
-              (urlParts.value[0]?.length ?? 0) >= 6 && styles.long,
-            )}
-          >
-            <span class={cn(styles.bg, 'text-5xl')}>{urlParts.value[0]}</span>
-            <span class={cn(styles.sm, 'ml-1.5 text-2xl')}>{urlParts.value[1]}</span>
-          </div>
+      <div class={styles.identity}>
+        <div class={styles.eyebrow}>
+          <span class={styles.index}>01</span>
+          <span class={styles.label}>Portfolio</span>
+          <span class={styles.rule} />
+          <span class={styles.year}>{startYear ? `EST. ${startYear}` : 'PERSONAL SITE'}</span>
         </div>
-        <div class={cn(styles.description, 'cards p-4! mt-14! max-w-115')}>
-          <div class={cn(styles.content, 'flex justify-between')}>
-            <Icon icon="fa:quote-left" height={16} width={16} />
-            <div class={cn(styles.text, 'my-3 mx-4 leading-8 mr-auto')}>
-              <p>{displayText.value.text}</p>
-            </div>
-            <Icon icon="fa:quote-right" height={16} width={16} />
-          </div>
+
+        <h1 class={styles.name} aria-label={siteName}>
+          <span class={styles.chars} aria-hidden="true">
+            {nameChars.map((char, i) => (
+              <span class={styles.charMask}>
+                <span class={styles.char} style={{ animationDelay: `${0.46 + i * 0.1}s` }}>
+                  {char}
+                </span>
+              </span>
+            ))}
+          </span>
+          <span class={styles.latin} aria-hidden="true">
+            {latin}
+          </span>
+        </h1>
+
+        <p class={styles.tagline}>{tagline}</p>
+
+        <div class={styles.metaRow}>
+          <span class={styles.metaItem}>
+            <i class={styles.metaDot} />
+            {siteUrl}
+          </span>
+          <span class={styles.metaDivider} />
+          <span class={styles.metaItem}>手记 · 代码 · 光</span>
         </div>
-      </>
+
+        <figure class={styles.quote}>
+          <span class={styles.quoteMark} aria-hidden="true">
+            “
+          </span>
+          <blockquote class={styles.quoteText}>{descText}</blockquote>
+          <figcaption class={styles.quoteFrom}>写在首页的一句话</figcaption>
+        </figure>
+      </div>
     );
   },
 });

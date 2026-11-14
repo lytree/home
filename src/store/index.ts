@@ -41,7 +41,7 @@ export const useMainStore = defineStore('main', () => {
 
   const setInnerWidth = (value: number) => {
     innerWidth.value = value;
-    if (value >= 720) {
+    if (value >= 1024) {
       mobileOpenState.value = false;
       mobileFuncState.value = false;
     }

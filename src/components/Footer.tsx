@@ -1,20 +1,16 @@
 import { defineVaporComponent } from 'vue';
-import { cn } from '@/utils/cn';
 import styles from './Footer.module.css';
 
 export default defineVaporComponent({
-  props: {
-    footerClass: { type: String, default: '' },
-  },
-  setup(props) {
+  setup() {
     const fullYear = new Date().getFullYear();
-    const startYear =
-      (import.meta.env.VITE_SITE_START?.length ?? 0) >= 4
-        ? import.meta.env.VITE_SITE_START.substring(0, 4)
-        : null;
+    const rawStart = import.meta.env.VITE_SITE_START ?? '';
+    const startYear = rawStart.length >= 4 ? rawStart.slice(0, 4) : null;
     const siteIcp = import.meta.env.VITE_SITE_ICP;
     const siteAuthor = import.meta.env.VITE_SITE_AUTHOR;
-    const siteUrl = import.meta.env.VITE_SITE_URL;
+    const siteName = import.meta.env.VITE_SITE_NAME;
+    const siteDes = import.meta.env.VITE_SITE_DES;
+    const siteUrl = import.meta.env.VITE_SITE_URL ?? '';
 
     const getSiteUrl = () => {
       if (!siteUrl.startsWith('http://') && !siteUrl.startsWith('https://')) {
@@ -23,37 +19,41 @@ export default defineVaporComponent({
       return siteUrl;
     };
 
+    const pieces = [
+      siteName,
+      siteDes,
+      startYear ? `SINCE ${startYear}` : 'PERSONAL ARCHIVE',
+      siteUrl.replace(/^https?:\/\//, ''),
+      '手记 · 代码 · 光',
+      siteAuthor,
+    ].filter(Boolean);
+
+    const marqueeItems = [...pieces, ...pieces];
+
     return (
-      <footer
-        class={cn(
-          styles.footer,
-          'absolute bottom-0 left-0 w-full h-11.5 text-center z-0 text-sm break-keep whitespace-nowrap',
-          props.footerClass,
-          styles.blur,
-        )}
-      >
-        <div class={cn(styles.power, 'animation-fade duration-300')}>
-          <span>
-            <span
-              class={cn(
-                Number(startYear) < fullYear ? styles.cHidden : styles.hidden,
-                'hidden lg:block',
-              )}
-            >
-              Copyright&nbsp;&nbsp;
-            </span>
-            &copy;
-            {Number(startYear) < fullYear ? <span class={styles.siteStart}>{startYear}-</span> : null}
-            {fullYear}&nbsp;&nbsp;
-            <a href={getSiteUrl()}>{siteAuthor}</a>
+      <footer class={styles.footer}>
+        <div class={styles.marquee} aria-hidden="true">
+          <div class={styles.track}>
+            {marqueeItems.map((item, index) => (
+              <span class={styles.item} key={`${item}-${index}`}>
+                {item}
+              </span>
+            ))}
+          </div>
+        </div>
+
+        <div class={styles.meta}>
+          <span class={styles.copyright}>
+            ©&nbsp;{startYear ? `${startYear}–` : ''}
+            {fullYear}
           </span>
+          <a class={styles.author} href={getSiteUrl()}>
+            {siteAuthor}
+          </a>
           {siteIcp ? (
-            <span>
-              &amp;
-              <a href="https://beian.miit.gov.cn" target="_blank">
-                {siteIcp}
-              </a>
-            </span>
+            <a class={styles.icp} href="https://beian.miit.gov.cn" target="_blank" rel="noreferrer">
+              {siteIcp}
+            </a>
           ) : null}
         </div>
       </footer>

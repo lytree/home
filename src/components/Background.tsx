@@ -1,5 +1,7 @@
 import { defineVaporComponent, ref, onMounted, onUnmounted, type PropType } from 'vue';
 import { useMainStore } from '@/store';
+import { cn } from '@/utils/cn';
+import styles from './Background.module.css';
 
 const BG_COUNT = 10;
 
@@ -22,7 +24,6 @@ export default defineVaporComponent({
     });
 
     const imgLoadComplete = () => {
-      console.log('图片加载完成');
       const timeout = window.setTimeout(
         () => {
           store.setImgLoadStatus(true);
@@ -32,8 +33,9 @@ export default defineVaporComponent({
       imgTimeoutValue.value = timeout;
     };
 
-    const imgAnimationEnd = () => {
-      console.log('壁纸动画完成');
+    /** 只响应壁纸层的入场动画，避免 kenburns 的每次循环都触发 */
+    const enterAnimationEnd = (event: Event) => {
+      if (event.target !== event.currentTarget) return;
       props.onLoadComplete?.();
     };
 
@@ -44,28 +46,17 @@ export default defineVaporComponent({
     });
 
     return (
-      <div
-        class="absolute top-0 left-0 w-full h-full transition-all z-[-1]"
-        style={{
-          backfaceVisibility: 'hidden',
-          filter: 'blur(20px) brightness(0.3)',
-          transition: 'filter 0.3s, transform 0.3s',
-          animation: 'fade-blur-in 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards',
-          animationDelay: '0.45s',
-        }}
-      >
-        {bgUrlValue.value ? (
-          <img
-            src={bgUrlValue.value}
-            class="absolute top-0 left-0 w-full h-full object-cover blur-20 brightness-50"
-            style={{
-              animation: 'fade-blur-in 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards',
-            }}
-            alt="cover"
-            onLoad={imgLoadComplete}
-            onAnimationend={imgAnimationEnd}
-          />
-        ) : null}
+      <div class={cn(styles.root, store.backgroundShow && styles.solo)} aria-hidden="true">
+        <div class={styles.film} onAnimationend={enterAnimationEnd}>
+          {bgUrlValue.value ? (
+            <img class={styles.image} src={bgUrlValue.value} alt="" onLoad={imgLoadComplete} />
+          ) : null}
+        </div>
+        <div class={styles.tint} />
+        <div class={styles.glow} />
+        <div class={styles.vignette} />
+        <div class={styles.grain} />
+        <div class={cn(styles.scan, 'hidden md:block')} />
       </div>
     );
   },

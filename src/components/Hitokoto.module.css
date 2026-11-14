@@ -1,63 +1,120 @@
-@keyframes fade {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
+.note {
+  position: relative;
+  flex: none;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  background: linear-gradient(155deg, rgba(20, 17, 13, 0.58), rgba(10, 9, 8, 0.28));
+  backdrop-filter: blur(16px) saturate(1.15);
+
+  &::before {
+    content: "";
+    position: absolute;
+    inset: 0 0 auto 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--line-strong), transparent);
   }
 }
 
-.hitokoto {
-  width: 100%;
-  height: 100%;
-  padding: 20px;
-  animation: fade 0.5s;
+.head {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.62rem 1rem;
+  border-bottom: 1px solid var(--line);
+  font-family: var(--mono);
+  font-size: 0.55rem;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--faint);
 
-  .openMusic {
-    width: 100%;
-    position: absolute;
-    top: 0;
-    left: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: #00000026;
-    padding: 4px 0;
-    border-radius: 8px 8px 0 0;
-
-    .i-icon {
-      width: 18px;
-      height: 18px;
-      display: block;
-      margin-right: 8px;
-    }
-
-    span {
-      font-size: 0.95rem;
-    }
+  .idx {
+    color: var(--amber);
   }
 
-  .content {
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-evenly;
+  .label {
+    color: var(--muted);
+  }
+}
 
-    .text {
-      font-size: 1.1rem;
-      word-break: break-all;
-      text-overflow: ellipsis;
-      overflow: hidden;
-      display: -webkit-box;
-      -webkit-line-clamp: 3;
-      -webkit-box-orient: vertical;
-    }
+.refresh {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.35rem;
+  height: 1.35rem;
+  margin-left: auto;
+  border: 1px solid var(--line);
+  border-radius: 50%;
+  color: var(--faint);
+  transition: color 0.25s, border-color 0.25s, transform 0.45s var(--ease-out);
 
-    .from {
-      margin-top: 10px;
-      font-weight: bold;
-      align-self: flex-end;
-      font-size: 1.1rem;
-    }
+  svg {
+    display: block;
+  }
+
+  &:hover {
+    color: var(--amber);
+    border-color: var(--amber-line);
+    transform: rotate(140deg);
+  }
+
+  &.loading {
+    animation: spin 0.9s linear infinite;
+  }
+}
+
+.body {
+  display: block;
+  width: 100%;
+  padding: 0.85rem 1.1rem 0.95rem;
+  text-align: left;
+  cursor: pointer;
+}
+
+.text {
+  display: -webkit-box;
+  margin: 0;
+  overflow: hidden;
+  font-family: var(--serif);
+  font-size: clamp(0.9rem, 1.15vw, 1rem);
+  line-height: 1.8;
+  letter-spacing: 0.04em;
+  color: var(--paper);
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  transition: opacity 0.25s;
+
+  &.dim {
+    opacity: 0.35;
+  }
+}
+
+.footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  margin-top: 0.55rem;
+  font-family: var(--mono);
+  font-size: 0.52rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--faint);
+
+  .from {
+    color: var(--amber);
+    letter-spacing: 0.14em;
+    text-transform: none;
+    font-size: 0.56rem;
+  }
+
+  .hint {
+    opacity: 0.75;
+  }
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
   }
 }

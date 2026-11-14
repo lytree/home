@@ -1,6 +1,5 @@
 import { defineVaporComponent, ref } from 'vue';
 import socialLinks from '@/assets/socialLinks.json';
-import { cn } from '@/utils/cn';
 import styles from './SocialLinks.module.css';
 
 interface SocialItem {
@@ -12,37 +11,30 @@ interface SocialItem {
 
 export default defineVaporComponent({
   setup() {
-    const socialTip = ref('通过这里联系我吧');
+    const socialTip = ref('在这些地方找到我');
 
     return (
-      <div
-        class={cn(
-          styles.social,
-          'mt-4 flex items-center justify-between max-w-115 w-full h-10.5 bg-transparent rounded-md backdrop-blur-sm',
-        )}
-      >
-        <div class={cn(styles.link, 'flex items-center justify-center')}>
+      <div class={styles.social}>
+        <span class={styles.label}>Contact</span>
+
+        <div class={styles.list}>
           {(socialLinks as SocialItem[]).map((item) => (
             <a
               key={item.name}
               href={item.url}
               target="_blank"
-              class="inline-block"
+              rel="noreferrer"
+              class={styles.item}
+              aria-label={item.name}
               onMouseenter={() => (socialTip.value = item.tip)}
-              onMouseleave={() => (socialTip.value = '通过这里联系我吧')}
+              onMouseleave={() => (socialTip.value = '在这些地方找到我')}
             >
-              <img
-                class={cn(
-                  styles.icon,
-                  'mx-3 h-6 transition-transform duration-300 hover:scale-110 active:scale-100',
-                )}
-                src={item.icon}
-                height="24"
-              />
+              <img src={item.icon} alt="" />
             </a>
           ))}
         </div>
-        <span class={cn(styles.tip, 'hidden mr-3')}>{socialTip.value}</span>
+
+        <span class={styles.tip}>{socialTip.value}</span>
       </div>
     );
   },

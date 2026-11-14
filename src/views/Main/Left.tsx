@@ -11,12 +11,7 @@ export default defineVaporComponent({
     const store = useMainStore();
 
     return (
-      <div
-        class={cn(
-          styles.left,
-          store.mobileOpenState && !store.boxOpenState && styles.hidden,
-        )}
-      >
+      <div class={cn(styles.left, store.mobileOpenState && styles.hidden)}>
         <Message />
         <SocialLinks />
       </div>

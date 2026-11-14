@@ -1,18 +1,8 @@
 type Point = { x: number; y: number };
-
 type CursorPos = { curr: Point | null; prev: Point | null };
 
 const lerp = (a: number, b: number, n: number): number => {
   return Math.round(a) === b ? b : (1 - n) * a + n * b;
-};
-
-const getStyle = (el: HTMLElement, attr: string): string => {
-  try {
-    return window.getComputedStyle(el)[attr as keyof CSSStyleDeclaration] as string;
-  } catch (e) {
-    console.error(e);
-    return '';
-  }
 };
 
 const isSamePoint = (a: Point | null, b: Point | null): boolean => {
@@ -20,12 +10,16 @@ const isSamePoint = (a: Point | null, b: Point | null): boolean => {
   return a.x === b.x && a.y === b.y;
 };
 
+const prefersReducedMotion = (): boolean =>
+  typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
 class Cursor {
   pos: CursorPos = { curr: null, prev: null };
-  pt: string[] = [];
   cursor!: HTMLDivElement;
+  spot!: HTMLDivElement;
   scr!: HTMLStyleElement;
   private rafId: number | null = null;
+  private reduced = prefersReducedMotion();
 
   constructor() {
     this.create();
@@ -42,63 +36,74 @@ class Cursor {
     if (!this.cursor) {
       this.cursor = document.createElement('div');
       this.cursor.id = 'cursor';
-      this.cursor.classList.add('xs-hidden', 'hidden');
       document.body.appendChild(this.cursor);
     }
 
-    const elements = document.getElementsByTagName('*');
-    for (let i = 0; i < elements.length; i++) {
-      const el = elements[i] as HTMLElement;
-      if (getStyle(el, 'cursor') === 'pointer') {
-        this.pt.push(el.outerHTML);
-      }
+    // 跟手的琥珀聚光灯，随指针位置更新 CSS 变量
+    if (!this.spot && !this.reduced) {
+      this.spot = document.createElement('div');
+      this.spot.id = 'cursor-spot';
+      document.body.appendChild(this.spot);
     }
 
-    this.scr = document.createElement('style');
-    this.scr.innerHTML = `* {cursor: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 8' width='10px' height='10px'><circle cx='4' cy='4' r='4' fill='white' /></svg>") 4 4, auto !important}`;
-    document.body.appendChild(this.scr);
-  }
-
-  refresh(): void {
-    this.scr?.remove();
-    this.cursor.classList.remove('active');
-
-    this.pos = { curr: null, prev: null };
-    this.pt = [];
-
-    this.create();
-    this.init();
-    this.render();
+    if (!this.scr) {
+      this.scr = document.createElement('style');
+      this.scr.innerHTML = `* {cursor: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 8' width='10px' height='10px'><circle cx='4' cy='4' r='4' fill='%23e0a548' /></svg>") 4 4, auto !important}`;
+      document.body.appendChild(this.scr);
+    }
   }
 
   init(): void {
-    document.addEventListener('mousemove', this.onMouseMove);
+    document.addEventListener('mousemove', this.onMouseMove, { passive: true });
     document.addEventListener('mouseenter', this.onMouseEnter);
     document.addEventListener('mouseleave', this.onMouseLeave);
     document.addEventListener('mousedown', this.onMouseDown);
     document.addEventListener('mouseup', this.onMouseUp);
+    document.addEventListener('mouseover', this.onMouseOver);
   }
 
   private onMouseMove = (e: MouseEvent): void => {
-    if (!this.pos.curr) {
-      this.move(e.clientX - 8, e.clientY - 8);
+    this.cursor.classList.add('visible');
+    this.spot?.classList.add('visible');
+
+    if (this.spot) {
+      document.documentElement.style.setProperty('--spot-x', `${e.clientX}px`);
+      document.documentElement.style.setProperty('--spot-y', `${e.clientY}px`);
     }
 
-    this.pos.curr = { x: e.clientX - 8, y: e.clientY - 8 };
+    if (this.reduced) {
+      this.move(e.clientX, e.clientY);
+      return;
+    }
 
-    this.cursor.classList.remove('hidden');
+    if (!this.pos.curr) {
+      this.move(e.clientX, e.clientY);
+    }
+
+    this.pos.curr = { x: e.clientX, y: e.clientY };
 
     if (!this.rafId) {
       this.rafId = requestAnimationFrame(this.render);
     }
   };
 
+  private onMouseOver = (e: MouseEvent): void => {
+    const target = e.target as HTMLElement | null;
+    if (target?.closest('a, button, [data-cursor="link"]')) {
+      this.cursor.classList.add('link');
+    } else {
+      this.cursor.classList.remove('link');
+    }
+  };
+
   private onMouseEnter = (): void => {
-    this.cursor.classList.remove('hidden');
+    this.cursor.classList.add('visible');
+    this.spot?.classList.add('visible');
   };
 
   private onMouseLeave = (): void => {
-    this.cursor.classList.add('hidden');
+    this.cursor.classList.remove('visible');
+    this.spot?.classList.remove('visible');
   };
 
   private onMouseDown = (): void => {
@@ -136,12 +141,14 @@ class Cursor {
     document.removeEventListener('mouseleave', this.onMouseLeave);
     document.removeEventListener('mousedown', this.onMouseDown);
     document.removeEventListener('mouseup', this.onMouseUp);
+    document.removeEventListener('mouseover', this.onMouseOver);
 
     if (this.rafId) {
       cancelAnimationFrame(this.rafId);
     }
 
     this.cursor?.remove();
+    this.spot?.remove();
     this.scr?.remove();
   }
 }

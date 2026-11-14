@@ -1,10 +1,27 @@
-import { defineVaporComponent, ref, onMounted, onUnmounted } from 'vue';
-import { getCurrentTime, type CurrentTime } from '@/utils/getTime';
-import Hitokoto from '@/components/Hitokoto';
+import { defineVaporComponent, ref, computed, onMounted, onUnmounted } from 'vue';
+import { getCurrentTime, siteDateStatistics, type CurrentTime } from '@/utils/getTime';
+import styles from './Func.module.css';
+
+/** 一天 24 格的刻度 */
+const TICKS = Array.from({ length: 24 }, (_, i) => i);
 
 export default defineVaporComponent({
   setup() {
     const currentTime = ref<CurrentTime>(getCurrentTime());
+
+    const rawStart = import.meta.env.VITE_SITE_START ?? '';
+    const startDate = rawStart && !Number.isNaN(Date.parse(rawStart)) ? new Date(rawStart) : null;
+    const uptime = startDate ? siteDateStatistics(startDate) : '';
+
+    /** 今日进度：0 点到现在占一整天的百分比 */
+    const dayPercent = computed(() => {
+      const t = currentTime.value;
+      const seconds = Number(t.hour) * 3600 + Number(t.minute) * 60 + Number(t.second);
+      return (seconds / 86400) * 100;
+    });
+
+    const dayPercentText = computed(() => dayPercent.value.toFixed(1));
+    const currentHour = computed(() => Number(currentTime.value.hour));
 
     let timer: ReturnType<typeof setInterval> | undefined;
 
@@ -21,29 +38,48 @@ export default defineVaporComponent({
     });
 
     return (
-      <div class="flex flex-row items-center h-41.25 justify-between w-full">
-        <div class="flex-1 p-1 w-full h-full">
-          <Hitokoto />
-        </div>
-        <div class="flex-1 p-1 max-w-[calc(50%-10px)] w-full h-full">
-          <div class="w-full h-full cards p-5 flex flex-col items-center justify-between animate-fade">
-            <div class="text-center text-[1.1rem] max-[1280px]:text-base max-[992px]:text-sm">
-              <div class="text-ellipsis overflow-x-hidden whitespace-nowrap">
-                <span>{currentTime.value.year}&nbsp;年&nbsp;</span>
-                <span>{currentTime.value.month}&nbsp;月&nbsp;</span>
-                <span>{currentTime.value.day}&nbsp;日&nbsp;</span>
-                <span class="max-[910px]:hidden">{currentTime.value.weekday}</span>
-              </div>
-              <div class="mt-2.5 text-[3.25rem] tracking-[2px] max-[1280px]:text-[2.75rem] max-[992px]:text-[2.5rem]">
-                <span>
-                  {' '}
-                  {currentTime.value.hour}:{currentTime.value.minute}:{currentTime.value.second}
-                </span>
-              </div>
+      <section class={styles.clock}>
+        <header class={styles.head}>
+          <span class={styles.idx}>02</span>
+          <span class={styles.label}>Now</span>
+          <span class={styles.loc}>GMT+8</span>
+        </header>
+
+        <div class={styles.body}>
+          <div class={styles.timeRow}>
+            <span class={styles.time}>
+              {currentTime.value.hour}
+              <i class={styles.colon}>:</i>
+              {currentTime.value.minute}
+            </span>
+            <span class={styles.seconds}>{currentTime.value.second}</span>
+          </div>
+
+          <div class={styles.dateRow}>
+            <span>
+              {currentTime.value.year} / {currentTime.value.month} / {currentTime.value.day}
+            </span>
+            <span class={styles.weekday}>{currentTime.value.weekday}</span>
+          </div>
+
+          <div class={styles.progress}>
+            <div class={styles.progressMeta}>
+              <span>今日已过</span>
+              <span>{dayPercentText.value}%</span>
+            </div>
+            <div class={styles.track}>
+              <span class={styles.fill} style={{ width: `${dayPercentText.value}%` }} />
+            </div>
+            <div class={styles.ticks}>
+              {TICKS.map((tick) => (
+                <i class={tick < currentHour.value ? styles.tickOn : undefined} />
+              ))}
             </div>
           </div>
+
+          {uptime ? <p class={styles.uptime}>{uptime}</p> : null}
         </div>
-      </div>
+      </section>
     );
   },
 });

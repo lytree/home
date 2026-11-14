@@ -1,4 +1,88 @@
-@keyframes fade {
+.footer {
+  display: flex;
+  flex: none;
+  align-items: center;
+  gap: 1rem;
+  padding-top: clamp(10px, 1.4vh, 14px);
+  border-top: 1px solid var(--line);
+  font-family: var(--mono);
+  font-size: 0.55rem;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--faint);
+  animation: soft-in 0.9s 0.8s backwards;
+}
+
+.marquee {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  mask-image: linear-gradient(90deg, transparent, #000 5%, #000 95%, transparent);
+
+  &:hover .track {
+    animation-play-state: paused;
+  }
+}
+
+.track {
+  display: flex;
+  width: max-content;
+  animation: marquee 38s linear infinite;
+  will-change: transform;
+}
+
+.item {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.9rem;
+  padding-right: 0.9rem;
+  white-space: nowrap;
+
+  &::after {
+    content: "◆";
+    font-size: 0.35rem;
+    color: var(--amber);
+    opacity: 0.75;
+  }
+}
+
+.meta {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  gap: 0.4rem;
+  white-space: nowrap;
+}
+
+.copyright {
+  color: var(--faint);
+}
+
+.author {
+  color: var(--paper-dim);
+  transition: color 0.25s;
+
+  &:hover {
+    color: var(--amber);
+  }
+}
+
+.icp {
+  color: var(--faint);
+  transition: color 0.25s;
+
+  &:hover {
+    color: var(--paper-dim);
+  }
+}
+
+@keyframes marquee {
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@keyframes soft-in {
   from {
     opacity: 0;
   }
@@ -7,39 +91,13 @@
   }
 }
 
-.footer {
-  .power {
-    animation: fade 0.3s;
+@media (max-width: 720px) {
+  .footer {
+    font-size: 0.5rem;
+    letter-spacing: 0.16em;
   }
 
-  &.blur {
-    backdrop-filter: blur(10px);
-    background: rgb(0 0 0 / 25%);
-    font-size: 16px;
-  }
-
-  .fade-enter-active,
-  .fade-leave-active {
-    transition: opacity 0.15s ease-in-out;
-  }
-
-  @media (max-width: 720px) {
-    font-size: 0.9rem;
-
-    &.blur {
-      font-size: 0.9rem;
-    }
-  }
-
-  @media (max-width: 560px) {
-    .cHidden {
-      display: none;
-    }
-  }
-
-  @media (max-width: 480px) {
-    .hidden {
-      display: none;
-    }
+  .copyright {
+    display: none;
   }
 }

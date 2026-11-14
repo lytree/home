@@ -1,0 +1,167 @@
+.clock {
+  position: relative;
+  flex: none;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  background: linear-gradient(155deg, rgba(20, 17, 13, 0.66), rgba(10, 9, 8, 0.32));
+  backdrop-filter: blur(16px) saturate(1.15);
+
+  &::before {
+    content: "";
+    position: absolute;
+    inset: 0 0 auto 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--line-strong), transparent);
+  }
+}
+
+.head {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.68rem 1rem;
+  border-bottom: 1px solid var(--line);
+  font-family: var(--mono);
+  font-size: 0.55rem;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--faint);
+
+  .idx {
+    color: var(--amber);
+  }
+
+  .label {
+    color: var(--muted);
+  }
+
+  .loc {
+    margin-left: auto;
+  }
+}
+
+.body {
+  padding: 0.9rem 1.1rem 1rem;
+}
+
+.timeRow {
+  display: flex;
+  align-items: flex-end;
+  gap: 0.6rem;
+}
+
+.time {
+  font-family: "UnidreamLED", var(--mono);
+  font-size: clamp(2.5rem, 4.2vw, 3.4rem);
+  line-height: 1;
+  letter-spacing: 0.05em;
+  color: var(--paper);
+  text-shadow: 0 0 24px rgba(224, 165, 72, 0.2);
+  font-variant-numeric: tabular-nums;
+
+  .colon {
+    display: inline-block;
+    padding: 0 0.05em;
+    font-style: normal;
+    color: var(--amber);
+    animation: blink 2s steps(1) infinite;
+  }
+}
+
+.seconds {
+  padding-bottom: 0.35rem;
+  font-family: var(--mono);
+  font-size: 0.85rem;
+  letter-spacing: 0.16em;
+  color: var(--amber);
+}
+
+.dateRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  margin-top: 0.7rem;
+  font-family: var(--mono);
+  font-size: 0.58rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.weekday {
+  color: var(--paper-dim);
+}
+
+.progress {
+  margin-top: 0.95rem;
+}
+
+.progressMeta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-family: var(--mono);
+  font-size: 0.52rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--faint);
+
+  span:last-child {
+    color: var(--amber);
+  }
+}
+
+.track {
+  position: relative;
+  height: 2px;
+  margin-top: 0.45rem;
+  background: var(--line);
+  overflow: hidden;
+}
+
+.fill {
+  display: block;
+  height: 100%;
+  background: linear-gradient(90deg, rgba(224, 165, 72, 0.45), var(--amber));
+  box-shadow: 0 0 12px rgba(224, 165, 72, 0.5);
+  transition: width 0.6s linear;
+}
+
+.ticks {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 6px;
+
+  i {
+    width: 1px;
+    height: 5px;
+    background: var(--line-strong);
+    transition: background-color 0.4s;
+  }
+
+  .tickOn {
+    background: var(--amber-line);
+  }
+}
+
+.uptime {
+  margin: 0.85rem 0 0;
+  padding-top: 0.6rem;
+  border-top: 1px dashed var(--line);
+  font-family: var(--mono);
+  font-size: 0.52rem;
+  letter-spacing: 0.1em;
+  color: var(--faint);
+}
+
+@keyframes blink {
+  0%,
+  49% {
+    opacity: 1;
+  }
+  50%,
+  100% {
+    opacity: 0.25;
+  }
+}

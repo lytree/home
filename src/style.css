@@ -2,183 +2,210 @@
 @import "tw-animate-css";
 @import "@fontsource-variable/geist";
 
+/* ============================================================
+   INK — 全局设计 token
+   深墨底 + 暖琥珀，衬线中文标题 + 等宽标签
+   ============================================================ */
+:root {
+  --ink: #0a0908;
+  --ink-2: #12100d;
+  --ink-3: #1a1713;
+
+  --paper: #f4eee2;
+  --paper-dim: #c9c0af;
+  --muted: #8b8275;
+  --faint: #5d564c;
+
+  --amber: #e0a548;
+  --amber-soft: rgba(224, 165, 72, 0.14);
+  --amber-line: rgba(224, 165, 72, 0.38);
+
+  --line: rgba(244, 238, 226, 0.12);
+  --line-strong: rgba(244, 238, 226, 0.26);
+
+  --serif: "Songti SC", "STSong", "Noto Serif SC", "Source Han Serif SC", "SimSun", Georgia, serif;
+  --sans: "Geist Variable", "HarmonyOS_Regular", -apple-system, "PingFang SC", "Microsoft YaHei", sans-serif;
+  --mono: ui-monospace, "SF Mono", "Menlo", "Consolas", "Liberation Mono", monospace;
+
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-soft: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
 /* 全局样式 */
 html,
 body {
-    width: 100%;
-    height: 100%;
-    margin: 0;
-    padding: 0;
-    background-color: #333;
-    overflow: hidden;
-    font-family: "HarmonyOS_Regular", sans-serif;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  background-color: var(--ink);
+  color: var(--paper);
+  overflow: hidden;
+  font-family: var(--sans);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 *,
 a,
-p {
-    user-select: none;
-    text-decoration: none;
-    color: #fff;
-    box-sizing: border-box;
+p,
+button {
+  box-sizing: border-box;
+  user-select: none;
 }
 
-*:hover,
-a:hover,
-p:hover {
-    transition: 0.3s;
+a {
+  color: inherit;
+  text-decoration: none;
 }
 
-a:hover {
-    color: #399fff;
-    text-decoration: underline;
+button {
+  font-family: inherit;
+  color: inherit;
+  border: 0;
+  background: none;
+  cursor: pointer;
+}
+
+::selection {
+  background: var(--amber);
+  color: var(--ink);
 }
 
 @font-face {
-    font-family: "Pacifico-Regular";
-    font-display: swap;
-    src: url("/font/Pacifico-Regular.ttf") format("truetype");
+  font-family: "Pacifico-Regular";
+  font-display: swap;
+  src: url("/font/Pacifico-Regular.ttf") format("truetype");
 }
 
 @font-face {
-    font-family: "UnidreamLED";
-    font-display: swap;
-    src: url("/font/UnidreamLED.ttf") format("truetype");
-}
-
-@keyframes fade-blur-in {
-    from {
-        filter: blur(20px) brightness(0.3);
-        transform: scale(1.6);
-    }
-
-    to {
-        filter: none;
-        transform: scale(1);
-    }
-}
-
-@keyframes fade-blur-main-in {
-    from {
-        transform: scale(1.2);
-    }
-
-    to {
-        transform: scale(1);
-    }
+  font-family: "UnidreamLED";
+  font-display: swap;
+  src: url("/font/UnidreamLED.ttf") format("truetype");
 }
 
 #app {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: 0;
-}
-
-#main {
-    transform: scale(1.2);
-    transition: transform 0.3s;
-    animation: fade-blur-main-in 0.65s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
-    animation-delay: 0.5s;
-}
-
-.cards {
-    border-radius: 6px;
-    background-color: #00000040;
-    backdrop-filter: blur(10px);
-    transform: scale(1);
-    transition: backdrop-filter 0.3s, transform 0.3s;
-}
-
-.cards:hover {
-    transform: scale(1.01);
-}
-
-.cards:active {
-    transform: scale(0.98);
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
 }
 
 .text-hidden {
-    overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
 
-.fade-enter-active,
-.fade-leave-active {
-    transition: opacity 0.3s ease-in-out;
-}
-
-.fade-enter-from,
-.fade-leave-to {
-    opacity: 0;
-}
-
+/* ============================================================
+   自定义光标 —— 琥珀圆点 + 外部光晕
+   ============================================================ */
 #cursor {
-    position: fixed;
-    width: 18px;
-    height: 18px;
-    background: #fff;
-    border-radius: 25px;
-    opacity: 0.25;
-    z-index: 10086;
-    pointer-events: none;
-    transition: 0.2s ease-in-out;
-    transition-property: background, opacity, transform;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--amber);
+  box-shadow: 0 0 0 1px rgba(10, 9, 8, 0.35), 0 0 18px 2px rgba(224, 165, 72, 0.45);
+  opacity: 0;
+  z-index: 10086;
+  pointer-events: none;
+  transform: translate3d(-50%, -50%, 0);
+  transition: opacity 0.25s ease, width 0.25s var(--ease-out), height 0.25s var(--ease-out),
+    background-color 0.25s ease;
 }
 
-#cursor.hidden {
-    opacity: 0;
+#cursor.visible {
+  opacity: 0.9;
 }
 
 #cursor.active {
-    opacity: 0.5;
-    transform: scale(0.5);
+  width: 6px;
+  height: 6px;
+  opacity: 1;
 }
 
+#cursor.link {
+  width: 26px;
+  height: 26px;
+  background: transparent;
+  border: 1px solid var(--amber);
+  box-shadow: 0 0 22px 1px rgba(224, 165, 72, 0.28);
+}
+
+#cursor-spot {
+  position: fixed;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  opacity: 0;
+  background: radial-gradient(
+    320px circle at var(--spot-x, 50%) var(--spot-y, 30%),
+    rgba(224, 165, 72, 0.11),
+    rgba(224, 165, 72, 0.04) 42%,
+    transparent 68%
+  );
+  mix-blend-mode: screen;
+  transition: opacity 0.5s ease;
+}
+
+#cursor-spot.visible {
+  opacity: 1;
+}
+
+/* 滚动条 */
 ::-webkit-scrollbar,
 scrollbar {
-    width: 6px;
-    height: 6px;
-    background-color: transparent;
+  width: 5px;
+  height: 5px;
+  background-color: transparent;
 }
 
 ::-webkit-scrollbar-thumb,
 scrollbar-thumb {
-    border-radius: 10px;
-    background-color: #eeeeee;
+  border-radius: 10px;
+  background-color: var(--line-strong);
 }
 
-.container {
-    max-width: 1200px;
+::-webkit-scrollbar-thumb:hover {
+  background-color: var(--amber-line);
 }
 
-/* 小于1280px时 */
-@media (max-width: 1280px) {
-    .container {
-        max-width: 1100px;
-    }
+/* ============================================================
+   可复用的入场动画（供 CSS Modules 引用）
+   ============================================================ */
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
-/* 小于992px时 */
-@media (max-width: 992px) {
-    .container {
-        max-width: 900px;
-    }
+@keyframes soft-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
-/* 小于720px时 */
-@media (max-width: 720px) {
-    .xs-hidden {
-        display: none;
-    }
-}
-
-/* 隐藏元素 */
-@media (min-width: 910px) and (max-width: 1200px) {
-  .sm-hidden {
-    display: none;
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-delay: 0ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
   }
 }

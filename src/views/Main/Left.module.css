@@ -1,20 +1,20 @@
 .left {
-  width: 50%;
-  margin-right: 10px;
-  margin-left: 40px;
-  transform: translateY(20px);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: 0;
+  padding-right: clamp(0rem, 1.5vw, 1.25rem);
 
-  &.hidden {
-    display: none;
-  }
+  @media (max-width: 1023px) {
+    padding-right: 0;
 
-  @media (min-width: 1200px) {
-    margin-left: 10%;
+    &.hidden {
+      display: none;
+    }
   }
 
   @media (max-width: 720px) {
-    margin-right: 0;
-    margin-left: 0;
-    width: 100%;
+    justify-content: flex-start;
+    padding-top: 0.5rem;
   }
 }

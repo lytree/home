@@ -7,51 +7,41 @@ export default defineVaporComponent({
   setup() {
     const store = useMainStore();
     const siteName = import.meta.env.VITE_SITE_NAME;
+    const siteAuthor = import.meta.env.VITE_SITE_AUTHOR;
+    const startYear = (import.meta.env.VITE_SITE_START ?? '').slice(0, 4);
+    const year = new Date().getFullYear();
 
     return (
-      <div
-        class={cn(
-          styles.loaderWrapper,
-          'fixed top-0 left-0 w-full h-full z-999 overflow-hidden',
-          store.imgLoadStatus && styles.loaded,
-        )}
-      >
-        <div
-          class={cn(
-            styles.loader,
-            'absolute top-0 left-0 w-full h-full flex flex-col items-center justify-center',
-          )}
-        >
-          <div
-            class={cn(
-              styles.loaderCircle,
-              'w-37.5 h-37.5 rounded-full border-3 border-transparent border-t-white',
-            )}
-          />
-          <div
-            class={cn(
-              styles.loaderText,
-              'flex flex-col items-center text-white z-2 mt-10 text-2xl',
-            )}
-          >
+      <div class={cn(styles.wrapper, store.imgLoadStatus && styles.loaded)}>
+        <div class={styles.content}>
+          <div class={styles.row}>
+            <span>{startYear ? `SINCE ${startYear}` : 'PERSONAL ARCHIVE'}</span>
+            <span>PORTFOLIO / {year}</span>
+          </div>
+
+          <div class={styles.center}>
             <span class={styles.name}>{siteName}</span>
-            <span class={cn(styles.tip, 'mt-1.5 text-lg opacity-60')}> 加载中 </span>
+            <div class={styles.bar}>
+              <span class={styles.fill} />
+            </div>
+            <span class={styles.tip}>
+              正在布置光影
+              <span class={styles.dots}>
+                <i />
+                <i />
+                <i />
+              </span>
+            </span>
+          </div>
+
+          <div class={styles.row}>
+            <span>{siteAuthor}</span>
+            <span>LOADING</span>
           </div>
         </div>
-        <div
-          class={cn(
-            styles.loaderSection,
-            styles.sectionLeft,
-            'fixed top-0 w-[51%] h-full bg-[#333] z-1',
-          )}
-        />
-        <div
-          class={cn(
-            styles.loaderSection,
-            styles.sectionRight,
-            'fixed top-0 w-[51%] h-full bg-[#333] z-1',
-          )}
-        />
+
+        <div class={cn(styles.panel, styles.panelLeft)} />
+        <div class={cn(styles.panel, styles.panelRight)} />
       </div>
     );
   },
