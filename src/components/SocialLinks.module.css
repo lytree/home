@@ -1,6 +1,7 @@
 .social {
   display: flex;
   align-items: center;
+  justify-content: flex-end;
   gap: 0.9rem;
   flex-wrap: wrap;
   animation: rise 0.9s var(--ease-out) 1.28s backwards;
@@ -96,6 +97,10 @@
 }
 
 @media (max-width: 1023px) {
+  .social {
+    justify-content: flex-start;
+  }
+
   .social .tip {
     display: none;
   }
